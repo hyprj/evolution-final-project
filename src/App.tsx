@@ -5,6 +5,8 @@ import { GamePage } from "./main/pages/GamePage";
 import { LandingPage } from "./main/pages/LandingPage";
 import { ProtectedRoute } from "./main/pages/ProtectedRoute";
 import { Root } from "./main/pages/Root";
+import { LoginPage } from "./main/pages/LoginPage";
+import { RegisterPage } from "./main/pages/RegisterPage";
 import "./App.css";
 
 function App() {
@@ -13,8 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Root />}>
           <Route index element={<LandingPage />} />
-          <Route path="/login" element={<LandingPage />} />
-          <Route path="/register" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/app" element={<ProtectedRoute />}>
             <Route index element={<AppPage />} />
             <Route path="games/:id" element={<GamePage />} />

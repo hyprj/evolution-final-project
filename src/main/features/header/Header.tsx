@@ -1,29 +1,40 @@
 import { Link } from "react-router-dom";
 import { Dropdown } from "../../components/Dropdown/Dropdown";
 import { DropdownItem } from "../../components/Dropdown/DropdownItem";
+import { useAuth } from "../auth/useAuth";
 
 export function Header() {
-  const userStatus = "loggedIn";
+  const { user, status, signOut } = useAuth();
   const balance = "100";
 
   return (
     <header className="sticky top-0 bg-[#25A18E] p-2 font-medium text-white">
-      <ul className="flex justify-between px-5">
-        <li>{`balance: ${balance}$`}</li>
-        {userStatus === "loggedIn" && (
+      <ul
+        className={`flex justify-between px-5 ${
+          status !== "loggedIn" ? "flex-row-reverse" : ""
+        }`}
+      >
+        {user && <li>{`balance: ${balance}$`}</li>}
+        {status === "loggedIn" && (
           <Dropdown title="acc" side="right">
             <DropdownItem>
               <Link to="profile">My account</Link>
             </DropdownItem>
             <DropdownItem>
-              <Link to="/">Sign out</Link>
+              <Link to="/" onClick={signOut}>
+                Sign out
+              </Link>
             </DropdownItem>
           </Dropdown>
         )}
-        {userStatus !== "loggedIn" && (
-          <Dropdown title="acc">
-            <Link to="register">Sign in</Link>
-            <Link to="login">Log in</Link>
+        {status !== "loggedIn" && (
+          <Dropdown title="acc" side="right">
+            <DropdownItem>
+              <Link to="register">Sign in</Link>
+            </DropdownItem>
+            <DropdownItem>
+              <Link to="login">Log in</Link>
+            </DropdownItem>
           </Dropdown>
         )}
       </ul>
