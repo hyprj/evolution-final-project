@@ -29,7 +29,7 @@ export function Sidebar() {
             <Link to="/app">My dashboard</Link>
           </SidebarItem>
           <SidebarItem>
-            <Link to="/games">All games</Link>
+            <Link to="/app/games">All games</Link>
           </SidebarItem>
         </ul>
       </nav>

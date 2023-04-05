@@ -1,13 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 import { Dashboard } from "./main/pages/Dashboard";
 import { ErrorPage } from "./main/pages/ErrorPage";
-import { GamePage } from "./main/pages/GamePage";
 import { LandingPage } from "./main/pages/LandingPage";
 import { ProtectedRoute } from "./main/pages/ProtectedRoute";
 import { Root } from "./main/pages/Root";
 import { LoginPage } from "./main/pages/LoginPage";
 import { RegisterPage } from "./main/pages/RegisterPage";
+import { GamesPage } from "./main/pages/games";
+import { RoulettePage } from "./main/pages/roulette-page";
 import "./App.css";
+import { GamePage } from "./main/pages/GamePage";
 
 function App() {
   return (
@@ -19,7 +21,10 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/app" element={<ProtectedRoute />}>
             <Route index element={<Dashboard />} />
-            <Route path="games/:id" element={<GamePage />} />
+            <Route path="games">
+              <Route index element={<GamesPage />} />
+              <Route path="roulette" element={<RoulettePage />} />
+            </Route>
           </Route>
           <Route path="*" element={<ErrorPage />} />
         </Route>
