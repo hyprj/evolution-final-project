@@ -6,9 +6,10 @@ export interface ButtonProps
 
 const colors = {
   transparent: "",
-  red: "bg-red-500",
-  green: "bg-green-500",
-  yellow: "bg-yellow-500",
+  red: "bg-red-400",
+  green: "bg-green-400",
+  yellow: "bg-yellow-400",
+  blue: "bg-blue-400",
 };
 
 const sizes = {
