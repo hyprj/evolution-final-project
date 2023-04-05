@@ -1,6 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../features/auth/AuthProvider";
 
 export function ProtectedRoute() {
-  //TODO: implement protected routing
+  const { status } = useAuth();
+
+  if (status === "visitor") {
+    return <Navigate to="/" />;
+  }
+
+  if (status === "loading") {
+    return <div>loading...</div>;
+  }
+
   return <Outlet />;
 }

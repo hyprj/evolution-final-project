@@ -17,10 +17,10 @@ export function LandingPage() {
           game, where you can test your luck and win big.
         </p>
         <Button bgColor="green" size="lg">
-          <Link to="wdawd">Register now</Link>
+          <Link to="/register">Register now</Link>
         </Button>
         <Button bgColor="yellow" size="lg">
-          <Link to="wdawd">Login</Link>
+          <Link to="/login">Login</Link>
         </Button>
       </div>
     </main>
