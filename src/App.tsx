@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { AppPage } from "./main/pages/AppPage";
+import { Dashboard } from "./main/pages/Dashboard";
 import { ErrorPage } from "./main/pages/ErrorPage";
 import { GamePage } from "./main/pages/GamePage";
 import { LandingPage } from "./main/pages/LandingPage";
@@ -18,7 +18,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/app" element={<ProtectedRoute />}>
-            <Route index element={<AppPage />} />
+            <Route index element={<Dashboard />} />
             <Route path="games/:id" element={<GamePage />} />
           </Route>
           <Route path="*" element={<ErrorPage />} />
