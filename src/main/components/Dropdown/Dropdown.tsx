@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 
 interface DropdownProps {
-  title: string;
+  icon: React.ReactNode;
   side?: "left" | "right";
   children: React.ReactNode;
 }
 
 export function Dropdown({
-  title,
+  icon,
   side = "left",
   children,
   ...props
@@ -28,12 +28,12 @@ export function Dropdown({
 
   return (
     <div
-      className="relative"
+      className="relative mt-2"
       onClick={() => setIsOpen((prev) => !prev)}
       ref={divRef}
       {...props}
     >
-      <button>{title}</button>
+      <button>{icon}</button>
       {isOpen && (
         <div
           className="absolute w-max  rounded-lg bg-white p-2 font-normal text-black shadow-md"

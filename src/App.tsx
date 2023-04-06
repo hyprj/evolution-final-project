@@ -9,8 +9,6 @@ import { RegisterPage } from "./main/pages/RegisterPage";
 import { GamesPage } from "./main/pages/games";
 import { RoulettePage } from "./main/pages/roulette-page";
 import "./App.css";
-import { GamePage } from "./main/pages/GamePage";
-
 function App() {
   return (
     <div className="App flex flex-col">

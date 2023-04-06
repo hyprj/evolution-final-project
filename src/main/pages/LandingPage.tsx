@@ -3,7 +3,7 @@ import { Button } from "../components/button/Button";
 
 export function LandingPage() {
   return (
-    <main className="flex flex-grow flex-col items-center justify-center bg-orange-50">
+    <div className="flex flex-grow flex-col items-center justify-center bg-orange-50">
       <div className="flex flex-col items-center  gap-14 text-center font-semibold">
         <p className="text-5xl">
           Welcome to <span className="text-green-900">Game Hub</span>,
@@ -23,6 +23,6 @@ export function LandingPage() {
           <Link to="/login">Login</Link>
         </Button>
       </div>
-    </main>
+    </div>
   );
 }
