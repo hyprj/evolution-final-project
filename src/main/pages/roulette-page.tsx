@@ -1,9 +1,12 @@
-import { RouletteGame } from "../../roulette/RouletteGame";
+import { Suspense } from "react";
+import { RouletteGameLazy } from "../../roulette/RouletteGame";
 
 export function RoulettePage() {
   return (
-    <div className="flex flex-grow">
-      <RouletteGame />
+    <div className="relative m-8 flex flex-grow">
+      <Suspense fallback="loading the game...">
+        <RouletteGameLazy />
+      </Suspense>
     </div>
   );
 }
