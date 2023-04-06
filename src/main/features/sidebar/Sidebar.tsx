@@ -3,6 +3,7 @@ import { useSidebar } from "./SidebarProvider";
 
 export function Sidebar() {
   const { isOpen } = useSidebar();
+
   return (
     <aside
       className={`${

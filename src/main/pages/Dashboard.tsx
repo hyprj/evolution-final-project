@@ -4,7 +4,7 @@ import { useAuth } from "../features/auth/useAuth";
 export function Dashboard() {
   const { user } = useAuth();
   return (
-    <div className="flex items-start justify-center">
+    <div className="flex flex-grow items-start justify-center">
       <div className="m-4 mt-20 grid grid-cols-2 gap-3">
         <DashboardItem>
           <h4 className="text-4xl font-semibold">

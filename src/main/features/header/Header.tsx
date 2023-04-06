@@ -18,11 +18,13 @@ export function Header() {
           status !== "loggedIn" ? "flex-row-reverse" : ""
         }`}
       >
-        <li onClick={() => setIsOpen((prev) => !prev)}>
-          <Button size="none">
-            <Bars3Icon className="mt-2 h-6 w-6" />
-          </Button>
-        </li>
+        {user && (
+          <li onClick={() => setIsOpen((prev) => !prev)}>
+            <Button size="none">
+              <Bars3Icon className="mt-2 h-6 w-6" />
+            </Button>
+          </li>
+        )}
         {user && <li>{`balance: ${balance}$`}</li>}
         <Dropdown icon={<UserCircleIcon className="h-6 w-6" />} side="right">
           {user && (
