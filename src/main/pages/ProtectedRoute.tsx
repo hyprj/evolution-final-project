@@ -1,7 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../features/auth/AuthProvider";
+import { authStore } from "../features/auth/store";
+import { observer } from "mobx-react";
+
 export function ProtectedRoute() {
-  const { status } = useAuth();
+  const status = authStore.status;
 
   if (status === "visitor") {
     return <Navigate to="/" />;
@@ -13,3 +15,5 @@ export function ProtectedRoute() {
 
   return <Outlet />;
 }
+
+export default observer(ProtectedRoute);

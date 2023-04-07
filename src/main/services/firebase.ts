@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signOut } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
@@ -14,7 +15,8 @@ const firebaseConfig = {
 
 export const firebaseApp = initializeApp(firebaseConfig);
 
+export const db = getFirestore();
+
 export const firebaseAuth = getAuth();
-export const logOut = () => signOut(firebaseAuth);
 
 const analytics = getAnalytics(firebaseApp);

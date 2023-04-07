@@ -1,31 +1,18 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "../components/button/Button";
-import { firebaseAuth } from "../firebase/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useAuth } from "../features/auth/useAuth";
 import { useNavigate } from "react-router-dom";
+import { authStore } from "../features/auth/store";
 
 type Inputs = { emailId: string; password: string };
 
 export function LoginPage() {
-  const { setStatus, setUser } = useAuth();
   const { register, handleSubmit } = useForm<Inputs>();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = async ({ emailId, password }) => {
-    try {
-      setStatus("loading");
-      const user = await signInWithEmailAndPassword(
-        firebaseAuth,
-        emailId,
-        password
-      );
-      const { displayName, email, uid } = user.user;
-      setUser({ displayName, email, uid });
-      setStatus("loggedIn");
+    const status = await authStore.login(emailId, password);
+    if (status === "loggedIn") {
       navigate("/app");
-    } catch (err) {
-      setStatus("visitor");
     }
   };
   return (

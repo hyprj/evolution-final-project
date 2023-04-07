@@ -1,14 +1,11 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "../components/button/Button";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { firebaseAuth } from "../firebase/firebase";
-import { useAuth } from "../features/auth/useAuth";
 import { useNavigate } from "react-router-dom";
+import { authStore } from "../features/auth/store";
 
 type Inputs = { email: string; password: string; displayName: string };
 
 export function RegisterPage() {
-  const { setStatus, setUser } = useAuth();
   const { register, handleSubmit } = useForm<Inputs>();
   const navigate = useNavigate();
 
@@ -17,20 +14,9 @@ export function RegisterPage() {
     email,
     password,
   }) => {
-    try {
-      setStatus("loading");
-      const userCredential = await createUserWithEmailAndPassword(
-        firebaseAuth,
-        email,
-        password
-      );
-      await updateProfile(userCredential.user, { displayName });
-      const uid = userCredential.user.uid;
-      setUser({ displayName, email, uid });
-      setStatus("loggedIn");
+    const status = await authStore.register(email, displayName, password);
+    if (status === "loggedIn") {
       navigate("/app");
-    } catch (err) {
-      setStatus("visitor");
     }
   };
 

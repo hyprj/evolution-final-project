@@ -1,11 +1,11 @@
 import { Button } from "../components/button/Button";
-import { useAuth } from "../features/auth/useAuth";
+import { authStore } from "../features/auth/store";
 
 export function Dashboard() {
-  const { user } = useAuth();
+  const { user } = authStore;
   return (
     <div className="flex flex-grow items-start justify-center">
-      <div className="m-4 mt-20 grid grid-cols-2 gap-3">
+      <div className="m-4 mt-20 grid grid-cols-2 gap-3 max-md:grid-cols-1">
         <DashboardItem>
           <h4 className="text-4xl font-semibold">
             {user?.displayName || "Name not specified"}

@@ -31,7 +31,7 @@ export function Game() {
     <>
       <followCamera
         name="camera1"
-        position={new Vector3(2, 6, -2)}
+        position={new Vector3(2, 12, -2)}
         setTarget={[new Vector3(2, 1, 0)]}
       />
       <Suspense fallback={null}>
