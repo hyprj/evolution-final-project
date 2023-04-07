@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import { Dropdown } from "../../components/Dropdown/Dropdown";
 import { DropdownItem } from "../../components/Dropdown/DropdownItem";
-import { useAuth } from "../auth/useAuth";
 import { useSidebar } from "../sidebar/SidebarProvider";
 import { Bars3Icon, UserCircleIcon } from "@heroicons/react/20/solid";
 import { Button } from "../../components/button/Button";
+import { authStore } from "../auth/store";
+import { observer } from "mobx-react";
 
 export function Header() {
   const { setIsOpen } = useSidebar();
-  const { user, status, signOut } = useAuth();
-  const balance = "100";
+  const { user, status } = authStore;
 
   return (
     <header className="sticky top-0 bg-[#25A18E] p-2 font-medium text-white">
@@ -19,13 +19,15 @@ export function Header() {
         }`}
       >
         {user && (
-          <li onClick={() => setIsOpen((prev) => !prev)}>
-            <Button size="none">
-              <Bars3Icon className="mt-2 h-6 w-6" />
-            </Button>
-          </li>
+          <>
+            <li onClick={() => setIsOpen((prev) => !prev)}>
+              <Button size="none">
+                <Bars3Icon className="mt-2 h-6 w-6" />
+              </Button>
+            </li>
+            <li>{`balance: ${user.balance}$`}</li>
+          </>
         )}
-        {user && <li>{`balance: ${balance}$`}</li>}
         <Dropdown icon={<UserCircleIcon className="h-6 w-6" />} side="right">
           {user && (
             <>
@@ -33,7 +35,7 @@ export function Header() {
                 <Link to="profile">My account</Link>
               </DropdownItem>
               <DropdownItem>
-                <Link to="/" onClick={signOut}>
+                <Link to="/" onClick={() => authStore.logOut()}>
                   Sign out
                 </Link>
               </DropdownItem>
@@ -54,3 +56,5 @@ export function Header() {
     </header>
   );
 }
+
+export default observer(Header);

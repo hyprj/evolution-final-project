@@ -1,72 +1,21 @@
-import React, { createContext, useEffect, useState } from "react";
-import { useAuth } from "./useAuth";
-import { logOut } from "../../firebase/firebase";
-import { firebaseAuth } from "../../firebase/firebase";
+import React, { useEffect } from "react";
+import { firebaseAuth } from "../../services/firebase";
+import { authStore } from "./store";
+import { getUserBalance } from "../../services/db";
 
-interface User {
-  displayName: string | null;
-  email: string | null;
-  uid: string;
-}
-
-interface AuthContextValue {
-  status: "visitor" | "loggedIn" | "loading";
-  user: User | null;
-  signOut: () => void;
-  setStatus: React.Dispatch<React.SetStateAction<AuthContextValue["status"]>>;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-}
-
-export const AuthContext = createContext<AuthContextValue | null>(null);
-
-interface AuthProviderProps {
-  children: React.ReactNode;
-}
-
-const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<AuthContextValue["user"]>(null);
-  const [status, setStatus] = useState<AuthContextValue["status"]>("loading");
-
-  const signOut = () => {
-    setUser(null);
-    setStatus("visitor");
-    logOut();
-  };
-
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged(async (user) => {
       if (user) {
-        const authUser = {
-          displayName: user.displayName,
-          uid: user.uid,
-          email: user.email,
-        };
-        setUser({
-          displayName: user.displayName,
-          email: user.email,
-          uid: user.uid,
-        });
-        setStatus("loggedIn");
+        const balance = await getUserBalance(user.uid);
+        const { displayName, uid, email } = user;
+        authStore.setUser({ displayName, uid, email, balance });
       } else {
-        setStatus("visitor");
+        authStore.status = "visitor";
       }
     });
     return () => unsubscribe();
   }, []);
 
-  const authContextValue: AuthContextValue = {
-    status,
-    user,
-    signOut,
-    setUser,
-    setStatus,
-  };
-
-  return (
-    <AuthContext.Provider value={authContextValue}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export { AuthProvider, useAuth };
+  return <>{children} </>;
+}
