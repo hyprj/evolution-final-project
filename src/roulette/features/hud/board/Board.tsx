@@ -20,7 +20,7 @@ export const Board = observer(() => {
       <div
         className="board"
         onClick={handleClick}
-        // onMouseOver={store.handleMouseOver}
+        onMouseOver={(e) => store.handleBoardHover(e)}
       >
         <BoardView />
       </div>

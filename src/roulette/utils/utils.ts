@@ -1,5 +1,10 @@
-import { BET_VALUES, multipliers, textBetValuesNumbers } from "./consts";
-import { BetValue, Multiplier, NumericBetValue } from "./types";
+import {
+  BET_VALUES,
+  NUMERIC_BET_VALUES,
+  multipliers,
+  textBetValuesNumbers,
+} from "./consts";
+import { BetValue, Multiplier, NumericBetValue, TextBetValue } from "./types";
 
 const HIGHTEST_NUMERIC_BET_VALUE = 36;
 
@@ -31,6 +36,13 @@ export function isWinningValue(
     return true;
   }
   return false;
+}
+
+export function fieldToHoverByValue(betValue: BetValue): BetValue[] {
+  if (NUMERIC_BET_VALUES.includes(betValue as NumericBetValue)) {
+    return [betValue];
+  }
+  return [betValue, ...textBetValuesNumbers[betValue as TextBetValue]];
 }
 
 export function getMultiplier(betValue: BetValue): Multiplier {

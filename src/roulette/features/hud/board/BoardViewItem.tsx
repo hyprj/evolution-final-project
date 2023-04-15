@@ -10,11 +10,13 @@ import { ChipAnimationPhase } from "../../../store/store";
 export const BoardViewItem = memo(
   ({
     value,
+    hover,
     chips,
     chipsAmount,
     animate,
   }: {
     value: BetValue;
+    hover: boolean;
     chips?: ChipValue[];
     chipsAmount?: number;
     animate: ChipAnimationPhase;
@@ -22,9 +24,10 @@ export const BoardViewItem = memo(
     const name = getFieldName(value);
     const area = getGridAreaByValue(value);
     const bgColor = getBgColorByValue(value);
+    const hoverClass = hover ? "hover" : "";
     return (
       <div
-        className={`${bgColor} board__field`}
+        className={`${bgColor} ${hoverClass} board__field`}
         data-value={value}
         style={{ gridArea: area }}
       >
