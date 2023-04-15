@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import { Dashboard } from "./main/pages/Dashboard";
+import { ErrorPage } from "./main/pages/ErrorPage";
+import { LandingPage } from "./main/pages/LandingPage";
+import ProtectedRoute from "./main/pages/ProtectedRoute";
+import { Root } from "./main/pages/Root";
+import { LoginPage } from "./main/pages/LoginPage";
+import { RegisterPage } from "./main/pages/RegisterPage";
+import { GamesPage } from "./main/pages/games";
+import { RoulettePage } from "./main/pages/roulette-page";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className="App flex flex-col">
+      <Routes>
+        <Route path="/" element={<Root />}>
+          <Route index element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/app" element={<ProtectedRoute />}>
+            <Route index element={<Dashboard />} />
+            <Route path="games">
+              <Route index element={<GamesPage />} />
+              <Route path="roulette" element={<RoulettePage />} />
+            </Route>
+          </Route>
+          <Route path="*" element={<ErrorPage />} />
+        </Route>
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

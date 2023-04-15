@@ -1,0 +1,46 @@
+.board {
+  display: grid;
+  width: 80%;
+  aspect-ratio: 4;
+  grid-template-columns: repeat(56, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  background-color: rgba(6, 52, 41, 0.5);
+  backdrop-filter: blur(10px);
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.board__container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.board__field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin: 1px;
+}
+
+.board__field:hover {
+  cursor: pointer;
+}
+
+.green-field {
+  background-color: rgb(2, 73, 2);
+}
+
+.red-field {
+  background-color: rgb(102, 4, 4);
+}
+
+.black-field {
+  background-color: black;
+}
+
+.grey-field {
+  background-color: rgb(45, 45, 45);
+}
