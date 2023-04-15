@@ -1,6 +1,13 @@
 import { makeAutoObservable, observable, runInAction } from "mobx";
 import { BetValue, ChipValue, NumericBetValue } from "../utils/types";
-import { getMultiplier, isWinningValue, sumArray } from "../utils/utils";
+import {
+  fieldToHoverByValue,
+  getMultiplier,
+  isWinningValue,
+  normalizeBetValue,
+  sumArray,
+} from "../utils/utils";
+import { isBetValue } from "../utils/utils";
 
 export interface Bet {
   value: BetValue;
@@ -20,6 +27,7 @@ export class RouletteStore {
   public winningSlot: NumericBetValue | null;
   public selectedChip: ChipValue;
   public balance: number;
+  public hoveredFields: BetValue[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -33,6 +41,7 @@ export class RouletteStore {
     this.selectedChip = 10;
     this.betsAmount = 0;
     this.balance = 1000;
+    this.hoveredFields = [];
   }
 
   public placeBet(bet: BetValue): void {
@@ -100,8 +109,14 @@ export class RouletteStore {
     }
     return "none";
   }
-
-  // public handleMouseOver(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-  //   console.log(e.target.dataset);
-  // }
+  public handleBoardHover(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    const dataValue = (e.target as HTMLElement).dataset.value;
+    if (dataValue && isBetValue(dataValue)) {
+      const betValue = normalizeBetValue(dataValue);
+      const fieldsToHover = fieldToHoverByValue(betValue);
+      this.hoveredFields = fieldsToHover;
+    } else {
+      this.hoveredFields = [];
+    }
+  }
 }

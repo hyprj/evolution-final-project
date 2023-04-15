@@ -25,6 +25,26 @@
   margin: 1px;
 }
 
+.hover:is(.red-field) {
+  background-color: red;
+  border-color: red;
+}
+
+.hover:is(.green-field) {
+  background-color: green;
+  border-color: green;
+}
+
+.hover:is(.black-field) {
+  background-color: rgb(28, 28, 28);
+  border-color: rgb(37, 37, 37);
+}
+
+.hover:is(.grey-field) {
+  background-color: rgb(159, 159, 159);
+  border-color: rgb(89, 89, 89);
+}
+
 .board__field:hover {
   cursor: pointer;
 }
