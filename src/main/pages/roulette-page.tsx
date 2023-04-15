@@ -1,5 +1,6 @@
+import React from "react";
 import { Suspense } from "react";
-import { RouletteGameLazy } from "../../roulette/RouletteGame";
+const RouletteGameLazy = React.lazy(() => import("../../roulette"));
 
 export function RoulettePage() {
   return (
