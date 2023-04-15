@@ -1,0 +1,40 @@
+.chip {
+  width: 40px;
+}
+
+.chip--selected {
+  scale: 1.2;
+}
+
+.chip:not(.chip--selected) :hover {
+  scale: 1.2;
+  cursor: pointer;
+}
+
+.chip-icon {
+  position: absolute;
+  width: 25px;
+  pointer-events: none;
+}
+
+.winning {
+  animation-name: chips-move-win;
+  animation-duration: 3s;
+}
+
+.losing {
+  animation-name: chipsmovelose;
+  animation-duration: 3s;
+}
+
+@keyframes chips-move-win {
+  to {
+    transform: translate(-200px, -700px);
+  }
+}
+
+@keyframes chipsmovelose {
+  to {
+    transform: translateY(700px);
+  }
+}

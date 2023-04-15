@@ -1,0 +1,8 @@
+.balance {
+  margin-left: 2rem;
+  font-size: 2rem;
+}
+
+.balance__dolar {
+  color: rgb(176, 255, 176);
+}

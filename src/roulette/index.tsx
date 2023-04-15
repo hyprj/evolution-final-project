@@ -1,16 +1,15 @@
 import { Vector3 } from "@babylonjs/core";
-import { Engine, Model, Scene, useClick } from "react-babylonjs";
+import { Engine, Model, Scene } from "react-babylonjs";
 
 import "@babylonjs/core/Loading/loadingScreen";
 import "@babylonjs/loaders";
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
 import { HUD } from "./features/hud/HUD";
-
-export const RouletteGameLazy = lazy(() => import("./RouletteGame"));
+import { StoreProvider } from "./store/StoreProvider";
 
 export default function RouletteGame() {
   return (
-    <div>
+    <StoreProvider>
       <HUD />
       <Engine
         height={"100%"}
@@ -22,7 +21,7 @@ export default function RouletteGame() {
           <Game />
         </Scene>
       </Engine>
-    </div>
+    </StoreProvider>
   );
 }
 

@@ -1,0 +1,15 @@
+.spin-btn {
+  padding: 0.3rem 2rem;
+  box-shadow: inset 0px 0px 19px 11px rgb(5, 60, 20);
+  background-color: rgb(14, 108, 41);
+  color: #e1e1e1;
+  border-radius: 10px;
+  border: 2px solid rgb(14, 51, 0);
+  font-size: 1.8rem;
+}
+
+.spin-btn:hover {
+  color: #fff;
+  background-color: rgb(33, 137, 62);
+  box-shadow: inset 0px 0px 19px 11px rgb(7, 67, 23);
+}
