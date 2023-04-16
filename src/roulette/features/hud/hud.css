@@ -23,7 +23,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 100px;
-  padding: 10px;
+  padding: 6px;
 }
 
 .yellow {
@@ -39,9 +39,6 @@
 }
 
 .hud__board {
-  /* margin-top: auto; */
-  /* align-self: flex-end; */
-  /* justify-self: flex-end; */
   flex-grow: 1;
 }
 
@@ -53,6 +50,7 @@
   justify-content: space-between;
 }
 
-.hud__center--narrow {
-  /* flex-basis: 10%; */
+.btn--disabled {
+  cursor: alias;
+  pointer-events: none;
 }
