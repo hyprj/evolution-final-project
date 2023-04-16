@@ -18,6 +18,7 @@ export type ChipAnimationPhase = "none" | "winning" | "losing";
 
 export class RouletteStore {
   public bets: Map<BetValue, Bet>;
+  public currentBetHistory: BetValue[];
   public betsAmount: number;
   public status: "betting-phase" | "spinning-phase" | "resolved-phase";
   public winningSlot: NumericBetValue | null;
@@ -38,6 +39,7 @@ export class RouletteStore {
     this.betsAmount = 0;
     this.balance = 1000;
     this.hoveredFields = [];
+    this.currentBetHistory = [];
   }
 
   public placeBet(bet: BetValue): void {
@@ -55,6 +57,9 @@ export class RouletteStore {
         chips: [this.selectedChip],
       });
     }
+
+    this.currentBetHistory.push(bet);
+    console.log(this.currentBetHistory);
 
     this.betsAmount += this.selectedChip;
   }
@@ -96,7 +101,17 @@ export class RouletteStore {
     this.selectedChip = chipValue;
   }
 
-  public undoBet(): void {}
+  public undoBet(): void {
+    const lastBet = this.bets.get(this.currentBetHistory.at(-1)!);
+
+    if (lastBet) {
+      if (lastBet.chips.length === 1) {
+        this.bets.delete(lastBet.value);
+      }
+      const chipValue = lastBet.chips.pop()!;
+      this.betsAmount -= chipValue;
+    }
+  }
 
   public repeatBet(): void {}
 
