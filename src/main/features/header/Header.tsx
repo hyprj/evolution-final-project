@@ -12,11 +12,11 @@ export function Header() {
   const { user, status } = authStore;
 
   return (
-    <header className="sticky top-0 bg-[#25A18E] p-2 font-medium text-white">
+    <header className="sticky top-0 z-50 bg-[#25A18E] p-2 font-medium text-white">
       <ul
         className={`flex items-center justify-between px-5 ${
           status !== "loggedIn" ? "flex-row-reverse" : ""
-        }`}
+        } mobile-landscape:w-6  mobile-landscape:flex-col`}
       >
         {user && (
           <>
@@ -25,7 +25,10 @@ export function Header() {
                 <Bars3Icon className="mt-2 h-6 w-6" />
               </Button>
             </li>
-            <li>{`balance: ${user.balance}$`}</li>
+            <li>
+              <span className="mobile-landscape:hidden">balance: </span>
+              {`${user.balance}$`}
+            </li>
           </>
         )}
         <Dropdown icon={<UserCircleIcon className="h-6 w-6" />} side="right">

@@ -4,10 +4,12 @@ const RouletteGameLazy = React.lazy(() => import("../../roulette"));
 
 export function RoulettePage() {
   return (
-    <div className="relative m-8 flex flex-grow">
+    <div className="absolute h-full w-full">
+      {/* <div className="relative h-full w-full"> */}
       <Suspense fallback="loading the game...">
         <RouletteGameLazy />
       </Suspense>
+      {/* </div> */}
     </div>
   );
 }

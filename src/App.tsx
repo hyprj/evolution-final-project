@@ -12,7 +12,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="App flex flex-col">
+    <div className="App flex h-screen flex-col">
       <Routes>
         <Route path="/" element={<Root />}>
           <Route index element={<LandingPage />} />

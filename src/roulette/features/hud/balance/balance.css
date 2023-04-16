@@ -1,6 +1,7 @@
 .balance {
-  margin-left: 2rem;
+  /* margin-left: 2rem; */
   font-size: 2rem;
+  line-height: 1;
 }
 
 .balance__dolar {

@@ -16,10 +16,6 @@ export interface Bet {
 
 export type ChipAnimationPhase = "none" | "winning" | "losing";
 
-// root store (bussiness logic) //chip, balance stores
-// ui store
-//
-
 export class RouletteStore {
   public bets: Map<BetValue, Bet>;
   public betsAmount: number;
@@ -99,6 +95,12 @@ export class RouletteStore {
   public setChip(chipValue: ChipValue): void {
     this.selectedChip = chipValue;
   }
+
+  public undoBet(): void {}
+
+  public repeatBet(): void {}
+
+  public resetbet(): void {}
 
   public getAnimationStatusForField(betValue: BetValue): ChipAnimationPhase {
     if (this.status === "resolved-phase") {

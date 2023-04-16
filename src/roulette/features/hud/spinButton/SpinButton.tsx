@@ -4,8 +4,14 @@ import "./spinButton.css";
 
 export const SpinButton = observer(() => {
   const store = useStore();
+  store.status;
   return (
-    <button className="spin-btn" onClick={() => store.spin()}>
+    <button
+      className={`spin-btn ${
+        store.status !== "betting-phase" ? "spin-btn--disabled" : ""
+      }`}
+      onClick={() => store.spin()}
+    >
       SPIN
     </button>
   );
