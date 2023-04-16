@@ -12,9 +12,16 @@ export function HUD() {
         <Balance />
         <PlacedBet />
       </div>
-      <Board />
-      <div className="hud__row">
+      <div className="hud__center">
+        {/* <div className="hud__center--narrow"> */}
         <ChipSelectHUD />
+        {/* </div> */}
+        <div className="hud__board">
+          <Board />
+        </div>
+        {/* <div className="hud__center--narrow">xd</div> */}
+      </div>
+      <div className="hud__row hud__bottom">
         <SpinButton />
       </div>
     </div>

@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .App {
+    flex-direction: row;
+  }
+}
