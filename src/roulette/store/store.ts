@@ -59,7 +59,6 @@ export class RouletteStore {
     }
 
     this.currentBetHistory.push(bet);
-    console.log(this.currentBetHistory);
 
     this.betsAmount += this.selectedChip;
   }
@@ -95,6 +94,8 @@ export class RouletteStore {
       this.balance += prizePool - this.betsAmount;
       this.status = "resolved-phase";
     });
+
+    this.resetBet();
   }
 
   public setChip(chipValue: ChipValue): void {
@@ -115,7 +116,11 @@ export class RouletteStore {
 
   public repeatBet(): void {}
 
-  public resetbet(): void {}
+  public resetBet(): void {
+    this.bets.clear();
+    this.betsAmount = 0;
+    this.currentBetHistory = [];
+  }
 
   public getAnimationStatusForField(betValue: BetValue): ChipAnimationPhase {
     if (this.status === "resolved-phase") {
