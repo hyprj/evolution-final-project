@@ -6,6 +6,7 @@ import { PlacedBet } from "./placedBet/PlacedBet";
 import { UndoButton } from "./undoButton/UndoButton";
 import "./hud.css";
 import { ResetBetButton } from "./resetBetButton/ResetBetButton";
+import { LastBetButton } from "./lastBetButton/LastBetButton";
 
 export function HUD() {
   return (
@@ -22,6 +23,7 @@ export function HUD() {
       </div>
       <div className="hud__row hud__bottom">
         <UndoButton />
+        <LastBetButton />
         <ResetBetButton />
         <SpinButton />
       </div>

@@ -1,25 +1,27 @@
 .board {
   display: grid;
-  /* flex-basis: 60%; */
   flex-basis: min(90%, 800px);
   aspect-ratio: 4;
   grid-template-columns: repeat(56, 1fr);
-  grid-template-rows: repeat(20, 1fr);
+  grid-template-rows: repeat(18, 1fr);
   font-weight: 400;
-  /* font-size: 1.4rem; */
   font-size: clamp(0.8rem, 2vw, 1.4rem);
   text-transform: uppercase;
   padding: 4px;
   border-radius: 4px;
+  transition: transform 800ms;
 }
 
 .board__container {
   position: relative;
-  /* flex-basis: 80%; */
-  /* flex-grow: 1; */
   width: 100%;
   display: flex;
   justify-content: center;
+  perspective: 1600px;
+}
+
+.board--active {
+  transform: rotateX(45deg) scale(0.8);
 }
 
 .board__field {
