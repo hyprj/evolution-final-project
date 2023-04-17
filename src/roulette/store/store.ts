@@ -8,6 +8,7 @@ import {
   sumArray,
 } from "../utils/utils";
 import { isBetValue } from "../utils/utils";
+import { shallowCloneBetMap } from "../utils/utils";
 
 export interface Bet {
   value: BetValue;
@@ -25,6 +26,9 @@ export class RouletteStore {
   public selectedChip: ChipValue;
   public balance: number;
   public hoveredFields: BetValue[] = [];
+  public lastPlacedBet: Map<BetValue, Bet> | null;
+  public lastPlacedBetTotalValue: number;
+  public lastBetHistory: BetValue[];
 
   constructor() {
     makeAutoObservable(this);
@@ -40,6 +44,9 @@ export class RouletteStore {
     this.balance = 1000;
     this.hoveredFields = [];
     this.currentBetHistory = [];
+    this.lastPlacedBet = null;
+    this.lastPlacedBetTotalValue = 0;
+    this.lastBetHistory = [];
   }
 
   public placeBet(bet: BetValue): void {
@@ -67,7 +74,7 @@ export class RouletteStore {
     if (this.status !== "betting-phase") {
       return;
     }
-    this.status = "resolved-phase";
+    this.status = "spinning-phase";
     // const winningSlot = getRandomWinningNumber();
     const winningSlot = 3;
     this.winningSlot = winningSlot;
@@ -95,7 +102,11 @@ export class RouletteStore {
       this.status = "resolved-phase";
     });
 
+    this.lastPlacedBet = shallowCloneBetMap(this.bets);
+    this.lastPlacedBetTotalValue = this.betsAmount;
+    this.lastBetHistory = [...this.currentBetHistory];
     this.resetBet();
+    // this.status = "betting-phase";
   }
 
   public setChip(chipValue: ChipValue): void {
@@ -114,7 +125,13 @@ export class RouletteStore {
     }
   }
 
-  public repeatBet(): void {}
+  public repeatBet(): void {
+    if (this.lastPlacedBet) {
+      this.betsAmount = this.lastPlacedBetTotalValue;
+      this.bets = shallowCloneBetMap(this.lastPlacedBet);
+      this.currentBetHistory = this.lastBetHistory;
+    }
+  }
 
   public resetBet(): void {
     this.bets.clear();

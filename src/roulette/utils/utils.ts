@@ -54,3 +54,12 @@ export function getMultiplier(betValue: BetValue): Multiplier {
 
 export const sumArray = (numbers: number[]) =>
   numbers.reduce((acc, curr) => (acc += curr), 0);
+
+// use this to only copy the Bets Map
+export function shallowCloneBetMap<T, K extends object | null>(map: Map<T, K>) {
+  const copiedMap = new Map<T, K>();
+  for (const [key, value] of map.entries()) {
+    copiedMap.set(key, Object.create(value));
+  }
+  return copiedMap;
+}
