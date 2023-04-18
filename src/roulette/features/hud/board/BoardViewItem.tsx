@@ -2,6 +2,7 @@ import { memo } from "react";
 import { ChipAnimationPhase } from "@roulette/store/UIStore";
 import { BetValue, ChipValue } from "@roulette/utils/types";
 import { getFieldName, getGridAreaByValue, getBgColorByValue } from "./utils";
+import { ChipIcon } from "../chip/Chip";
 
 // chipsAmount are passed just for memoization.
 // Full explanation why in `BoardView.tsx`
@@ -41,7 +42,7 @@ export function BoardChip({ chips }: { chips: ChipValue[] }) {
   const totalChipsValue = chips.reduce((acc, curr) => (acc += curr), 0);
   const icon = getChipIconByBetValue(totalChipsValue);
   const betValue = blahblah(totalChipsValue);
-  return <div>{betValue}</div>;
+  return <ChipIcon value={betValue} icon={icon} />;
 }
 
 export function blahblah(value: number) {

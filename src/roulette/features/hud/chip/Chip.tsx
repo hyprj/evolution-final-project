@@ -30,18 +30,19 @@ export function Chip({
 }
 
 export const ChipIcon = memo(
-  ({ value, animate }: { value: ChipValue; animate: ChipAnimationPhase }) => {
-    const [randomXOffset] = useState(Math.floor(Math.random() * 30 - 15));
-    const [randomYOffset] = useState(Math.floor(Math.random() * 30 - 15));
+  ({
+    value,
+    // animate,
+    icon,
+  }: {
+    value: number | string;
+    // animate: ChipAnimationPhase;
+    icon: ChipValue;
+  }) => {
     return (
-      <img
-        className={`chip-icon ${animate}`}
-        style={{
-          marginTop: randomYOffset + "px",
-          marginLeft: randomXOffset + "px",
-        }}
-        src={chips[value]}
-      />
+      <div className="chip-icon" data-value={icon}>
+        {value}
+      </div>
     );
   }
 );

@@ -1,5 +1,6 @@
 .board {
   display: grid;
+  user-select: none;
   flex-basis: min(90%, 800px);
   aspect-ratio: 4;
   grid-template-columns: repeat(56, 1fr);
@@ -26,6 +27,7 @@
 
 .board__field {
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   border: 2px solid #eaeaea;
