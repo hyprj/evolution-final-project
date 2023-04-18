@@ -1,12 +1,12 @@
-import { useStore } from "../../../store/StoreProvider";
+import { useRootStore } from "../../../store/StoresProvider";
 import { HUDElement } from "../balance/Balance";
 
 export function ResetBetButton() {
-  const store = useStore();
+  const { bettingStore } = useRootStore();
 
   return (
     <HUDElement>
-      <button onClick={() => store.resetBet()}>reset</button>
+      <button onClick={() => bettingStore.clear()}>reset</button>
     </HUDElement>
   );
 }

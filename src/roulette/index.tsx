@@ -5,11 +5,11 @@ import "@babylonjs/core/Loading/loadingScreen";
 import "@babylonjs/loaders";
 import { Suspense } from "react";
 import { HUD } from "./features/hud/HUD";
-import { StoreProvider } from "./store/StoreProvider";
+import { StoresProvider } from "./store/StoresProvider";
 
 export default function RouletteGame() {
   return (
-    <StoreProvider>
+    <StoresProvider>
       <HUD />
       <Engine
         height={"100%"}
@@ -21,7 +21,7 @@ export default function RouletteGame() {
           <Game />
         </Scene>
       </Engine>
-    </StoreProvider>
+    </StoresProvider>
   );
 }
 

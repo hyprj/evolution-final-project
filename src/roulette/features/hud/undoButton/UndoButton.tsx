@@ -1,16 +1,18 @@
 import { observer } from "mobx-react";
-import { useStore } from "../../../store/StoreProvider";
 import { HUDElement } from "../balance/Balance";
+import { useRootStore } from "../../../store/StoresProvider";
 
 export const UndoButton = observer(() => {
-  const store = useStore();
+  const { bettingStore } = useRootStore();
   return (
     <HUDElement>
       <button
         className={`${
-          store.currentBetHistory.length > 0 ? "" : "btn--disabled"
+          bettingStore.historyStore.currentValues.length > 0
+            ? ""
+            : "btn--disabled"
         }`}
-        onClick={() => store.undoBet()}
+        onClick={() => bettingStore.undo()}
       >
         undo
       </button>

@@ -1,16 +1,16 @@
 import { observer } from "mobx-react";
-import { useStore } from "../../../store/StoreProvider";
+import { useRootStore } from "../../../store/StoresProvider";
+
 import "./spinButton.css";
 
 export const SpinButton = observer(() => {
-  const store = useStore();
-  store.status;
+  const { bettingStore } = useRootStore();
   return (
     <button
       className={`spin-btn ${
-        store.status !== "betting-phase" ? "spin-btn--disabled" : ""
+        bettingStore.status !== "betting-phase" ? "spin-btn--disabled" : ""
       }`}
-      onClick={() => store.spin()}
+      onClick={() => bettingStore.spin()}
     >
       SPIN
     </button>

@@ -1,7 +1,8 @@
 import { memo, useState } from "react";
 import { ChipValue } from "../../../utils/types";
+import { ChipAnimationPhase } from "../../../store/UIStore";
+
 import "./chip.css";
-import { ChipAnimationPhase } from "../../../store/store";
 
 const chips: Record<ChipValue, string> = {
   1: "/chip-one.svg",

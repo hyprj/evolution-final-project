@@ -1,16 +1,18 @@
 import { observer } from "mobx-react";
-import { useStore } from "../../../store/StoreProvider";
 import { BoardView } from "./BoardView";
 import { isBetValue, normalizeBetValue } from "../../../utils/utils";
+import { useRootStore, useUIStore } from "../../../store/StoresProvider";
+
 import "./board.css";
 
 export const Board = observer(() => {
-  const store = useStore();
+  const { bettingStore } = useRootStore();
+  const uiStore = useUIStore();
 
   const boardStatusClass =
-    store.status === "spinning-phase" ? "board--active" : "";
+    bettingStore.status === "spinning-phase" ? "board--active" : "";
 
-  if (store.status === "spinning-phase") {
+  if (bettingStore.status === "spinning-phase") {
     console.log("scream");
   }
 
@@ -18,7 +20,7 @@ export const Board = observer(() => {
     const domElementValue = (e.target as HTMLDivElement).dataset.value;
     if (domElementValue && isBetValue(domElementValue)) {
       const betValue = normalizeBetValue(domElementValue);
-      store.placeBet(betValue);
+      bettingStore.place(betValue);
     }
   }
 
@@ -27,7 +29,7 @@ export const Board = observer(() => {
       <div
         className={`board ${boardStatusClass}`}
         onClick={handleClick}
-        onMouseOver={(e) => store.handleBoardHover(e)}
+        onMouseOver={(e) => uiStore.handleBoardHover(e)}
       >
         <BoardView />
       </div>

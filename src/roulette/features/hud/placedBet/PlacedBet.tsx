@@ -1,13 +1,15 @@
 import { observer } from "mobx-react";
-import { useStore } from "../../../store/StoreProvider";
 import { HUDElement } from "../balance/Balance";
+import { useRootStore } from "../../../store/StoresProvider";
+
 import "./placedBet.css";
 
 export const PlacedBet = observer(() => {
-  const { betsAmount } = useStore();
+  const { bettingStore } = useRootStore();
   return (
     <HUDElement>
-      <span className="yellow uppercase">total bet</span>: {betsAmount}
+      <span className="yellow uppercase">total bet</span>:{" "}
+      {bettingStore.totalBetValue}
       <span className="lightgreen">$</span>
     </HUDElement>
   );
