@@ -17,7 +17,11 @@ export class BettingStore {
 
   public bets: Map<BetValue, Bet>;
   public totalBetValue: number;
+
+  // phaseStore or combined (gameStore)
   public status: GameStatus;
+
+  // resultStore
   public winningNumber: NumericBetValue | null;
 
   constructor(rootStore: RootStore) {
