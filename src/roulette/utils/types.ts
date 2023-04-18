@@ -9,3 +9,8 @@ export type BetValue = (typeof BET_VALUES)[number];
 export type ChipValue = 1 | 5 | 10;
 
 export type Multiplier = 2 | 3 | 35;
+
+export interface Bet {
+  value: BetValue;
+  chips: ChipValue[];
+}

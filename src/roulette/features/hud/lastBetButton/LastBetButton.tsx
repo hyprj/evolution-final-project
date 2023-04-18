@@ -1,12 +1,12 @@
-import { useStore } from "../../../store/StoreProvider";
+import { useRootStore } from "../../../store/StoresProvider";
 import { HUDElement } from "../balance/Balance";
 
 export function LastBetButton() {
-  const store = useStore();
+  const { bettingStore } = useRootStore();
 
   return (
     <HUDElement>
-      <button onClick={() => store.repeatBet()}>repeat</button>
+      <button onClick={() => bettingStore.repeat()}>repeat</button>
     </HUDElement>
   );
 }

@@ -1,8 +1,7 @@
 import { memo } from "react";
 import { BetValue, ChipValue } from "../../../utils/types";
 import { getGridAreaByValue, getBgColorByValue, getFieldName } from "./utils";
-import { ChipIcon } from "../chip/Chip";
-import { ChipAnimationPhase } from "../../../store/store";
+import { ChipAnimationPhase } from "../../../store/UIStore";
 
 // chipsAmount are passed just for memoization.
 // Full explanation why in `BoardView.tsx`
@@ -10,13 +9,13 @@ import { ChipAnimationPhase } from "../../../store/store";
 export const BoardViewItem = memo(
   ({
     value,
-    hover,
+    isHovered,
     chips,
     chipsAmount,
     animate,
   }: {
     value: BetValue;
-    hover: boolean;
+    isHovered: boolean;
     chips?: ChipValue[];
     chipsAmount?: number;
     animate: ChipAnimationPhase;
@@ -24,7 +23,7 @@ export const BoardViewItem = memo(
     const name = getFieldName(value);
     const area = getGridAreaByValue(value);
     const bgColor = getBgColorByValue(value);
-    const hoverClass = hover ? "hover" : "";
+    const hoverClass = isHovered ? "hover" : "";
     return (
       <div
         className={`${bgColor} ${hoverClass} board__field`}

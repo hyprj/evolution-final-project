@@ -1,14 +1,13 @@
 import { observer } from "mobx-react";
-import { useStore } from "../../../store/StoreProvider";
+import { useRootStore } from "../../../store/StoresProvider";
+
 import "./balance.css";
 
 export const Balance = observer(() => {
-  const { balance } = useStore();
+  const { playerStore } = useRootStore();
   return (
-    // <div className="balance">
     <HUDElement>
-      <span className="balance__dolar">$</span> {balance}
-      {/* // </div> */}
+      <span className="balance__dolar">$</span> {playerStore.balance}
     </HUDElement>
   );
 });

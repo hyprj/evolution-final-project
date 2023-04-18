@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import { BET_VALUES } from "../../../utils/consts";
 import { BoardViewItem } from "./BoardViewItem";
-import { useStore } from "../../../store/StoreProvider";
+import { useRootStore, useUIStore } from "../../../store/StoresProvider";
 
 /*
   The `chipsAmount` prop is passed to `BoardViewItem` to memoize the component.
@@ -10,17 +10,18 @@ import { useStore } from "../../../store/StoreProvider";
 */
 
 export const BoardView = observer(() => {
-  const store = useStore();
+  const { bettingStore } = useRootStore();
+  const uiStore = useUIStore();
   return (
     <>
       {BET_VALUES.map((value) => (
         <BoardViewItem
           key={value}
           value={value}
-          chips={store.bets.get(value)?.chips}
-          hover={store.hoveredFields.includes(value)}
-          chipsAmount={store.bets.get(value)?.chips.length}
-          animate={store.getAnimationStatusForField(value)}
+          chips={bettingStore.bets.get(value)?.chips}
+          isHovered={uiStore.hoveredFields.includes(value)}
+          chipsAmount={bettingStore.bets.get(value)?.chips.length}
+          animate={uiStore.getAnimationStatusForField(value)}
         />
       ))}
     </>
