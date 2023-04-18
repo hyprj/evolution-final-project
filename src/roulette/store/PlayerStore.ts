@@ -1,5 +1,5 @@
+import { ChipValue } from "@roulette/utils/types";
 import { makeAutoObservable } from "mobx";
-import { ChipValue } from "../utils/types";
 import { RootStore } from "./RootStore";
 
 export class PlayerStore {

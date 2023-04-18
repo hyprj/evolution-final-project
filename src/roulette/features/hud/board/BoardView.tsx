@@ -1,7 +1,7 @@
+import { useRootStore, useUIStore } from "@roulette/store/StoresProvider";
+import { BET_VALUES } from "@roulette/utils/consts";
 import { observer } from "mobx-react";
-import { BET_VALUES } from "../../../utils/consts";
 import { BoardViewItem } from "./BoardViewItem";
-import { useRootStore, useUIStore } from "../../../store/StoresProvider";
 
 /*
   The `chipsAmount` prop is passed to `BoardViewItem` to memoize the component.

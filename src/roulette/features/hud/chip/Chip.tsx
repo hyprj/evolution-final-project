@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
-import { ChipValue } from "../../../utils/types";
-import { ChipAnimationPhase } from "../../../store/UIStore";
+import { ChipAnimationPhase } from "@roulette/store/UIStore";
+import { ChipValue } from "@roulette/utils/types";
 
 import "./chip.css";
 

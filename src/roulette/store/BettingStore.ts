@@ -1,6 +1,11 @@
+import {
+  BetValue,
+  Bet,
+  NumericBetValue,
+  ChipValue,
+} from "@roulette/utils/types";
+import { isWinningValue, getMultiplier, sumArray } from "@roulette/utils/utils";
 import { makeAutoObservable, observable, runInAction } from "mobx";
-import { Bet, BetValue, ChipValue, NumericBetValue } from "../utils/types";
-import { getMultiplier, isWinningValue, sumArray } from "../utils/utils";
 import { HistoryStore } from "./HistoryStore";
 import { RootStore } from "./RootStore";
 

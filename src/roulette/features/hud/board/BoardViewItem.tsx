@@ -1,7 +1,7 @@
 import { memo } from "react";
-import { BetValue, ChipValue } from "../../../utils/types";
-import { getGridAreaByValue, getBgColorByValue, getFieldName } from "./utils";
-import { ChipAnimationPhase } from "../../../store/UIStore";
+import { ChipAnimationPhase } from "@roulette/store/UIStore";
+import { BetValue, ChipValue } from "@roulette/utils/types";
+import { getFieldName, getGridAreaByValue, getBgColorByValue } from "./utils";
 
 // chipsAmount are passed just for memoization.
 // Full explanation why in `BoardView.tsx`
