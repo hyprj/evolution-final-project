@@ -1,13 +1,13 @@
 import { makeAutoObservable } from "mobx";
-import { BetValue, NumericBetValue } from "../utils/types";
+import { GameStatus } from "./BettingStore";
+import { RootStore } from "./RootStore";
+import { BetValue, NumericBetValue } from "@roulette/utils/types";
 import {
   isWinningValue,
   isBetValue,
   normalizeBetValue,
   fieldToHoverByValue,
-} from "../utils/utils";
-import { GameStatus } from "./BettingStore";
-import { RootStore } from "./RootStore";
+} from "@roulette/utils/utils";
 
 export type ChipAnimationPhase = "none" | "winning" | "losing";
 

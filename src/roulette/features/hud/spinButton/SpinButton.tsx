@@ -1,5 +1,5 @@
 import { observer } from "mobx-react";
-import { useRootStore } from "../../../store/StoresProvider";
+import { useRootStore } from "@roulette/store/StoresProvider";
 
 import "./spinButton.css";
 

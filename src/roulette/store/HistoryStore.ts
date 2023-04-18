@@ -1,8 +1,7 @@
+import { BetValue, Bet } from "@roulette/utils/types";
+import { shallowCloneBetMap } from "@roulette/utils/utils";
 import { makeAutoObservable } from "mobx";
-import { BetValue } from "../utils/types";
 import { BettingStore } from "./BettingStore";
-import { Bet } from "./store";
-import { shallowCloneBetMap } from "../utils/utils";
 
 export class HistoryStore {
   public readonly bettingStore: BettingStore;

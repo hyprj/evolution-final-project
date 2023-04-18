@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
-import { ChipValue } from "../../../utils/types";
+import { useRootStore } from "@roulette/store/StoresProvider";
+import { ChipValue } from "@roulette/utils/types";
 import { Chip } from "../chip/Chip";
-import { useRootStore } from "../../../store/StoresProvider";
 
 import "./chipSelect.css";
 

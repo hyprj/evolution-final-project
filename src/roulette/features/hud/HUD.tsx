@@ -4,9 +4,10 @@ import { SpinButton } from "./spinButton/SpinButton";
 import { ChipSelectHUD } from "./chipSelect/ChipSelect";
 import { PlacedBet } from "./placedBet/PlacedBet";
 import { UndoButton } from "./undoButton/UndoButton";
-import "./hud.css";
 import { ResetBetButton } from "./resetBetButton/ResetBetButton";
 import { LastBetButton } from "./lastBetButton/LastBetButton";
+
+import "./hud.css";
 
 export function HUD() {
   return (

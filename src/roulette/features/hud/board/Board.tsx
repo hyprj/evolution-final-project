@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import { BoardView } from "./BoardView";
-import { isBetValue, normalizeBetValue } from "../../../utils/utils";
-import { useRootStore, useUIStore } from "../../../store/StoresProvider";
+import { useRootStore, useUIStore } from "@roulette/store/StoresProvider";
+import { isBetValue, normalizeBetValue } from "@roulette/utils/utils";
 
 import "./board.css";
 
