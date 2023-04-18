@@ -1,5 +1,5 @@
 .chip {
-  width: 40px;
+  width: clamp(20px, 3vw, 40px);
 }
 
 .chip--selected {

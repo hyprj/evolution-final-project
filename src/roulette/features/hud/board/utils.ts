@@ -50,7 +50,7 @@ export function getBgColorByValue(value: BetValue) {
   }
 
   if (TEXT_BET_VALUES.includes(value as TextBetValue)) {
-    return "grey-field";
+    return "green-field";
   }
 
   return "black-field";

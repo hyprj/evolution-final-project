@@ -1,8 +1,9 @@
 .chip-select {
-  box-shadow: inset 0px -10px 18px 22px rgb(0, 50, 50);
-  background-color: rgb(0, 80, 80);
+  box-shadow: inset 0px 0px 10px 5px rgb(0, 124, 66);
+  background-color: rgb(0, 231, 116);
   display: flex;
-  justify-content: center;
+  width: min-content;
+  flex-direction: column;
   padding: 10px;
   border-radius: 6px;
   gap: 1rem;

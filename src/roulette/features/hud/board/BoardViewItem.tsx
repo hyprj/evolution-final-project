@@ -10,11 +10,13 @@ import { ChipAnimationPhase } from "../../../store/store";
 export const BoardViewItem = memo(
   ({
     value,
+    hover,
     chips,
     chipsAmount,
     animate,
   }: {
     value: BetValue;
+    hover: boolean;
     chips?: ChipValue[];
     chipsAmount?: number;
     animate: ChipAnimationPhase;
@@ -22,18 +24,37 @@ export const BoardViewItem = memo(
     const name = getFieldName(value);
     const area = getGridAreaByValue(value);
     const bgColor = getBgColorByValue(value);
+    const hoverClass = hover ? "hover" : "";
     return (
       <div
-        className={`${bgColor} board__field`}
+        className={`${bgColor} ${hoverClass} board__field`}
         data-value={value}
         style={{ gridArea: area }}
       >
         {name}
-        {chips &&
-          chips.map((chipValue, i) => (
-            <ChipIcon key={i} value={chipValue} animate={animate} />
-          ))}
+        {chips && <BoardChip chips={chips} />}
       </div>
     );
   }
 );
+
+export function BoardChip({ chips }: { chips: ChipValue[] }) {
+  const totalChipsValue = chips.reduce((acc, curr) => (acc += curr), 0);
+  const icon = getChipIconByBetValue(totalChipsValue);
+  const betValue = blahblah(totalChipsValue);
+  return <div>{betValue}</div>;
+}
+
+export function blahblah(value: number) {
+  if (value < 1000) return value;
+  return (value / 100 / 10).toFixed(2) + "k";
+}
+
+export function getChipIconByBetValue(betValue: number): ChipValue {
+  if (betValue >= 10) {
+    return 10;
+  } else if (betValue >= 5) {
+    return 5;
+  }
+  return 1;
+}

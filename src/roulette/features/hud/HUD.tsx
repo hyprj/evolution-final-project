@@ -3,7 +3,10 @@ import { Board } from "./board/Board";
 import { SpinButton } from "./spinButton/SpinButton";
 import { ChipSelectHUD } from "./chipSelect/ChipSelect";
 import { PlacedBet } from "./placedBet/PlacedBet";
+import { UndoButton } from "./undoButton/UndoButton";
 import "./hud.css";
+import { ResetBetButton } from "./resetBetButton/ResetBetButton";
+import { LastBetButton } from "./lastBetButton/LastBetButton";
 
 export function HUD() {
   return (
@@ -12,9 +15,16 @@ export function HUD() {
         <Balance />
         <PlacedBet />
       </div>
-      <Board />
-      <div className="hud__row">
+      <div className="hud__center">
         <ChipSelectHUD />
+        <div className="hud__board">
+          <Board />
+        </div>
+      </div>
+      <div className="hud__row hud__bottom">
+        <UndoButton />
+        <LastBetButton />
+        <ResetBetButton />
         <SpinButton />
       </div>
     </div>

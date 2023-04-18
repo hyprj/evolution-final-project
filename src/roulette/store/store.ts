@@ -1,6 +1,14 @@
 import { makeAutoObservable, observable, runInAction } from "mobx";
 import { BetValue, ChipValue, NumericBetValue } from "../utils/types";
-import { getMultiplier, isWinningValue, sumArray } from "../utils/utils";
+import {
+  fieldToHoverByValue,
+  getMultiplier,
+  isWinningValue,
+  normalizeBetValue,
+  sumArray,
+} from "../utils/utils";
+import { isBetValue } from "../utils/utils";
+import { shallowCloneBetMap } from "../utils/utils";
 
 export interface Bet {
   value: BetValue;
@@ -9,17 +17,18 @@ export interface Bet {
 
 export type ChipAnimationPhase = "none" | "winning" | "losing";
 
-// root store (bussiness logic) //chip, balance stores
-// ui store
-//
-
 export class RouletteStore {
   public bets: Map<BetValue, Bet>;
+  public currentBetHistory: BetValue[];
   public betsAmount: number;
   public status: "betting-phase" | "spinning-phase" | "resolved-phase";
   public winningSlot: NumericBetValue | null;
   public selectedChip: ChipValue;
   public balance: number;
+  public hoveredFields: BetValue[] = [];
+  public lastPlacedBet: Map<BetValue, Bet> | null;
+  public lastPlacedBetTotalValue: number;
+  public lastBetHistory: BetValue[];
 
   constructor() {
     makeAutoObservable(this);
@@ -33,6 +42,11 @@ export class RouletteStore {
     this.selectedChip = 10;
     this.betsAmount = 0;
     this.balance = 1000;
+    this.hoveredFields = [];
+    this.currentBetHistory = [];
+    this.lastPlacedBet = null;
+    this.lastPlacedBetTotalValue = 0;
+    this.lastBetHistory = [];
   }
 
   public placeBet(bet: BetValue): void {
@@ -51,6 +65,8 @@ export class RouletteStore {
       });
     }
 
+    this.currentBetHistory.push(bet);
+
     this.betsAmount += this.selectedChip;
   }
 
@@ -58,7 +74,7 @@ export class RouletteStore {
     if (this.status !== "betting-phase") {
       return;
     }
-    this.status = "resolved-phase";
+    this.status = "spinning-phase";
     // const winningSlot = getRandomWinningNumber();
     const winningSlot = 3;
     this.winningSlot = winningSlot;
@@ -85,10 +101,42 @@ export class RouletteStore {
       this.balance += prizePool - this.betsAmount;
       this.status = "resolved-phase";
     });
+
+    this.lastPlacedBet = shallowCloneBetMap(this.bets);
+    this.lastPlacedBetTotalValue = this.betsAmount;
+    this.lastBetHistory = [...this.currentBetHistory];
+    this.resetBet();
+    // this.status = "betting-phase";
   }
 
   public setChip(chipValue: ChipValue): void {
     this.selectedChip = chipValue;
+  }
+
+  public undoBet(): void {
+    const lastBet = this.bets.get(this.currentBetHistory.at(-1)!);
+
+    if (lastBet) {
+      if (lastBet.chips.length === 1) {
+        this.bets.delete(lastBet.value);
+      }
+      const chipValue = lastBet.chips.pop()!;
+      this.betsAmount -= chipValue;
+    }
+  }
+
+  public repeatBet(): void {
+    if (this.lastPlacedBet) {
+      this.betsAmount = this.lastPlacedBetTotalValue;
+      this.bets = shallowCloneBetMap(this.lastPlacedBet);
+      this.currentBetHistory = this.lastBetHistory;
+    }
+  }
+
+  public resetBet(): void {
+    this.bets.clear();
+    this.betsAmount = 0;
+    this.currentBetHistory = [];
   }
 
   public getAnimationStatusForField(betValue: BetValue): ChipAnimationPhase {
@@ -100,8 +148,14 @@ export class RouletteStore {
     }
     return "none";
   }
-
-  // public handleMouseOver(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-  //   console.log(e.target.dataset);
-  // }
+  public handleBoardHover(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    const dataValue = (e.target as HTMLElement).dataset.value;
+    if (dataValue && isBetValue(dataValue)) {
+      const betValue = normalizeBetValue(dataValue);
+      const fieldsToHover = fieldToHoverByValue(betValue);
+      this.hoveredFields = fieldsToHover;
+    } else {
+      this.hoveredFields = [];
+    }
+  }
 }

@@ -5,8 +5,14 @@ import "./balance.css";
 export const Balance = observer(() => {
   const { balance } = useStore();
   return (
-    <div className="balance">
+    // <div className="balance">
+    <HUDElement>
       <span className="balance__dolar">$</span> {balance}
-    </div>
+      {/* // </div> */}
+    </HUDElement>
   );
 });
+
+export function HUDElement({ children }: { children: React.ReactNode }) {
+  return <div className="hud__element">{children}</div>;
+}

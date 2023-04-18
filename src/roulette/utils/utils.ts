@@ -1,5 +1,10 @@
-import { BET_VALUES, multipliers, textBetValuesNumbers } from "./consts";
-import { BetValue, Multiplier, NumericBetValue } from "./types";
+import {
+  BET_VALUES,
+  NUMERIC_BET_VALUES,
+  multipliers,
+  textBetValuesNumbers,
+} from "./consts";
+import { BetValue, Multiplier, NumericBetValue, TextBetValue } from "./types";
 
 const HIGHTEST_NUMERIC_BET_VALUE = 36;
 
@@ -33,6 +38,13 @@ export function isWinningValue(
   return false;
 }
 
+export function fieldToHoverByValue(betValue: BetValue): BetValue[] {
+  if (NUMERIC_BET_VALUES.includes(betValue as NumericBetValue)) {
+    return [betValue];
+  }
+  return [betValue, ...textBetValuesNumbers[betValue as TextBetValue]];
+}
+
 export function getMultiplier(betValue: BetValue): Multiplier {
   if (typeof betValue === "number") {
     return 35;
@@ -42,3 +54,12 @@ export function getMultiplier(betValue: BetValue): Multiplier {
 
 export const sumArray = (numbers: number[]) =>
   numbers.reduce((acc, curr) => (acc += curr), 0);
+
+// use this to only copy the Bets Map
+export function shallowCloneBetMap<T, K extends object | null>(map: Map<T, K>) {
+  const copiedMap = new Map<T, K>();
+  for (const [key, value] of map.entries()) {
+    copiedMap.set(key, Object.create(value));
+  }
+  return copiedMap;
+}

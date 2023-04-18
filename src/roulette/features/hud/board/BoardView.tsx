@@ -18,6 +18,7 @@ export const BoardView = observer(() => {
           key={value}
           value={value}
           chips={store.bets.get(value)?.chips}
+          hover={store.hoveredFields.includes(value)}
           chipsAmount={store.bets.get(value)?.chips.length}
           animate={store.getAnimationStatusForField(value)}
         />
