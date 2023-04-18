@@ -13,8 +13,30 @@
 
 .chip-icon {
   position: absolute;
-  width: 25px;
+  aspect-ratio: 1;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-weight: bolder;
+  font-size: 80%;
   pointer-events: none;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.chip-icon:is([data-value="1"]) {
+  background-image: url("/public/chip-one-blank.svg");
+}
+
+.chip-icon:is([data-value="5"]) {
+  background-image: url("/public/chip-five-blank.svg");
+}
+
+.chip-icon:is([data-value="10"]) {
+  background-image: url("/public/chip-ten-blank.svg");
 }
 
 .winning {
