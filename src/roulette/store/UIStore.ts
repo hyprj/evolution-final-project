@@ -43,7 +43,7 @@ export class UIStore {
     return "none";
   }
 
-  public handleBoardHover(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+  public onBoardHover(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const dataValue = (e.target as HTMLElement).dataset.value;
     if (dataValue && isBetValue(dataValue)) {
       const betValue = normalizeBetValue(dataValue);
@@ -52,6 +52,10 @@ export class UIStore {
     } else {
       this.hoveredFields = [];
     }
+  }
+
+  public onBoardExit(): void {
+    this.hoveredFields = [];
   }
 
   public getBoardAnimationStatus() {
