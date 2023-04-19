@@ -1,4 +1,9 @@
-import { BetValue, Bet, ChipValue } from "@roulette/utils/types";
+import {
+  BetValue,
+  Bet,
+  ChipValue,
+  NumericBetValue,
+} from "@roulette/utils/types";
 import { isWinningValue, getMultiplier, sumArray } from "@roulette/utils/utils";
 import { makeAutoObservable, observable, runInAction } from "mobx";
 import { HistoryStore } from "./HistoryStore";
@@ -86,26 +91,9 @@ export class BettingStore {
     this.historyStore.currentValues = [];
   }
 
-  public spin() {
+  public resolve(): void {
     const wonPrize = this.getPrize();
-    this.rootStore.phaseStore.phase = "spinning";
-    setTimeout(() => {
-      runInAction(() => {
-        this.rootStore.phaseStore.phase = "resolved";
-      });
-    }, 3000);
-    setTimeout(() => {
-      runInAction(() => {
-        this.rootStore.phaseStore.phase = "awarding";
-      });
-    }, 6000);
-    setTimeout(() => {
-      runInAction(() => {
-        this.historyStore.saveBetHistory(this.bets, this.totalBetValue);
-        this.addWonPrize(wonPrize);
-        this.clear();
-        this.rootStore.phaseStore.phase = "betting";
-      });
-    }, 9000);
+    this.historyStore.saveBetHistory(this.bets, this.totalBetValue);
+    this.addWonPrize(wonPrize);
   }
 }

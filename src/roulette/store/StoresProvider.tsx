@@ -8,8 +8,8 @@ function initStores() {
   return { rootStore, uiStore };
 }
 
-const RootStoreContext = createContext<null | RootStore>(null);
-const UIStoreContext = createContext<null | UIStore>(null);
+export const RootStoreContext = createContext<null | RootStore>(null);
+export const UIStoreContext = createContext<null | UIStore>(null);
 
 export function StoresProvider({ children }: { children: React.ReactNode }) {
   const { rootStore, uiStore } = initStores();
