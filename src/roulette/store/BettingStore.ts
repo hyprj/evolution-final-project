@@ -17,7 +17,7 @@ export class BettingStore {
   public totalBetValue: number;
 
   constructor(rootStore: RootStore) {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
     this.rootStore = rootStore;
     this.bets = observable.map();
     this.historyStore = new HistoryStore(this);

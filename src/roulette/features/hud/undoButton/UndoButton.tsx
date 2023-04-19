@@ -3,17 +3,17 @@ import { HUDElement } from "../balance/Balance";
 import { useRootStore } from "@roulette/store/StoresProvider";
 
 export const UndoButton = observer(() => {
-  const { bettingStore } = useRootStore();
+  const { bettingStore, phaseStore } = useRootStore();
+
+  const isDisabled =
+    bettingStore.historyStore.currentValues.length === 0 ||
+    phaseStore.phase !== "betting";
+
+  const isDisabledClass = isDisabled ? "btn--disabled" : "";
+
   return (
     <HUDElement>
-      <button
-        className={`${
-          bettingStore.historyStore.currentValues.length > 0
-            ? ""
-            : "btn--disabled"
-        }`}
-        onClick={() => bettingStore.undo()}
-      >
+      <button className={isDisabledClass} onClick={bettingStore.undo}>
         undo
       </button>
     </HUDElement>

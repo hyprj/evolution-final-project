@@ -6,14 +6,18 @@ import { isBetValue, normalizeBetValue } from "@roulette/utils/utils";
 import "./board.css";
 
 export const Board = observer(() => {
-  const { bettingStore } = useRootStore();
+  const { bettingStore, phaseStore } = useRootStore();
   const { onBoardExit, onBoardHover, getBoardAnimationStatus } = useUIStore();
 
   const boardStatusClass = getBoardAnimationStatus();
 
   function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const domElementValue = (e.target as HTMLDivElement).dataset.value;
-    if (domElementValue && isBetValue(domElementValue)) {
+    if (
+      phaseStore.phase === "betting" &&
+      domElementValue &&
+      isBetValue(domElementValue)
+    ) {
       const betValue = normalizeBetValue(domElementValue);
       bettingStore.place(betValue);
     }
