@@ -11,14 +11,18 @@
   cursor: pointer;
 }
 
+.board__field[data-value="0"] .chip-icon {
+  width: 100%;
+}
 .chip-icon {
   position: absolute;
   aspect-ratio: 1;
+  z-index: 50;
   height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black;
+  color: rgb(193, 68, 193);
   font-weight: bolder;
   font-size: 80%;
   pointer-events: none;
@@ -39,7 +43,15 @@
   background-image: url("/public/chip-ten-blank.svg");
 }
 
-.winning {
+.chip-icon:is([data-value="50"]) {
+  background-image: url("/public/chip-fifty-blank.svg");
+}
+
+.chip-icon:is([data-value="100"]) {
+  background-image: url("/public/chip-hundred-blank.svg");
+}
+
+.chip-icon:is(.winning) {
   animation-name: chips-move-win;
   animation-duration: 3s;
 }

@@ -1,5 +1,4 @@
-import { memo, useState } from "react";
-import { ChipAnimationPhase } from "@roulette/store/UIStore";
+import { memo } from "react";
 import { ChipValue } from "@roulette/utils/types";
 
 import "./chip.css";
@@ -8,6 +7,8 @@ const chips: Record<ChipValue, string> = {
   1: "/chip-one.svg",
   5: "/chip-five.svg",
   10: "/chip-ten.svg",
+  50: "/chip-fifty.svg",
+  100: "/chip-hundred.svg",
 };
 
 export function Chip({
@@ -32,15 +33,15 @@ export function Chip({
 export const ChipIcon = memo(
   ({
     value,
-    // animate,
+    animate,
     icon,
   }: {
     value: number | string;
-    // animate: ChipAnimationPhase;
+    animate: string;
     icon: ChipValue;
   }) => {
     return (
-      <div className="chip-icon" data-value={icon}>
+      <div className={`chip-icon ${animate}`} data-value={icon}>
         {value}
       </div>
     );

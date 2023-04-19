@@ -10,7 +10,6 @@
   text-transform: uppercase;
   padding: 4px;
   border-radius: 4px;
-  transition: transform 800ms;
 }
 
 .board__container {
@@ -22,7 +21,26 @@
 }
 
 .board--active {
-  transform: rotateX(45deg) scale(0.8);
+  animation: board-active 1000ms forwards;
+}
+
+.board--active-return {
+  animation: board-active-return 1000ms forwards;
+}
+
+@keyframes board-active {
+  100% {
+    transform: rotateX(45deg) scale(0.8);
+  }
+}
+
+@keyframes board-active-return {
+  0% {
+    transform: rotateX(45deg) scale(0.8);
+  }
+  100% {
+    transform: rotateX(0deg) scale(1);
+  }
 }
 
 .board__field {

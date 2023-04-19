@@ -1,13 +1,13 @@
 import { makeAutoObservable } from "mobx";
-import { GameStatus } from "./BettingStore";
 import { RootStore } from "./RootStore";
 import { BetValue, NumericBetValue } from "@roulette/utils/types";
 import {
-  isWinningValue,
   isBetValue,
   normalizeBetValue,
   fieldToHoverByValue,
+  isWinningValue,
 } from "@roulette/utils/utils";
+import { Phase } from "./PhaseStore";
 
 export type ChipAnimationPhase = "none" | "winning" | "losing";
 
@@ -22,17 +22,40 @@ export class UIStore {
     this.hoveredFields = [];
   }
 
-  private getWinningSlot(): NumericBetValue | null {
-    return this.rootStore.bettingStore.winningNumber;
+  // private setPhase(phase: Phase): void {
+  //   this.rootStore.phaseStore.phase = phase;
+  // }
+
+  // public animateSpinning(): void {
+  //   this.setPhase("spinning");
+  //   setTimeout(() => {
+  //     runInAction(() => {
+  //       this.setPhase("resolved");
+  //     });
+  //   }, 3000);
+  //   setTimeout(() => {
+  //     runInAction(() => {
+  //       this.setPhase("awarding");
+  //     });
+  //   }, 6000);
+  //   setTimeout(() => {
+  //     runInAction(() => {
+  //       this.setPhase("betting");
+  //     });
+  //   }, 9000);
+  // }
+
+  private getResult(): NumericBetValue | null {
+    return this.rootStore.resultStore.result;
   }
 
-  private getStatus(): GameStatus {
-    return this.rootStore.bettingStore.status;
+  private getPhase(): Phase {
+    return this.rootStore.phaseStore.phase;
   }
 
   public getAnimationStatusForField(betValue: BetValue): ChipAnimationPhase {
-    if (this.getStatus() === "resolved-phase") {
-      if (isWinningValue(betValue, this.getWinningSlot()!)) {
+    if (this.getPhase() === "awarding") {
+      if (isWinningValue(betValue, this.getResult()!)) {
         return "winning";
       }
       return "losing";
@@ -49,5 +72,15 @@ export class UIStore {
     } else {
       this.hoveredFields = [];
     }
+  }
+
+  public getBoardAnimationStatus() {
+    const phase = this.getPhase();
+    if (phase === "spinning") {
+      return "board--active";
+    } else if (phase === "resolved") {
+      return "board--active-return";
+    }
+    return "";
   }
 }
