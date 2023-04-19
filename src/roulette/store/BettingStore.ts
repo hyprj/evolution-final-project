@@ -1,15 +1,8 @@
-import {
-  BetValue,
-  Bet,
-  NumericBetValue,
-  ChipValue,
-} from "@roulette/utils/types";
+import { BetValue, Bet, ChipValue } from "@roulette/utils/types";
 import { isWinningValue, getMultiplier, sumArray } from "@roulette/utils/utils";
 import { makeAutoObservable, observable, runInAction } from "mobx";
 import { HistoryStore } from "./HistoryStore";
 import { RootStore } from "./RootStore";
-
-export type GameStatus = "betting-phase" | "spinning-phase" | "resolved-phase";
 
 export class BettingStore {
   public readonly rootStore: RootStore;
@@ -18,20 +11,12 @@ export class BettingStore {
   public bets: Map<BetValue, Bet>;
   public totalBetValue: number;
 
-  // phaseStore or combined (gameStore)
-  public status: GameStatus;
-
-  // resultStore
-  public winningNumber: NumericBetValue | null;
-
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
     this.bets = observable.map();
     this.historyStore = new HistoryStore(this);
     this.totalBetValue = 0;
-    this.status = "betting-phase";
-    this.winningNumber = null;
   }
 
   private getSelectedChip(): ChipValue {
@@ -81,9 +66,10 @@ export class BettingStore {
 
   private getPrize(): number {
     let prize = -this.totalBetValue;
+    const result = this.rootStore.resultStore.drawResult();
 
     for (const [_, bet] of this.bets) {
-      if (isWinningValue(bet.value, this.winningNumber as NumericBetValue)) {
+      if (isWinningValue(bet.value, result)) {
         const multiplier = getMultiplier(bet.value);
         const totalChipsValue = sumArray(bet.chips);
         const profit = multiplier * totalChipsValue + totalChipsValue;
@@ -101,16 +87,25 @@ export class BettingStore {
   }
 
   public spin() {
-    this.status = "spinning-phase";
-    this.winningNumber = 3;
     const wonPrize = this.getPrize();
-    this.addWonPrize(wonPrize);
-    this.historyStore.saveBetHistory(this.bets, this.totalBetValue);
-    this.clear();
+    this.rootStore.phaseStore.phase = "spinning";
     setTimeout(() => {
       runInAction(() => {
-        this.status = "betting-phase";
+        this.rootStore.phaseStore.phase = "resolved";
       });
     }, 3000);
+    setTimeout(() => {
+      runInAction(() => {
+        this.rootStore.phaseStore.phase = "awarding";
+      });
+    }, 6000);
+    setTimeout(() => {
+      runInAction(() => {
+        this.historyStore.saveBetHistory(this.bets, this.totalBetValue);
+        this.addWonPrize(wonPrize);
+        this.clear();
+        this.rootStore.phaseStore.phase = "betting";
+      });
+    }, 9000);
   }
 }

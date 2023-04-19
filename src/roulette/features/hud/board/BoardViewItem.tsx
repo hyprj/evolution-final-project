@@ -32,17 +32,23 @@ export const BoardViewItem = memo(
         style={{ gridArea: area }}
       >
         {name}
-        {chips && <BoardChip chips={chips} />}
+        {chips && <BoardChip chips={chips} animate={animate} />}
       </div>
     );
   }
 );
 
-export function BoardChip({ chips }: { chips: ChipValue[] }) {
+export function BoardChip({
+  chips,
+  animate,
+}: {
+  chips: ChipValue[];
+  animate: string;
+}) {
   const totalChipsValue = chips.reduce((acc, curr) => (acc += curr), 0);
   const icon = getChipIconByBetValue(totalChipsValue);
   const betValue = blahblah(totalChipsValue);
-  return <ChipIcon value={betValue} icon={icon} />;
+  return <ChipIcon value={betValue} icon={icon} animate={animate} />;
 }
 
 export function blahblah(value: number) {
@@ -51,6 +57,12 @@ export function blahblah(value: number) {
 }
 
 export function getChipIconByBetValue(betValue: number): ChipValue {
+  if (betValue >= 100) {
+    return 100;
+  }
+  if (betValue >= 50) {
+    return 50;
+  }
   if (betValue >= 10) {
     return 10;
   } else if (betValue >= 5) {

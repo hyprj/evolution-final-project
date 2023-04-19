@@ -4,11 +4,11 @@ import { useRootStore } from "@roulette/store/StoresProvider";
 import "./spinButton.css";
 
 export const SpinButton = observer(() => {
-  const { bettingStore } = useRootStore();
+  const { phaseStore, bettingStore } = useRootStore();
   return (
     <button
       className={`spin-btn ${
-        bettingStore.status !== "betting-phase" ? "spin-btn--disabled" : ""
+        phaseStore.phase !== "betting" ? "spin-btn--disabled" : ""
       }`}
       onClick={() => bettingStore.spin()}
     >

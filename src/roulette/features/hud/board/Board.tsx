@@ -9,12 +9,7 @@ export const Board = observer(() => {
   const { bettingStore } = useRootStore();
   const uiStore = useUIStore();
 
-  const boardStatusClass =
-    bettingStore.status === "spinning-phase" ? "board--active" : "";
-
-  if (bettingStore.status === "spinning-phase") {
-    console.log("scream");
-  }
+  const boardStatusClass = uiStore.getBoardAnimationStatus();
 
   function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const domElementValue = (e.target as HTMLDivElement).dataset.value;

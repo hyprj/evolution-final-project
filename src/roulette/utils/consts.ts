@@ -67,3 +67,5 @@ export const multipliers: Record<TextBetValue, Multiplier> = {
 };
 
 export const BET_VALUES = [...NUMERIC_BET_VALUES, ...TEXT_BET_VALUES] as const;
+
+export const CHIP_VALUES = [1, 5, 10, 50, 100] as const;
