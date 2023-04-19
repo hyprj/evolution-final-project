@@ -69,9 +69,8 @@ export class BettingStore {
     }
   }
 
-  private getPrize(): number {
+  private getPrize(result: NumericBetValue): number {
     let prize = -this.totalBetValue;
-    const result = this.rootStore.resultStore.drawResult();
 
     for (const [_, bet] of this.bets) {
       if (isWinningValue(bet.value, result)) {
@@ -92,8 +91,10 @@ export class BettingStore {
   }
 
   public resolve(): void {
-    const wonPrize = this.getPrize();
+    const result = this.rootStore.resultStore.drawResult();
+    const wonPrize = this.getPrize(result);
     this.historyStore.saveBetHistory(this.bets, this.totalBetValue);
+    this.historyStore.saveWinningNumber(result);
     this.addWonPrize(wonPrize);
   }
 }

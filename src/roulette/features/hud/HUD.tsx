@@ -8,6 +8,7 @@ import { ResetBetButton } from "./resetBetButton/ResetBetButton";
 import { RepeatBetButton } from "./repeatBetButton/RepeatBetButton";
 
 import "./hud.css";
+import { ResultsHistory } from "./resultsHistory/ResultsHistory";
 
 export function HUD() {
   return (
@@ -23,6 +24,7 @@ export function HUD() {
         </div>
       </div>
       <div className="hud__row hud__bottom">
+        <ResultsHistory />
         <UndoButton />
         <RepeatBetButton />
         <ResetBetButton />

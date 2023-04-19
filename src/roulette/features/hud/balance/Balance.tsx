@@ -12,6 +12,20 @@ export const Balance = observer(() => {
   );
 });
 
-export function HUDElement({ children }: { children: React.ReactNode }) {
-  return <div className="hud__element">{children}</div>;
+export function HUDElement({
+  children,
+  stretch = false,
+  justifyEnd = false,
+}: {
+  children: React.ReactNode;
+  stretch?: boolean;
+  justifyEnd?: boolean;
+}) {
+  const stretchClass = stretch ? "hud__element--stretch" : "";
+  const jusitfyEndClass = justifyEnd ? "hud__element--justify-end" : "";
+  return (
+    <div className={`hud__element ${stretchClass} ${jusitfyEndClass}`}>
+      {children}
+    </div>
+  );
 }

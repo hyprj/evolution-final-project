@@ -1,4 +1,4 @@
-import { BetValue, Bet } from "@roulette/utils/types";
+import { BetValue, Bet, NumericBetValue } from "@roulette/utils/types";
 import { shallowCloneBetMap } from "@roulette/utils/utils";
 import { makeAutoObservable } from "mobx";
 import { BettingStore } from "./BettingStore";
@@ -10,6 +10,7 @@ export class HistoryStore {
   public previousValues: BetValue[];
   public previousBet: Map<BetValue, Bet> | null;
   public previousBetValue: number;
+  public lastWinningNumbers: NumericBetValue[];
 
   constructor(bettingStore: BettingStore) {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -18,6 +19,7 @@ export class HistoryStore {
     this.previousValues = [];
     this.previousBetValue = 0;
     this.previousBet = null;
+    this.lastWinningNumbers = [];
   }
 
   public getPreviousBetStep(): Bet | undefined {
@@ -26,6 +28,10 @@ export class HistoryStore {
     if (lastBetValue) {
       return this.bettingStore.bets.get(lastBetValue);
     }
+  }
+
+  public saveWinningNumber(number: NumericBetValue) {
+    this.lastWinningNumbers.push(number);
   }
 
   public hasPreviousBet(): boolean {
