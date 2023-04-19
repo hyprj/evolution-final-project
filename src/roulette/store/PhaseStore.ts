@@ -19,22 +19,24 @@ export class PhaseStore {
     setTimeout(() => {}, 3000);
   }
 
-  public animateSpinning(): void {
+  public spin(): void {
     this.phase = "spinning";
     setTimeout(() => {
       runInAction(() => {
         this.phase = "resolved";
       });
-    }, 3000);
+    }, 8000);
     setTimeout(() => {
       runInAction(() => {
+        this.rootStore.bettingStore.resolve();
         this.phase = "awarding";
       });
-    }, 6000);
+    }, 8500);
     setTimeout(() => {
       runInAction(() => {
+        this.rootStore.bettingStore.clear();
         this.phase = "betting";
       });
-    }, 9000);
+    }, 10000);
   }
 }

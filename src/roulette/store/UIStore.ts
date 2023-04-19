@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { RootStore } from "./RootStore";
 import { BetValue, NumericBetValue } from "@roulette/utils/types";
 import {
@@ -8,6 +8,7 @@ import {
   isWinningValue,
 } from "@roulette/utils/utils";
 import { Phase } from "./PhaseStore";
+import { Vector3 } from "@babylonjs/core";
 
 export type ChipAnimationPhase = "none" | "winning" | "losing";
 
@@ -15,35 +16,14 @@ export class UIStore {
   public readonly rootStore: RootStore;
 
   public hoveredFields: BetValue[];
+  public cameraPos: Vector3;
 
   constructor(rootStore: RootStore) {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
     this.rootStore = rootStore;
     this.hoveredFields = [];
+    this.cameraPos = new Vector3(0, 3, 5);
   }
-
-  // private setPhase(phase: Phase): void {
-  //   this.rootStore.phaseStore.phase = phase;
-  // }
-
-  // public animateSpinning(): void {
-  //   this.setPhase("spinning");
-  //   setTimeout(() => {
-  //     runInAction(() => {
-  //       this.setPhase("resolved");
-  //     });
-  //   }, 3000);
-  //   setTimeout(() => {
-  //     runInAction(() => {
-  //       this.setPhase("awarding");
-  //     });
-  //   }, 6000);
-  //   setTimeout(() => {
-  //     runInAction(() => {
-  //       this.setPhase("betting");
-  //     });
-  //   }, 9000);
-  // }
 
   private getResult(): NumericBetValue | null {
     return this.rootStore.resultStore.result;
@@ -82,5 +62,23 @@ export class UIStore {
       return "board--active-return";
     }
     return "";
+  }
+
+  public runCameraAnimation(): void {
+    setTimeout(() => {
+      runInAction(() => {
+        this.cameraPos = new Vector3(2, 2, 2);
+      });
+    }, 2000);
+    setTimeout(() => {
+      runInAction(() => {
+        this.cameraPos = new Vector3(0, 6, 0);
+      });
+    }, 4000);
+    setTimeout(() => {
+      runInAction(() => {
+        this.cameraPos = new Vector3(0, 3, 5);
+      });
+    }, 8000);
   }
 }
