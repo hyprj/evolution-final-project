@@ -23,8 +23,19 @@
   align-items: center;
   justify-content: center;
   border-radius: 100px;
+  height: 38px;
   padding: 6px;
   padding-inline: 12px;
+}
+
+.hud__element--stretch {
+  padding-left: auto;
+  max-width: 50%;
+  flex-grow: 1;
+}
+
+.hud__element--justify-end {
+  justify-content: flex-end;
 }
 
 .yellow {
