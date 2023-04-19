@@ -9,7 +9,7 @@ export class PhaseStore {
   public phase: Phase;
 
   constructor(rootStore: RootStore) {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
     this.rootStore = rootStore;
     this.phase = "betting";
   }

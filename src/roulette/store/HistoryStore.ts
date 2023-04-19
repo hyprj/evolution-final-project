@@ -12,12 +12,12 @@ export class HistoryStore {
   public previousBetValue: number;
 
   constructor(bettingStore: BettingStore) {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
     this.bettingStore = bettingStore;
     this.currentValues = [];
     this.previousValues = [];
     this.previousBetValue = 0;
-    this.previousBet = new Map();
+    this.previousBet = null;
   }
 
   public getPreviousBetStep(): Bet | undefined {
@@ -26,6 +26,10 @@ export class HistoryStore {
     if (lastBetValue) {
       return this.bettingStore.bets.get(lastBetValue);
     }
+  }
+
+  public hasPreviousBet(): boolean {
+    return typeof this.previousBet?.size === "number";
   }
 
   public addStep(betValue: BetValue): void {

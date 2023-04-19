@@ -5,7 +5,7 @@ import { ChipSelectHUD } from "./chipSelect/ChipSelect";
 import { PlacedBet } from "./placedBet/PlacedBet";
 import { UndoButton } from "./undoButton/UndoButton";
 import { ResetBetButton } from "./resetBetButton/ResetBetButton";
-import { LastBetButton } from "./lastBetButton/LastBetButton";
+import { RepeatBetButton } from "./repeatBetButton/RepeatBetButton";
 
 import "./hud.css";
 
@@ -24,7 +24,7 @@ export function HUD() {
       </div>
       <div className="hud__row hud__bottom">
         <UndoButton />
-        <LastBetButton />
+        <RepeatBetButton />
         <ResetBetButton />
         <SpinButton />
       </div>
