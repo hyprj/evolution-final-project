@@ -17,12 +17,14 @@ export class UIStore {
 
   public hoveredFields: BetValue[];
   public cameraPos: Vector3;
+  public secondsToResult: number | null;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, {}, { autoBind: true });
     this.rootStore = rootStore;
     this.hoveredFields = [];
     this.cameraPos = new Vector3(0, 3, 5);
+    this.secondsToResult = null;
   }
 
   private getResult(): NumericBetValue | null {
@@ -69,6 +71,7 @@ export class UIStore {
   }
 
   public runCameraAnimation(): void {
+    this.runTimeToResult();
     setTimeout(() => {
       runInAction(() => {
         this.cameraPos = new Vector3(2, 2, 2);
@@ -84,5 +87,18 @@ export class UIStore {
         this.cameraPos = new Vector3(0, 3, 5);
       });
     }, 8000);
+  }
+
+  private runTimeToResult() {
+    let counter = 8;
+    this.secondsToResult = --counter;
+    const timeout = setInterval(() => {
+      runInAction(() => {
+        this.secondsToResult = --counter;
+        if (counter === 0) {
+          clearInterval(timeout);
+        }
+      });
+    }, 1000);
   }
 }

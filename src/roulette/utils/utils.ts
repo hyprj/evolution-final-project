@@ -6,17 +6,17 @@ import {
 } from "./consts";
 import { BetValue, Multiplier, NumericBetValue, TextBetValue } from "./types";
 
-const HIGHTEST_NUMERIC_BET_VALUE = 36;
+// const HIGHTEST_NUMERIC_BET_VALUE = 36;
 
 export function isBetValue(value: unknown): value is BetValue {
   return BET_VALUES.includes(normalizeBetValue(value as BetValue));
 }
 
-export function getRandomWinningNumber(): NumericBetValue {
-  return Math.floor(
-    Math.random() * HIGHTEST_NUMERIC_BET_VALUE
-  ) as NumericBetValue;
-}
+// export function getRandomWinningNumber(): NumericBetValue {
+//   return Math.floor(
+//     Math.random() * HIGHTEST_NUMERIC_BET_VALUE
+//   ) as NumericBetValue;
+// }
 
 export function normalizeBetValue(value: BetValue): BetValue {
   return !Number.isNaN(Number(value)) ? (Number(value) as BetValue) : value;

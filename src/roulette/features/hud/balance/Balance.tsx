@@ -6,9 +6,11 @@ import "./balance.css";
 export const Balance = observer(() => {
   const { playerStore } = useRootStore();
   return (
-    <HUDElement>
-      <span className="balance__dolar">$</span> {playerStore.balance}
-    </HUDElement>
+    <>
+      <HUDElement>
+        <span className="balance__dolar">$</span> {playerStore.balance}
+      </HUDElement>
+    </>
   );
 });
 
