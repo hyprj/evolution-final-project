@@ -9,12 +9,14 @@ import { ChipIcon } from "../chip/Chip";
 
 export const BoardViewItem = memo(
   ({
+    isPortrait,
     value,
     isHovered,
     chips,
     chipsAmount,
     animate,
   }: {
+    isPortrait: boolean;
     value: BetValue;
     isHovered: boolean;
     chips?: ChipValue[];
@@ -22,7 +24,7 @@ export const BoardViewItem = memo(
     animate: ChipAnimationPhase;
   }) => {
     const name = getFieldName(value);
-    const area = getGridAreaByValue(value);
+    const area = getGridAreaByValue(value, isPortrait);
     const bgColor = getBgColorByValue(value);
     const hoverClass = isHovered ? "hover" : "";
     return (

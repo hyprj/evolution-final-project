@@ -3,6 +3,8 @@ import { RootStore } from "./RootStore";
 
 export type Phase = "betting" | "resolved" | "spinning" | "awarding";
 
+// simplified, no concept of spinning, maybe WheelStore
+
 export class PhaseStore {
   private readonly rootStore: RootStore;
 
@@ -20,6 +22,7 @@ export class PhaseStore {
   }
 
   public spin(): void {
+    //bets open, bets closed
     this.phase = "spinning";
     setTimeout(() => {
       runInAction(() => {

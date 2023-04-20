@@ -93,7 +93,7 @@ export class BettingStore {
   public resolve(): void {
     const result = this.rootStore.resultStore.drawResult();
     const wonPrize = this.getPrize(result);
-    this.historyStore.saveBetHistory(this.bets, this.totalBetValue);
+    this.historyStore.saveBetHistory(this.bets, this.totalBetValue, wonPrize);
     this.historyStore.saveWinningNumber(result);
     this.addWonPrize(wonPrize);
   }

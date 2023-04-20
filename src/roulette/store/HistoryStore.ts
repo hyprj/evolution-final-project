@@ -10,6 +10,7 @@ export class HistoryStore {
   public previousValues: BetValue[];
   public previousBet: Map<BetValue, Bet> | null;
   public previousBetValue: number;
+  public previousWonPrizes: number[];
   public lastWinningNumbers: NumericBetValue[];
 
   constructor(bettingStore: BettingStore) {
@@ -19,6 +20,7 @@ export class HistoryStore {
     this.previousValues = [];
     this.previousBetValue = 0;
     this.previousBet = null;
+    this.previousWonPrizes = [];
     this.lastWinningNumbers = [];
   }
 
@@ -42,9 +44,14 @@ export class HistoryStore {
     this.currentValues.push(betValue);
   }
 
-  public saveBetHistory(bet: Map<BetValue, Bet>, betTotalValue: number) {
+  public saveBetHistory(
+    bet: Map<BetValue, Bet>,
+    betTotalValue: number,
+    wonPrize: number
+  ) {
     this.previousBet = shallowCloneBetMap(bet);
     this.previousBetValue = betTotalValue;
     this.previousValues = [...this.currentValues];
+    this.previousWonPrizes.push(wonPrize);
   }
 }

@@ -22,25 +22,38 @@ export const textValuesInfo: Record<TextBetValue, TextValueView> = {
 };
 
 /**
+ *
+ * @param area gridArea shorthand property x/y/z/u
+ * @returns gridArea with swapped columns with rows
+ */
+
+export function reverseGridArea(area: string) {
+  const areas = area.split("/");
+  return `${areas[1]}/${areas[0]}/${areas[3]}/${areas[2]}`;
+}
+
+/**
  * @param number numeric field of a roulette's wheel
  * @return gridArea value based on assumption that each board field is split into 4x4 subcells
  */
-export function getGridAreaByValue(value: BetValue) {
+export function getGridAreaByValue(value: BetValue, isPortrait: boolean) {
+  let area: string;
+
   if (typeof value === "string") {
-    return textValuesInfo[value].area;
-  }
+    area = textValuesInfo[value].area;
+  } else if (value === 0) {
+    area = "1/1/13/5";
+  } else {
+    const colStart = Math.ceil(value / 3) * 4 + 1;
+    const colEnd = colStart + 4;
 
-  if (value === 0) {
-    return "1/1/13/5";
+    const remainder = value % 3;
+    const rowValues = { 0: 1, 2: 5, 1: 9 };
+    const rowStart = rowValues[remainder as 0 | 1 | 2];
+    const rowEnd = rowStart + 4;
+    area = `${rowStart}/${colStart}/${rowEnd}/${colEnd}`;
   }
-  const colStart = Math.ceil(value / 3) * 4 + 1;
-  const colEnd = colStart + 4;
-
-  const remainder = value % 3;
-  const rowValues = { 0: 1, 2: 5, 1: 9 };
-  const rowStart = rowValues[remainder as 0 | 1 | 2];
-  const rowEnd = rowStart + 4;
-  return `${rowStart}/${colStart}/${rowEnd}/${colEnd}`;
+  return isPortrait ? reverseGridArea(area) : area;
 }
 
 export function getBgColorByValue(value: BetValue) {

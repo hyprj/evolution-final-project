@@ -6,10 +6,28 @@
   grid-template-columns: repeat(56, 1fr);
   grid-template-rows: repeat(18, 1fr);
   font-weight: 400;
-  font-size: clamp(0.8rem, 2vw, 1.4rem);
+  font-size: clamp(0.3rem, 2vw, 1.4rem);
   text-transform: uppercase;
   padding: 4px;
   border-radius: 4px;
+}
+
+@media (orientation: portrait) {
+  .board__container {
+    height: 100%;
+  }
+
+  .board {
+    text-transform: lowercase;
+    grid-template-rows: repeat(56, 1fr);
+    grid-template-columns: repeat(18, 1fr);
+    aspect-ratio: 1/2;
+    flex-grow: 1;
+  }
+
+  .board__field {
+    border: none !important;
+  }
 }
 
 .board__container {
