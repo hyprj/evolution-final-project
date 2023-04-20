@@ -7,7 +7,7 @@ export const RepeatBetButton = observer(() => {
 
   const isDisabled =
     !bettingStore.historyStore.hasPreviousBet() ||
-    phaseStore.phase !== "betting";
+    phaseStore.phase !== "bets-open";
 
   const isDisabledClass = isDisabled ? "btn--disabled" : "";
 

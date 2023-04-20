@@ -27,6 +27,8 @@ export class HistoryStore {
   public getPreviousBetStep(): Bet | undefined {
     const lastBetValue = this.currentValues.at(-1);
 
+    console.log(this.currentValues);
+
     if (lastBetValue) {
       return this.bettingStore.bets.get(lastBetValue);
     }

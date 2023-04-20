@@ -4,18 +4,19 @@ import { useRootStore, useUIStore } from "@roulette/store/StoresProvider";
 import "./spinButton.css";
 
 export const SpinButton = observer(() => {
-  const { runCameraAnimation } = useUIStore();
-  const { phaseStore } = useRootStore();
+  const { bettingStore, phaseStore, resultStore } = useRootStore();
+  const { wheelStore } = useUIStore();
 
   const isDisabledClass =
-    phaseStore.phase !== "betting" ? "spin-btn--disabled" : "";
+    phaseStore.phase !== "bets-open" ? "spin-btn--disabled" : "";
+
+  console.log(phaseStore.phase);
 
   return (
     <button
       className={`spin-btn ${isDisabledClass}`}
       onClick={() => {
-        phaseStore.spin();
-        runCameraAnimation();
+        wheelStore.spin(bettingStore, phaseStore, resultStore);
       }}
     >
       SPIN

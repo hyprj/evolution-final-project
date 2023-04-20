@@ -5,10 +5,10 @@ import { useRef } from "react";
 
 export const Camera = observer(() => {
   const cameraRef = useRef<FreeCamera | null>(null);
-  const { cameraPos } = useUIStore();
+  const { wheelStore } = useUIStore();
 
   if (cameraRef.current) {
-    cameraRef.current.position = cameraPos;
+    cameraRef.current.position = wheelStore.cameraPos;
   }
 
   return (

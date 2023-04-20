@@ -38,11 +38,11 @@
   perspective: 1600px;
 }
 
-.board--active {
+.board--tilted {
   animation: board-active 1000ms forwards;
 }
 
-.board--active-return {
+.board--resolved {
   animation: board-active-return 1000ms forwards;
 }
 

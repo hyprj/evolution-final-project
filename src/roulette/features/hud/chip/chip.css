@@ -51,12 +51,12 @@
   background-image: url("/public/chip-hundred-blank.svg");
 }
 
-.chip-icon:is(.winning) {
+.win-animation {
   animation-name: chips-move-win;
   animation-duration: 3s;
 }
 
-.losing {
+.lose-animation {
   animation-name: chipsmovelose;
   animation-duration: 3s;
 }

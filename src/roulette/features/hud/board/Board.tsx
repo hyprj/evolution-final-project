@@ -7,14 +7,14 @@ import "./board.css";
 
 export const Board = observer(() => {
   const { bettingStore, phaseStore } = useRootStore();
-  const { onBoardExit, onBoardHover, getBoardAnimationStatus } = useUIStore();
+  const { onBoardExit, onBoardHover, wheelStore } = useUIStore();
 
-  const boardStatusClass = getBoardAnimationStatus();
+  const boardStatusClass = wheelStore.getBoardAnimation();
 
   function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const domElementValue = (e.target as HTMLDivElement).dataset.value;
     if (
-      phaseStore.phase === "betting" &&
+      phaseStore.phase === "bets-open" &&
       domElementValue &&
       isBetValue(domElementValue)
     ) {

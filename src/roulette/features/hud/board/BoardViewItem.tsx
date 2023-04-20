@@ -27,6 +27,7 @@ export const BoardViewItem = memo(
     const area = getGridAreaByValue(value, isPortrait);
     const bgColor = getBgColorByValue(value);
     const hoverClass = isHovered ? "hover" : "";
+
     return (
       <div
         className={`${bgColor} ${hoverClass} board__field`}
