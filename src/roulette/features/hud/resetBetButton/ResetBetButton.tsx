@@ -5,9 +5,8 @@ import { observer } from "mobx-react";
 export const ResetBetButton = observer(() => {
   const { bettingStore, phaseStore } = useRootStore();
 
-  const isDisabled = phaseStore.phase !== "betting";
-
-  const isDisabledClass = isDisabled ? "btn--disabled" : "";
+  const isDisabledClass =
+    phaseStore.phase === "bets-closed" ? "btn--disabled" : "";
 
   return (
     <HUDElement>

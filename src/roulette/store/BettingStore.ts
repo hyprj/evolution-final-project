@@ -76,7 +76,7 @@ export class BettingStore {
       if (isWinningValue(bet.value, result)) {
         const multiplier = getMultiplier(bet.value);
         const totalChipsValue = sumArray(bet.chips);
-        const profit = multiplier * totalChipsValue + totalChipsValue;
+        const profit = multiplier * totalChipsValue;
 
         prize += profit;
       }

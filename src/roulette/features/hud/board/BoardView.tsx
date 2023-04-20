@@ -13,9 +13,10 @@ import { useOrientation } from "@roulette/utils/useOrientation";
 */
 
 export const BoardView = observer(() => {
-  const { bettingStore } = useRootStore();
+  const { bettingStore, resultStore } = useRootStore();
   const uiStore = useUIStore();
   const { isPortrait } = useOrientation();
+
   return (
     <>
       {BET_VALUES.map((value) => (
@@ -26,7 +27,10 @@ export const BoardView = observer(() => {
           chips={bettingStore.bets.get(value)?.chips}
           isHovered={uiStore.hoveredFields.includes(value)}
           chipsAmount={bettingStore.bets.get(value)?.chips.length}
-          animate={uiStore.getAnimationStatusForField(value)}
+          animate={uiStore.wheelStore.getChipResultAnimation(
+            resultStore.result,
+            value
+          )}
         />
       ))}
     </>
