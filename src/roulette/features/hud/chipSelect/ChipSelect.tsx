@@ -1,28 +1,28 @@
 import { useRootStore } from "@roulette/store/StoresProvider";
-import { CHIP_VALUES } from "@roulette/utils/consts";
-import { ChipValue } from "@roulette/utils/types";
+import { CHIPS } from "@roulette/utils/consts";
+import { Chip } from "@roulette/utils/types";
 import { observer } from "mobx-react";
-import { Chip } from "../chip/Chip";
+import { ChipItem } from "../chip/Chip";
 
 import "./chipSelect.css";
 
 export const ChipSelectHUD = observer(() => {
   const { playerStore } = useRootStore();
 
-  function handleClick(value: ChipValue) {
-    if (playerStore.chip !== value) {
-      playerStore.setChip(value);
+  function handleClick(chip: Chip) {
+    if (playerStore.chip !== chip) {
+      playerStore.setChip(chip);
     }
   }
 
   return (
     <div className="chip-select">
-      {CHIP_VALUES.map((value) => (
-        <Chip
-          value={value}
-          selected={playerStore.chip === value}
+      {CHIPS.map((chip) => (
+        <ChipItem
+          chip={chip}
+          selected={playerStore.chip === chip}
           handleClick={handleClick}
-          key={value}
+          key={chip}
         />
       ))}
     </div>

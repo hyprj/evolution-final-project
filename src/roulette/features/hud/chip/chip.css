@@ -16,15 +16,15 @@
 }
 .chip-icon {
   position: absolute;
-  aspect-ratio: 1;
   z-index: 50;
-  height: 80%;
+  height: max(4vh, 2vw);
+  width: max(4vh, 2vw);
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgb(193, 68, 193);
+  color: black;
   font-weight: bolder;
-  font-size: 80%;
+  font-size: 1rem;
   pointer-events: none;
   background-position: center;
   background-size: contain;

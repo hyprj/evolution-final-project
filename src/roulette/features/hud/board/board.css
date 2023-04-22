@@ -1,3 +1,9 @@
+:root {
+  --green: rgb(80, 110, 60);
+  --red: rgb(191, 64, 64);
+  --black: rgb(63, 63, 63);
+}
+
 .board {
   display: grid;
   user-select: none;
@@ -66,19 +72,31 @@
   position: relative;
   justify-content: center;
   align-items: center;
+}
+
+.board__field--border {
   border: 2px solid #eaeaea;
 }
 
 .hover:is(.red-field) {
-  background-color: red;
+  /* background-color: red; */
+  background-color: rgb(242, 255, 172);
+  border: 2px solid rgb(242, 255, 172);
+  color: black;
 }
 
 .hover:is(.green-field) {
   background-color: green;
+  background-color: rgb(242, 255, 172);
+  border: 2px solid rgb(242, 255, 172);
+  color: black;
 }
 
 .hover:is(.black-field) {
   background-color: black;
+  background-color: rgb(242, 255, 172);
+  border: 2px solid rgb(242, 255, 172);
+  color: black;
 }
 
 .board__field:hover {
@@ -86,13 +104,531 @@
 }
 
 .green-field {
-  background-color: rgb(80, 110, 60);
+  background-color: var(--green);
 }
 
 .red-field {
-  background-color: rgb(191, 64, 64);
+  background-color: var(--red);
 }
 
 .black-field {
-  background-color: rgb(63, 63, 63);
+  background-color: var(--black);
+}
+
+/* desktop */
+
+.board [data-value="split_1-2"] {
+  grid-area: 8/6/10/8;
+}
+
+.board [data-value="split_2-3"] {
+  grid-area: 4/6/6/8;
+}
+
+.board [data-value="split_4-5"] {
+  grid-area: 8/10/10/12;
+}
+
+.board [data-value="split_5-6"] {
+  grid-area: 4/10/6/12;
+}
+
+.board [data-value="split_7-8"] {
+  grid-area: 8/14/10/16;
+}
+
+.board [data-value="split_8-9"] {
+  grid-area: 4/14/6/16;
+}
+
+.board [data-value="split_10-11"] {
+  grid-area: 8/18/10/20;
+}
+
+.board [data-value="split_11-12"] {
+  grid-area: 4/18/6/20;
+}
+
+.board [data-value="split_13-14"] {
+  grid-area: 8/22/10/24;
+}
+
+.board [data-value="split_14-15"] {
+  grid-area: 4/22/6/24;
+}
+
+.board [data-value="split_16-17"] {
+  grid-area: 8/26/10/28;
+}
+
+.board [data-value="split_17-18"] {
+  grid-area: 4/26/6/28;
+}
+.board [data-value="split_19-20"] {
+  grid-area: 8/30/10/32;
+}
+.board [data-value="split_20-21"] {
+  grid-area: 4/30/6/32;
+}
+.board [data-value="split_22-23"] {
+  grid-area: 8/34/10/36;
+}
+.board [data-value="split_23-24"] {
+  grid-area: 4/34/6/36;
+}
+.board [data-value="split_25-26"] {
+  grid-area: 8/38/10/40;
+}
+.board [data-value="split_26-27"] {
+  grid-area: 4/38/6/40;
+}
+.board [data-value="split_28-29"] {
+  grid-area: 8/42/10/44;
+}
+.board [data-value="split_29-30"] {
+  grid-area: 4/42/6/44;
+}
+.board [data-value="split_31-32"] {
+  grid-area: 8/46/10/48;
+}
+.board [data-value="split_32-33"] {
+  grid-area: 4/46/6/48;
+}
+.board [data-value="split_34-35"] {
+  grid-area: 8/50/10/52;
+}
+.board [data-value="split_35-36"] {
+  grid-area: 4/50/6/52;
+}
+
+.board [data-value="split_1-4"] {
+  grid-area: 10 /8/ 12 /10;
+}
+
+.board [data-value="split_2-5"] {
+  grid-area: 6 /8/ 8 /10;
+}
+
+.board [data-value="split_3-6"] {
+  grid-area: 2 /8/ 4 /10;
+}
+
+.board [data-value="split_4-7"] {
+  grid-area: 10/ 12 /12/ 14;
+}
+
+.board [data-value="split_5-8"] {
+  grid-area: 6 / 12 /8/ 14;
+}
+
+.board [data-value="split_6-9"] {
+  grid-area: 2/ 12 /4/14;
+}
+
+.board [data-value="split_7-10"] {
+  grid-area: 10/ 16 /12/ 18;
+}
+
+.board [data-value="split_8-11"] {
+  grid-area: 6 / 16 /8/ 18;
+}
+
+.board [data-value="split_9-12"] {
+  grid-area: 2/ 16 /4/ 18;
+}
+
+.board [data-value="split_10-13"] {
+  grid-area: 10/ 20 /12/ 22;
+}
+
+.board [data-value="split_11-14"] {
+  grid-area: 6 / 20 /8/ 22;
+}
+
+.board [data-value="split_12-15"] {
+  grid-area: 2/ 20 /4 / 22;
+}
+
+.board [data-value="split_13-16"] {
+  grid-area: 10/ 24 /12/ 26;
+}
+
+.board [data-value="split_14-17"] {
+  grid-area: 6 / 24 /8/26;
+}
+
+.board [data-value="split_15-18"] {
+  grid-area: 2/ 24 /4/26;
+}
+
+.board [data-value="split_16-19"] {
+  grid-area: 10/ 28 /12/ 30;
+}
+
+.board [data-value="split_17-20"] {
+  grid-area: 6 / 28 /8/ 30;
+}
+
+.board [data-value="split_18-21"] {
+  grid-area: 2/ 28 /4/30;
+}
+
+.board [data-value="split_19-22"] {
+  grid-area: 10/ 32/12/ 34;
+}
+
+.board [data-value="split_20-23"] {
+  grid-area: 6 /32 /8/ 34;
+}
+
+.board [data-value="split_21-24"] {
+  grid-area: 2/32/4/34;
+}
+
+.board [data-value="split_22-25"] {
+  grid-area: 10/ 36 /12/ 38;
+}
+
+.board [data-value="split_23-26"] {
+  grid-area: 6 / 36 /8/ 38;
+}
+
+.board [data-value="split_24-27"] {
+  grid-area: 2/ 36 /4/38;
+}
+
+.board [data-value="split_25-28"] {
+  grid-area: 10/ 40 /12/ 42;
+}
+
+.board [data-value="split_26-29"] {
+  grid-area: 6 / 40 /8/ 42;
+}
+
+.board [data-value="split_27-30"] {
+  grid-area: 2/40/4/42;
+}
+
+.board [data-value="split_28-31"] {
+  grid-area: 10/ 44 /12/ 46;
+}
+
+.board [data-value="split_29-32"] {
+  grid-area: 6 / 44 /8/ 46;
+}
+
+.board [data-value="split_30-33"] {
+  grid-area: 2/ 44 /4/46;
+}
+
+.board [data-value="split_31-34"] {
+  grid-area: 10/ 48 /12/ 50;
+}
+
+.board [data-value="split_32-35"] {
+  grid-area: 6 / 48 /8/ 50;
+}
+
+.board [data-value="split_33-36"] {
+  grid-area: 2/ 48 /4/50;
+}
+
+.board [data-value="0"] {
+  grid-area: 1/1/13/5;
+}
+.board [data-value="1"] {
+  grid-area: 9/5/13/9;
+}
+.board [data-value="2"] {
+  grid-area: 5/5/9/9;
+}
+.board [data-value="3"] {
+  grid-area: 1/5/5/9;
+}
+.board [data-value="4"] {
+  grid-area: 9/9/13/13;
+}
+.board [data-value="5"] {
+  grid-area: 5/9/9/13;
+}
+.board [data-value="6"] {
+  grid-area: 1/9/5/13;
+}
+.board [data-value="7"] {
+  grid-area: 9/13/13/17;
+}
+.board [data-value="8"] {
+  grid-area: 5/13/9/17;
+}
+.board [data-value="9"] {
+  grid-area: 1/13/5/17;
+}
+.board [data-value="10"] {
+  grid-area: 9/17/13/21;
+}
+.board [data-value="11"] {
+  grid-area: 5/17/9/21;
+}
+.board [data-value="12"] {
+  grid-area: 1/17/5/21;
+}
+.board [data-value="13"] {
+  grid-area: 9/21/13/25;
+}
+.board [data-value="14"] {
+  grid-area: 5/21/9/25;
+}
+.board [data-value="15"] {
+  grid-area: 1/21/5/25;
+}
+.board [data-value="16"] {
+  grid-area: 9/25/13/29;
+}
+.board [data-value="17"] {
+  grid-area: 5/25/9/29;
+}
+.board [data-value="18"] {
+  grid-area: 1/25/5/29;
+}
+.board [data-value="19"] {
+  grid-area: 9/29/13/33;
+}
+.board [data-value="20"] {
+  grid-area: 5/29/9/33;
+}
+.board [data-value="21"] {
+  grid-area: 1/29/5/33;
+}
+.board [data-value="22"] {
+  grid-area: 9/33/13/37;
+}
+.board [data-value="23"] {
+  grid-area: 5/33/9/37;
+}
+.board [data-value="24"] {
+  grid-area: 1/33/5/37;
+}
+.board [data-value="25"] {
+  grid-area: 9/37/13/41;
+}
+.board [data-value="26"] {
+  grid-area: 5/37/9/41;
+}
+.board [data-value="27"] {
+  grid-area: 1/37/5/41;
+}
+.board [data-value="28"] {
+  grid-area: 9/41/13/45;
+}
+.board [data-value="29"] {
+  grid-area: 5/41/9/45;
+}
+.board [data-value="30"] {
+  grid-area: 1/41/5/45;
+}
+.board [data-value="31"] {
+  grid-area: 9/45/13/49;
+}
+.board [data-value="32"] {
+  grid-area: 5/45/9/49;
+}
+.board [data-value="33"] {
+  grid-area: 1/45/5/49;
+}
+.board [data-value="34"] {
+  grid-area: 9/49/13/53;
+}
+.board [data-value="35"] {
+  grid-area: 5/49/9/53;
+}
+.board [data-value="36"] {
+  grid-area: 1/49/5/53;
+}
+.board [data-value="odd"] {
+  grid-area: 16/37/19/45;
+}
+.board [data-value="even"] {
+  grid-area: 16/13/19/21;
+}
+.board [data-value="red"] {
+  grid-area: 16/21/19/29;
+}
+.board [data-value="black"] {
+  grid-area: 16/29/19/37;
+}
+.board [data-value="1-18"] {
+  grid-area: 16/5/19/13;
+}
+.board [data-value="19-36"] {
+  grid-area: 16/45/19/53;
+}
+.board [data-value="1st12"] {
+  grid-area: 13/5/16/21;
+}
+.board [data-value="2nd12"] {
+  grid-area: 13/21/16/37;
+}
+.board [data-value="3rd12"] {
+  grid-area: 13/37/16/53;
+}
+.board [data-value="3-36"] {
+  grid-area: 1/53/5/57;
+}
+.board [data-value="2-35"] {
+  grid-area: 5/53/9/57;
+}
+.board [data-value="1-34"] {
+  grid-area: 9/53/13/57;
+}
+
+/* mobile */
+
+@media (orientation: portrait) {
+  .board [data-value="0"] {
+    grid-area: 1/1/5/13;
+  }
+  .board [data-value="1"] {
+    grid-area: 5/9/9/13;
+  }
+  .board [data-value="2"] {
+    grid-area: 5/5/9/9;
+  }
+  .board [data-value="3"] {
+    grid-area: 5/1/9/5;
+  }
+  .board [data-value="4"] {
+    grid-area: 9/9/13/13;
+  }
+  .board [data-value="5"] {
+    grid-area: 9/5/13/9;
+  }
+  .board [data-value="6"] {
+    grid-area: 9/1/13/5;
+  }
+  .board [data-value="7"] {
+    grid-area: 13/9/17/13;
+  }
+  .board [data-value="8"] {
+    grid-area: 13/5/17/9;
+  }
+  .board [data-value="9"] {
+    grid-area: 13/1/17/5;
+  }
+  .board [data-value="10"] {
+    grid-area: 17/9/21/13;
+  }
+  .board [data-value="11"] {
+    grid-area: 17/5/21/9;
+  }
+  .board [data-value="12"] {
+    grid-area: 17/1/21/5;
+  }
+  .board [data-value="13"] {
+    grid-area: 21/9/25/13;
+  }
+  .board [data-value="14"] {
+    grid-area: 21/5/25/9;
+  }
+  .board [data-value="15"] {
+    grid-area: 21/1/25/5;
+  }
+  .board [data-value="16"] {
+    grid-area: 25/9/29/13;
+  }
+  .board [data-value="17"] {
+    grid-area: 25/5/29/9;
+  }
+  .board [data-value="18"] {
+    grid-area: 25/1/29/5;
+  }
+  .board [data-value="19"] {
+    grid-area: 29/9/33/13;
+  }
+  .board [data-value="20"] {
+    grid-area: 29/5/33/9;
+  }
+  .board [data-value="21"] {
+    grid-area: 29/1/33/5;
+  }
+  .board [data-value="22"] {
+    grid-area: 33/9/37/13;
+  }
+  .board [data-value="23"] {
+    grid-area: 33/5/37/9;
+  }
+  .board [data-value="24"] {
+    grid-area: 33/1/37/5;
+  }
+  .board [data-value="25"] {
+    grid-area: 37/9/41/13;
+  }
+  .board [data-value="26"] {
+    grid-area: 37/5/41/9;
+  }
+  .board [data-value="27"] {
+    grid-area: 37/1/41/5;
+  }
+  .board [data-value="28"] {
+    grid-area: 41/9/45/13;
+  }
+  .board [data-value="29"] {
+    grid-area: 41/5/45/9;
+  }
+  .board [data-value="30"] {
+    grid-area: 41/1/45/5;
+  }
+  .board [data-value="31"] {
+    grid-area: 45/9/49/13;
+  }
+  .board [data-value="32"] {
+    grid-area: 45/5/49/9;
+  }
+  .board [data-value="33"] {
+    grid-area: 45/1/49/5;
+  }
+  .board [data-value="34"] {
+    grid-area: 49/9/53/13;
+  }
+  .board [data-value="35"] {
+    grid-area: 49/5/53/9;
+  }
+  .board [data-value="36"] {
+    grid-area: 49/1/53/5;
+  }
+  .board [data-value="odd"] {
+    grid-area: 37/16/45/19;
+  }
+  .board [data-value="even"] {
+    grid-area: 13/16/21/19;
+  }
+  .board [data-value="red"] {
+    grid-area: 21/16/29/19;
+  }
+  .board [data-value="black"] {
+    grid-area: 29/16/37/19;
+  }
+  .board [data-value="1-18"] {
+    grid-area: 5/16/13/19;
+  }
+  .board [data-value="19-36"] {
+    grid-area: 45/16/53/19;
+  }
+  .board [data-value="1st12"] {
+    grid-area: 5/13/21/16;
+  }
+  .board [data-value="2nd12"] {
+    grid-area: 21/13/37/16;
+  }
+  .board [data-value="3rd12"] {
+    grid-area: 37/13/53/16;
+  }
+  .board [data-value="3-36"] {
+    grid-area: 53/1/57/5;
+  }
+  .board [data-value="2-35"] {
+    grid-area: 53/5/57/9;
+  }
+  .board [data-value="1-34"] {
+    grid-area: 53/9/57/13;
+  }
 }

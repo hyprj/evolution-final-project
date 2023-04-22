@@ -1,12 +1,12 @@
 import { observer } from "mobx-react";
 import { HUDElement } from "../balance/Balance";
 import { useRootStore } from "@roulette/store/StoresProvider";
-import { NumericBetValue } from "@roulette/utils/types";
+import { NumericField } from "@roulette/utils/types";
 import { RED_NUMBERS } from "@roulette/utils/consts";
 
-import "./resultsHistory.css";
+import "./recentNumbers.css";
 
-export const ResultsHistory = observer(() => {
+export const RecentNumbers = observer(() => {
   const { bettingStore } = useRootStore();
   const results = bettingStore.historyStore.lastWinningNumbers;
   return (
@@ -18,7 +18,7 @@ export const ResultsHistory = observer(() => {
   );
 });
 
-function BoardFieldIcon({ value }: { value: NumericBetValue }) {
+function BoardFieldIcon({ value }: { value: NumericField }) {
   const color = RED_NUMBERS.includes(value as any)
     ? "field-icon--red"
     : "field-icon--black";

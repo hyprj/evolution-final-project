@@ -15,7 +15,6 @@ export class PhaseStore {
   }
 
   public setPhase(phase: Phase) {
-    console.log("wtf");
     this.phase = phase;
   }
 }

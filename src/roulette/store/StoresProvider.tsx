@@ -33,7 +33,7 @@ export const useRootStore = () => {
   return context;
 };
 
-export const useUIStore = () => {
+export const useUIStore = (): UIStore => {
   const context = useContext(UIStoreContext);
 
   if (!context) {
