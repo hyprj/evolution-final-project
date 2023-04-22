@@ -10,8 +10,6 @@ export const SpinButton = observer(() => {
   const isDisabledClass =
     phaseStore.phase !== "bets-open" ? "spin-btn--disabled" : "";
 
-  console.log(phaseStore.phase);
-
   return (
     <button
       className={`spin-btn ${isDisabledClass}`}

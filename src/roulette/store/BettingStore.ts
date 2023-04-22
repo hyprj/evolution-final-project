@@ -1,19 +1,15 @@
-import {
-  BetValue,
-  Bet,
-  ChipValue,
-  NumericBetValue,
-} from "@roulette/utils/types";
-import { isWinningValue, getMultiplier, sumArray } from "@roulette/utils/utils";
-import { makeAutoObservable, observable, runInAction } from "mobx";
+import { Bet, Chip, Field, NumericField } from "@roulette/utils/types";
+import { isWinningValue, sumArray } from "@roulette/utils/utils";
+import { makeAutoObservable, observable } from "mobx";
 import { HistoryStore } from "./HistoryStore";
 import { RootStore } from "./RootStore";
+import { getMultiplierBetter } from "@roulette/utils/consts";
 
 export class BettingStore {
   public readonly rootStore: RootStore;
   public readonly historyStore: HistoryStore;
 
-  public bets: Map<BetValue, Bet>;
+  public bets: Map<Field, Bet>;
   public totalBetValue: number;
 
   constructor(rootStore: RootStore) {
@@ -24,7 +20,7 @@ export class BettingStore {
     this.totalBetValue = 0;
   }
 
-  private getSelectedChip(): ChipValue {
+  private getSelectedChip(): Chip {
     return this.rootStore.playerStore.chip;
   }
 
@@ -32,20 +28,25 @@ export class BettingStore {
     this.rootStore.playerStore.addBalance(prize);
   }
 
-  public place(betValue: BetValue): void {
-    const existingBet = this.bets.get(betValue);
+  public place(field: Field): void {
+    const existingBet = this.bets.get(field);
     const selectedChip = this.getSelectedChip();
 
     if (existingBet) {
-      this.bets.set(betValue, {
-        value: betValue,
+      this.bets.set(field, {
+        amount: existingBet.amount + selectedChip,
+        field: field,
         chips: [...existingBet.chips, selectedChip],
       });
     } else {
-      this.bets.set(betValue, { value: betValue, chips: [selectedChip] });
+      this.bets.set(field, {
+        field: field,
+        amount: selectedChip,
+        chips: [selectedChip],
+      });
     }
 
-    this.historyStore.addStep(betValue);
+    this.historyStore.addStep(field);
     this.totalBetValue += selectedChip;
   }
 
@@ -54,7 +55,9 @@ export class BettingStore {
 
     if (lastBet) {
       if (lastBet.chips.length === 1) {
-        this.bets.delete(lastBet.value);
+        this.bets.delete(lastBet.field);
+      } else {
+        lastBet.amount -= lastBet.chips.at(-1)!;
       }
       const chipValue = lastBet.chips.pop()!;
       this.totalBetValue -= chipValue;
@@ -69,12 +72,12 @@ export class BettingStore {
     }
   }
 
-  private getPrize(result: NumericBetValue): number {
+  private getPrize(result: NumericField): number {
     let prize = -this.totalBetValue;
 
     for (const [_, bet] of this.bets) {
-      if (isWinningValue(bet.value, result)) {
-        const multiplier = getMultiplier(bet.value);
+      if (isWinningValue(bet.field, result)) {
+        const multiplier = getMultiplierBetter(bet.field);
         const totalChipsValue = sumArray(bet.chips);
         const profit = multiplier * totalChipsValue;
 

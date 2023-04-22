@@ -1,65 +1,57 @@
 import { memo } from "react";
-import { ChipAnimationPhase } from "@roulette/store/UIStore";
-import { BetValue, ChipValue } from "@roulette/utils/types";
-import { getFieldName, getGridAreaByValue, getBgColorByValue } from "./utils";
+import { Chip, Field } from "@roulette/utils/types";
+import { getBgColorByField, getFieldName } from "./utils";
 import { ChipIcon } from "../chip/Chip";
-
-// chipsAmount are passed just for memoization.
-// Full explanation why in `BoardView.tsx`
+import { observer } from "mobx-react";
+import { useRootStore, useUIStore } from "@roulette/store/StoresProvider";
 
 export const BoardViewItem = memo(
   ({
-    isPortrait,
     value,
     isHovered,
-    chips,
-    chipsAmount,
-    animate,
+    total,
   }: {
-    isPortrait: boolean;
-    value: BetValue;
+    value: Field;
     isHovered: boolean;
-    chips?: ChipValue[];
-    chipsAmount?: number;
-    animate: ChipAnimationPhase;
+    total?: number;
   }) => {
     const name = getFieldName(value);
-    const area = getGridAreaByValue(value, isPortrait);
-    const bgColor = getBgColorByValue(value);
+    const bgColor = getBgColorByField(value);
     const hoverClass = isHovered ? "hover" : "";
 
     return (
       <div
-        className={`${bgColor} ${hoverClass} board__field`}
+        className={`${bgColor} ${hoverClass} board__field board__field--border`}
         data-value={value}
-        style={{ gridArea: area }}
       >
         {name}
-        {chips && <BoardChip chips={chips} animate={animate} />}
+        {total && <BoardChip total={total} value={value} />}
       </div>
     );
   }
 );
 
-export function BoardChip({
-  chips,
-  animate,
-}: {
-  chips: ChipValue[];
-  animate: string;
-}) {
-  const totalChipsValue = chips.reduce((acc, curr) => (acc += curr), 0);
-  const icon = getChipIconByBetValue(totalChipsValue);
-  const betValue = blahblah(totalChipsValue);
-  return <ChipIcon value={betValue} icon={icon} animate={animate} />;
-}
+export const BoardChip = observer(
+  ({ total, value }: { total: number; value: Field }) => {
+    const { resultStore } = useRootStore();
+    const { wheelStore } = useUIStore();
+
+    const icon = getChipIconByBetValue(total);
+    const betValue = blahblah(total);
+    const animate = wheelStore.getChipResultAnimation(
+      resultStore.result,
+      value
+    );
+    return <ChipIcon value={betValue} icon={icon} animate={animate} />;
+  }
+);
 
 export function blahblah(value: number) {
   if (value < 1000) return value;
   return (value / 100 / 10).toFixed(2) + "k";
 }
 
-export function getChipIconByBetValue(betValue: number): ChipValue {
+export function getChipIconByBetValue(betValue: number): Chip {
   if (betValue >= 100) {
     return 100;
   }
@@ -73,3 +65,13 @@ export function getChipIconByBetValue(betValue: number): ChipValue {
   }
   return 1;
 }
+
+export const BoardItem = memo(
+  ({ value, total }: { value: Field; total?: number }) => {
+    return (
+      <div className="board__field" data-value={value} style={{ zIndex: 10 }}>
+        {total && <BoardChip total={total} value={value} />}
+      </div>
+    );
+  }
+);

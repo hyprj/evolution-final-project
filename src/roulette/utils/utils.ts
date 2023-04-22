@@ -1,55 +1,34 @@
-import {
-  BET_VALUES,
-  NUMERIC_BET_VALUES,
-  multipliers,
-  textBetValuesNumbers,
-} from "./consts";
-import { BetValue, Multiplier, NumericBetValue, TextBetValue } from "./types";
+import { FIELDS, NUMERIC_FIELDS, nonNumericFieldNumbers } from "./consts";
+import { Field, NonNumericField, NumericField } from "./types";
 
-// const HIGHTEST_NUMERIC_BET_VALUE = 36;
-
-export function isBetValue(value: unknown): value is BetValue {
-  return BET_VALUES.includes(normalizeBetValue(value as BetValue));
+export function isBetValue(value: unknown): value is Field {
+  return FIELDS.includes(normalizeBetValue(value as Field));
 }
-
-// export function getRandomWinningNumber(): NumericBetValue {
-//   return Math.floor(
-//     Math.random() * HIGHTEST_NUMERIC_BET_VALUE
-//   ) as NumericBetValue;
-// }
-
-export function normalizeBetValue(value: BetValue): BetValue {
-  return !Number.isNaN(Number(value)) ? (Number(value) as BetValue) : value;
+export function normalizeBetValue(value: Field): Field {
+  return !Number.isNaN(Number(value)) ? (Number(value) as Field) : value;
 }
 
 export function isWinningValue(
-  betValue: BetValue,
-  winningNumber: NumericBetValue
+  field: Field,
+  winningNumber: NumericField
 ): boolean {
-  if (betValue === winningNumber) {
+  if (field === winningNumber) {
     return true;
   }
   if (
-    typeof betValue == "string" &&
-    textBetValuesNumbers[betValue].includes(winningNumber)
+    typeof field == "string" &&
+    nonNumericFieldNumbers[field as NonNumericField].includes(winningNumber)
   ) {
     return true;
   }
   return false;
 }
 
-export function fieldToHoverByValue(betValue: BetValue): BetValue[] {
-  if (NUMERIC_BET_VALUES.includes(betValue as NumericBetValue)) {
-    return [betValue];
+export function fieldToHoverByValue(field: Field): Field[] {
+  if (NUMERIC_FIELDS.includes(field as any)) {
+    return [field];
   }
-  return [betValue, ...textBetValuesNumbers[betValue as TextBetValue]];
-}
-
-export function getMultiplier(betValue: BetValue): Multiplier {
-  if (typeof betValue === "number") {
-    return 35;
-  }
-  return multipliers[betValue];
+  return [field, ...nonNumericFieldNumbers[field as NonNumericField]];
 }
 
 export const sumArray = (numbers: number[]) =>

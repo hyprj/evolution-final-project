@@ -1,36 +1,30 @@
 import { useRootStore, useUIStore } from "@roulette/store/StoresProvider";
-import { BET_VALUES } from "@roulette/utils/consts";
+import {
+  HUD_VISIBLE_BET_VALUES,
+  NOT_VISIBLE_BET_VALUES,
+} from "@roulette/utils/consts";
 import { observer } from "mobx-react";
-import { BoardViewItem } from "./BoardViewItem";
-import { useOrientation } from "@roulette/utils/useOrientation";
-
-/*
-  The `chipsAmount` prop is passed to `BoardViewItem` to memoize the component.
-  React performs a shallow comparison of prop values by default,
-  and `prev.chips` is undefined in the comparison function.
-
-  orientation is passed to recalcute the area on change
-*/
+import { BoardItem, BoardViewItem } from "./BoardViewItem";
 
 export const BoardView = observer(() => {
-  const { bettingStore, resultStore } = useRootStore();
+  const { bettingStore } = useRootStore();
   const uiStore = useUIStore();
-  const { isPortrait } = useOrientation();
 
   return (
     <>
-      {BET_VALUES.map((value) => (
-        <BoardViewItem
-          isPortrait={isPortrait}
+      {NOT_VISIBLE_BET_VALUES.map((value) => (
+        <BoardItem
           key={value}
           value={value}
-          chips={bettingStore.bets.get(value)?.chips}
+          total={bettingStore.bets.get(value)?.total}
+        />
+      ))}
+      {HUD_VISIBLE_BET_VALUES.map((value) => (
+        <BoardViewItem
+          key={value}
+          value={value}
+          total={bettingStore.bets.get(value)?.total}
           isHovered={uiStore.hoveredFields.includes(value)}
-          chipsAmount={bettingStore.bets.get(value)?.chips.length}
-          animate={uiStore.wheelStore.getChipResultAnimation(
-            resultStore.result,
-            value
-          )}
         />
       ))}
     </>

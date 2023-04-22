@@ -7,12 +7,13 @@ import { UndoButton } from "./undoButton/UndoButton";
 import { ResetBetButton } from "./resetBetButton/ResetBetButton";
 import { RepeatBetButton } from "./repeatBetButton/RepeatBetButton";
 
-import { ResultsHistory } from "./resultsHistory/ResultsHistory";
+import { RecentNumbers } from "./recentNumbers/RecentNumbers";
 import { Notifications } from "./notifications/Notifications";
 import { ResultNotification } from "./notifications/ResultNotification";
 
-import "./hud.css";
 import { ResultTimer } from "./notifications/ResultTimer";
+
+import "./hud.css";
 
 export function HUD() {
   return (
@@ -33,7 +34,7 @@ export function HUD() {
           </div>
         </div>
         <div className="hud__row hud__bottom">
-          <ResultsHistory />
+          <RecentNumbers />
           <UndoButton />
           <RepeatBetButton />
           <ResetBetButton />
