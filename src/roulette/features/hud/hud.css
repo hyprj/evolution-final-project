@@ -115,6 +115,10 @@
   box-shadow: 0px 0px 100px 37px rgb(0, 0, 0);
 }
 
+.notification--bet {
+  font-size: 1rem;
+}
+
 @keyframes notification-show {
   0% {
     opacity: 0;

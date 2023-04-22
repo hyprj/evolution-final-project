@@ -326,10 +326,23 @@ export const multipliers: Record<FieldMultiplierType, Multiplier> = {
   half: 1,
 };
 
-const COLOR_FIELDS = ["black", "red"] as const;
-const PARITY_FIELDS = ["odd", "even"] as const;
-const ROW_FIELDS = ["1-34", "2-35", "3-36"] as const;
-const TWELVE_FIELDS = ["1st12", "2nd12", "3rd12"] as const;
+export const maxBetValues: Record<FieldMultiplierType, number> = {
+  color: 1000,
+  corner: 400,
+  half: 1000,
+  line: 600,
+  numeric: 100,
+  parity: 1000,
+  row: 1000,
+  split: 200,
+  street: 300,
+  twelve: 100,
+};
+
+export const COLOR_FIELDS = ["black", "red"] as const;
+export const PARITY_FIELDS = ["odd", "even"] as const;
+export const ROW_FIELDS = ["1-34", "2-35", "3-36"] as const;
+export const TWELVE_FIELDS = ["1st12", "2nd12", "3rd12"] as const;
 
 export function getMultiplierBetter(field: Field): Multiplier {
   if (NUMERIC_FIELDS.includes(field as any)) {

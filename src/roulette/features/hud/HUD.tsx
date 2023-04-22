@@ -6,12 +6,10 @@ import { PlacedBet } from "./placedBet/PlacedBet";
 import { UndoButton } from "./undoButton/UndoButton";
 import { ResetBetButton } from "./resetBetButton/ResetBetButton";
 import { RepeatBetButton } from "./repeatBetButton/RepeatBetButton";
-
 import { RecentNumbers } from "./recentNumbers/RecentNumbers";
 import { Notifications } from "./notifications/Notifications";
 import { ResultNotification } from "./notifications/ResultNotification";
-
-import { ResultTimer } from "./notifications/ResultTimer";
+import { UnavaibleBet } from "./notifications/UnavaibleBet";
 
 import "./hud.css";
 
@@ -19,7 +17,7 @@ export function HUD() {
   return (
     <>
       <Notifications>
-        <ResultTimer />
+        <UnavaibleBet />
         <ResultNotification />
       </Notifications>
       <div className="hud">

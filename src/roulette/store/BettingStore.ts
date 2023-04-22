@@ -1,9 +1,14 @@
 import { Bet, Chip, Field, NumericField } from "@roulette/utils/types";
-import { isWinningValue, sumArray } from "@roulette/utils/utils";
+import {
+  isBiggerThanMaxPossibleAmount,
+  isWinningValue,
+  sumArray,
+} from "@roulette/utils/utils";
 import { makeAutoObservable, observable } from "mobx";
 import { HistoryStore } from "./HistoryStore";
 import { RootStore } from "./RootStore";
 import { getMultiplierBetter } from "@roulette/utils/consts";
+import { FiberRawCubeTexturePropsHandler } from "react-babylonjs";
 
 export class BettingStore {
   public readonly rootStore: RootStore;
@@ -28,13 +33,21 @@ export class BettingStore {
     this.rootStore.playerStore.addBalance(prize);
   }
 
-  public place(field: Field): void {
+  /**
+   * @returns {boolean} boolean whether the bet was successfully placed on the given field due to maximum values limitations.
+   */
+
+  public place(field: Field): boolean {
     const existingBet = this.bets.get(field);
     const selectedChip = this.getSelectedChip();
 
     if (existingBet) {
+      const amount = existingBet.amount + selectedChip;
+      if (isBiggerThanMaxPossibleAmount(field, amount)) {
+        return false;
+      }
       this.bets.set(field, {
-        amount: existingBet.amount + selectedChip,
+        amount: amount,
         field: field,
         chips: [...existingBet.chips, selectedChip],
       });
@@ -48,6 +61,7 @@ export class BettingStore {
 
     this.historyStore.addStep(field);
     this.totalBetValue += selectedChip;
+    return true;
   }
 
   public undo(): void {
