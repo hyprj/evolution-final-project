@@ -15,7 +15,13 @@ import "./line.css";
 
 export const Board = observer(() => {
   const { bettingStore, phaseStore } = useRootStore();
-  const { onBoardExit, onBoardHover, wheelStore, hoveredFields } = useUIStore();
+  const {
+    onBoardExit,
+    onBoardHover,
+    wheelStore,
+    hoveredFields,
+    betNotifications,
+  } = useUIStore();
 
   const boardStatusClass = wheelStore.getBoardAnimation();
 
@@ -27,7 +33,9 @@ export const Board = observer(() => {
       isBetValue(domElementValue)
     ) {
       const betValue = normalizeBetValue(domElementValue);
-      bettingStore.place(betValue);
+      if (!bettingStore.place(betValue)) {
+        betNotifications.addNotification("Couldn't place the bet");
+      }
     }
   }
 

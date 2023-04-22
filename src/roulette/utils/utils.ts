@@ -1,4 +1,17 @@
-import { FIELDS, NUMERIC_FIELDS, nonNumericFieldNumbers } from "./consts";
+import {
+  FIELDS,
+  nonNumericFieldNumbers,
+  NUMERIC_FIELDS,
+  maxBetValues,
+  SPLIT_FIELDS,
+  COLOR_FIELDS,
+  ROW_FIELDS,
+  TWELVE_FIELDS,
+  PARITY_FIELDS,
+  STREET_FIELDS,
+  LINE_FIELDS,
+  CORNER_FIELDS,
+} from "./consts";
 import { Field, NonNumericField, NumericField } from "./types";
 
 export function isBetValue(value: unknown): value is Field {
@@ -41,4 +54,38 @@ export function shallowCloneBetMap<T, K extends object | null>(map: Map<T, K>) {
     copiedMap.set(key, Object.create(value));
   }
   return copiedMap;
+}
+
+export function isBiggerThanMaxPossibleAmount(
+  field: Field,
+  amount: number
+): boolean {
+  if (NUMERIC_FIELDS.includes(field as any)) {
+    return amount > maxBetValues.numeric;
+  }
+  if (COLOR_FIELDS.includes(field as any)) {
+    return amount > maxBetValues.color;
+  }
+  if (PARITY_FIELDS.includes(field as any)) {
+    return amount > maxBetValues.parity;
+  }
+  if (ROW_FIELDS.includes(field as any)) {
+    return amount > maxBetValues.row;
+  }
+  if (TWELVE_FIELDS.includes(field as any)) {
+    return amount > maxBetValues.twelve;
+  }
+  if (SPLIT_FIELDS.includes(field as any)) {
+    return amount > maxBetValues.split;
+  }
+  if (STREET_FIELDS.includes(field as any)) {
+    return amount > maxBetValues.street;
+  }
+  if (LINE_FIELDS.includes(field as any)) {
+    return amount > maxBetValues.line;
+  }
+  if (CORNER_FIELDS.includes(field as any)) {
+    return amount > maxBetValues.corner;
+  }
+  return amount > maxBetValues.half;
 }

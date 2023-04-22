@@ -1,27 +1,30 @@
 import { makeAutoObservable } from "mobx";
 import { RootStore } from "./RootStore";
-import { BetValue } from "@roulette/utils/types";
+import { Field } from "@roulette/utils/types";
 import {
   isBetValue,
   normalizeBetValue,
   fieldToHoverByValue,
 } from "@roulette/utils/utils";
 import { WheelStore } from "./WheelStore";
+import { BetNotifications } from "./BetNotifications";
 
 export type ChipAnimationPhase = "none" | "win-animation" | "lose-animation";
 
 export class UIStore {
   public readonly rootStore: RootStore;
 
-  public hoveredFields: BetValue[];
+  public hoveredFields: Field[];
 
   public wheelStore: WheelStore;
+  public betNotifications: BetNotifications;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, {}, { autoBind: true });
     this.rootStore = rootStore;
     this.hoveredFields = [];
     this.wheelStore = new WheelStore(this);
+    this.betNotifications = new BetNotifications(this);
   }
 
   public onBoardHover(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
