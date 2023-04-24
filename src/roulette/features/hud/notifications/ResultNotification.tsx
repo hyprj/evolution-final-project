@@ -1,11 +1,11 @@
 import { useRootStore } from "@roulette/store/StoresProvider";
 import { observer } from "mobx-react";
 
-function getMessage(prize: number) {
+function getMessage(prize: number, lastWinningNumber: number) {
   if (prize > 0) {
     return `You have won ${prize}$!`;
   }
-  return `You have lost ${Math.abs(prize)}$`;
+  return `Number ${lastWinningNumber} is the winning number`;
 }
 
 export const ResultNotification = observer(() => {
@@ -15,7 +15,10 @@ export const ResultNotification = observer(() => {
   if (!lastPrize) {
     return null;
   }
-  const message = getMessage(lastPrize);
+  const message = getMessage(
+    lastPrize,
+    bettingStore.historyStore.lastWinningNumbers.at(-1)!
+  );
 
   return (
     <div key={Math.random()} className="notification notification--result">
