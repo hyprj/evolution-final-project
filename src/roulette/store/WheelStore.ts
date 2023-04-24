@@ -1,7 +1,7 @@
-import { Vector3 } from "@babylonjs/core";
+import { AnimationGroup, FreeCamera, Nullable, Vector3 } from "@babylonjs/core";
 import { UIStore } from "./UIStore";
 import { makeAutoObservable, runInAction } from "mobx";
-import { BetValue, NumericBetValue } from "@roulette/utils/types";
+import { Field, NumericField } from "@roulette/utils/types";
 import { isWinningValue } from "@roulette/utils/utils";
 import { BettingStore } from "./BettingStore";
 import { PhaseStore } from "./PhaseStore";
@@ -10,16 +10,22 @@ import { ResultStore } from "./ResultStore";
 export class WheelStore {
   public readonly rootUIStore: UIStore;
 
-  public cameraPos: Vector3;
+  public camera: Nullable<FreeCamera>;
   public wheelPhase: "idle" | "spinning" | "resolved";
   public secondsToResult: number | null;
+  public spinAnimation: Nullable<AnimationGroup> | undefined;
 
   constructor(rootUIStore: UIStore) {
     makeAutoObservable(this, {}, { autoBind: true });
     this.rootUIStore = rootUIStore;
-    this.cameraPos = new Vector3(0, 3, 5);
     this.secondsToResult = null;
     this.wheelPhase = "idle";
+    this.spinAnimation = null;
+    this.camera = null;
+  }
+
+  public registerCamera(camera: FreeCamera): void {
+    this.camera = camera;
   }
 
   public async spin(
@@ -29,11 +35,13 @@ export class WheelStore {
   ): Promise<void> {
     phaseStore.setPhase("bets-closed");
     this.wheelPhase = "spinning";
+    this.spinAnimation?.play();
     await this.runCameraAnimation();
     runInAction(() => {
       bettingStore.resolve();
       this.wheelPhase = "resolved";
     });
+    this.spinAnimation?.stop();
     setTimeout(() => {
       runInAction(() => {
         bettingStore.clear();
@@ -41,24 +49,27 @@ export class WheelStore {
         resultStore.clear();
         this.wheelPhase = "idle";
       });
-    }, 1500);
+    }, 4000);
   }
 
   private async runCameraAnimation(): Promise<string> {
     return new Promise((resolve, _) => {
       setTimeout(() => {
         runInAction(() => {
-          this.cameraPos = new Vector3(2, 2, 2);
+          (this.camera as FreeCamera).position = new Vector3(3, 3, 3);
+          (this.camera as FreeCamera).target = new Vector3(1, 1, 1);
         });
       }, 2000);
       setTimeout(() => {
         runInAction(() => {
-          this.cameraPos = new Vector3(0, 6, 0);
+          (this.camera as FreeCamera).position = new Vector3(0, 6, 0);
+          (this.camera as FreeCamera).target = new Vector3(0, 0, 0);
         });
       }, 4000);
       setTimeout(() => {
         runInAction(() => {
-          this.cameraPos = new Vector3(0, 3, 5);
+          (this.camera as FreeCamera).position = new Vector3(0, 3, 5);
+          (this.camera as FreeCamera).target = new Vector3(0, 0, 0);
           resolve("done");
         });
       }, 8000);
@@ -76,8 +87,8 @@ export class WheelStore {
   }
 
   public getChipResultAnimation(
-    winningNumber: NumericBetValue | null,
-    betValue: BetValue
+    winningNumber: NumericField | null,
+    betValue: Field
   ) {
     if (!winningNumber) {
       return "none";
@@ -86,18 +97,5 @@ export class WheelStore {
       return "win-animation";
     }
     return "lose-animation";
-  }
-
-  private runTimeToResult() {
-    let counter = 8;
-    this.secondsToResult = --counter;
-    const timeout = setInterval(() => {
-      runInAction(() => {
-        this.secondsToResult = --counter;
-        if (counter === 0) {
-          clearInterval(timeout);
-        }
-      });
-    }, 1000);
   }
 }

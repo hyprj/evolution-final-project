@@ -1,7 +1,6 @@
 import { observer } from "mobx-react";
 import { useRootStore, useUIStore } from "@roulette/store/StoresProvider";
-import { isBetValue, normalizeBetValue } from "@roulette/utils/utils";
-
+import { isField, normalizeField } from "@roulette/utils/utils";
 import {
   HUD_VISIBLE_BET_VALUES,
   NOT_VISIBLE_FIELDS,
@@ -9,9 +8,13 @@ import {
 import { BoardItem, BoardViewItem } from "./BoardViewItem";
 
 import "./board.css";
-import "./corner.css";
-import "./street.css";
-import "./line.css";
+import "./fieldsStyle/corner.css";
+import "./fieldsStyle/line.css";
+import "./fieldsStyle/splits.css";
+import "./fieldsStyle/straightUp.css";
+import "./fieldsStyle/street.css";
+
+import { Dolly } from "../dolly/Dolly";
 
 export const Board = observer(() => {
   const { bettingStore, phaseStore } = useRootStore();
@@ -30,11 +33,11 @@ export const Board = observer(() => {
     if (
       phaseStore.phase === "bets-open" &&
       domElementValue &&
-      isBetValue(domElementValue)
+      isField(domElementValue)
     ) {
-      const betValue = normalizeBetValue(domElementValue);
+      const betValue = normalizeField(domElementValue);
       if (!bettingStore.place(betValue)) {
-        betNotifications.addNotification("Couldn't place the bet");
+        betNotifications.addNotification("Bet too high");
       }
     }
   }
@@ -47,6 +50,7 @@ export const Board = observer(() => {
         onMouseLeave={onBoardExit}
         onMouseOver={onBoardHover}
       >
+        <Dolly />
         {NOT_VISIBLE_FIELDS.map((field) => (
           <BoardItem
             key={field}

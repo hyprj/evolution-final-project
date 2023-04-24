@@ -1,15 +1,15 @@
 import { FreeCamera, Vector3 } from "@babylonjs/core";
 import { useUIStore } from "@roulette/store/StoresProvider";
 import { observer } from "mobx-react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export const Camera = observer(() => {
   const cameraRef = useRef<FreeCamera | null>(null);
   const { wheelStore } = useUIStore();
 
-  if (cameraRef.current) {
-    cameraRef.current.position = wheelStore.cameraPos;
-  }
+  useEffect(() => {
+    if (cameraRef.current) wheelStore.registerCamera(cameraRef.current);
+  }, []);
 
   return (
     <freeCamera

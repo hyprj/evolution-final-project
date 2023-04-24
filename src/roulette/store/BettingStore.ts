@@ -2,13 +2,12 @@ import { Bet, Chip, Field, NumericField } from "@roulette/utils/types";
 import {
   isBiggerThanMaxPossibleAmount,
   isWinningValue,
-  sumArray,
+  sumNumbers,
 } from "@roulette/utils/utils";
 import { makeAutoObservable, observable } from "mobx";
 import { HistoryStore } from "./HistoryStore";
 import { RootStore } from "./RootStore";
 import { getMultiplierBetter } from "@roulette/utils/consts";
-import { FiberRawCubeTexturePropsHandler } from "react-babylonjs";
 
 export class BettingStore {
   public readonly rootStore: RootStore;
@@ -74,6 +73,7 @@ export class BettingStore {
         lastBet.amount -= lastBet.chips.at(-1)!;
       }
       const chipValue = lastBet.chips.pop()!;
+      this.historyStore.currentValues.pop();
       this.totalBetValue -= chipValue;
     }
   }
@@ -92,8 +92,8 @@ export class BettingStore {
     for (const [_, bet] of this.bets) {
       if (isWinningValue(bet.field, result)) {
         const multiplier = getMultiplierBetter(bet.field);
-        const totalChipsValue = sumArray(bet.chips);
-        const profit = multiplier * totalChipsValue;
+        const totalChipsValue = sumNumbers(bet.chips);
+        const profit = multiplier * totalChipsValue + totalChipsValue;
 
         prize += profit;
       }
