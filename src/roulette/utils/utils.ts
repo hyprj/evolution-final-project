@@ -14,10 +14,10 @@ import {
 } from "./consts";
 import { Field, NonNumericField, NumericField } from "./types";
 
-export function isBetValue(value: unknown): value is Field {
-  return FIELDS.includes(normalizeBetValue(value as Field));
+export function isField(value: unknown): value is Field {
+  return FIELDS.includes(normalizeField(value as Field));
 }
-export function normalizeBetValue(value: Field): Field {
+export function normalizeField(value: any): Field {
   return !Number.isNaN(Number(value)) ? (Number(value) as Field) : value;
 }
 
@@ -44,7 +44,7 @@ export function fieldToHoverByValue(field: Field): Field[] {
   return [field, ...nonNumericFieldNumbers[field as NonNumericField]];
 }
 
-export const sumArray = (numbers: number[]) =>
+export const sumNumbers = (numbers: number[]) =>
   numbers.reduce((acc, curr) => (acc += curr), 0);
 
 // use this to only copy the Bets Map

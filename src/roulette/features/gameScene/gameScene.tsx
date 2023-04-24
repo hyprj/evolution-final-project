@@ -8,6 +8,7 @@ import {
   UIStoreContext,
 } from "@roulette/store/StoresProvider";
 import { Camera } from "../camera/Camera";
+import { Wheel } from "../wheel/Wheel";
 
 export function GameSceneWithContextBridge() {
   const rootStore = useRootStore();
@@ -18,24 +19,25 @@ export function GameSceneWithContextBridge() {
       <RootStoreContext.Provider value={rootStore}>
         <UIStoreContext.Provider value={uiStore}>
           <Camera />
-          <Suspense fallback={null}>
-            <Model
-              position={new Vector3(0, 0, 0)}
+          {/* <Suspense fallback={null}> */}
+          <Wheel />
+          {/* <Model
+              position={new Vector3(0, 1, 0)}
               scaleToDimension={5}
               name="wheel"
-              rootUrl="../../../public/wheel/"
-              sceneFilename="unti222tled.gltf"
+              rootUrl="../../../public/"
+              sceneFilename="wheel.gltf"
             />
-          </Suspense>
+          </Suspense> */}
 
           <pointLight
             name="light1"
             position={new Vector3(0, 10, -3)}
-            intensity={0.7}
+            intensity={100}
             shadowAngle={Math.PI * 2}
-            direction={new Vector3(0, 0, 0)}
+            direction={new Vector3(-5, 0, 0)}
           />
-          <ground name="ground" width={24} height={24}>
+          <ground name="ground" width={64} height={64}>
             <standardMaterial name="table-green">
               <texture
                 url="../../../public/green-fabric/diffuse.jpg"

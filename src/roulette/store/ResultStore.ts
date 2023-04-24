@@ -1,4 +1,4 @@
-import { NumericBetValue } from "@roulette/utils/types";
+import { NumericField } from "@roulette/utils/types";
 import { RootStore } from "./RootStore";
 import { makeAutoObservable } from "mobx";
 
@@ -7,7 +7,7 @@ const HIGHTEST_NUMERIC_BET_VALUE = 36;
 export class ResultStore {
   private rootStore: RootStore;
 
-  public result: NumericBetValue | null;
+  public result: NumericField | null;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
@@ -15,15 +15,16 @@ export class ResultStore {
     this.result = null;
   }
 
-  public drawResult(): NumericBetValue {
-    this.result = this.getRandomNumericValue();
+  public drawResult(): NumericField {
+    // this.result = this.getRandomNumericValue();
+    this.result = 3;
     return this.result;
   }
 
-  private getRandomNumericValue(): NumericBetValue {
+  private getRandomNumericValue(): NumericField {
     return Math.floor(
       Math.random() * HIGHTEST_NUMERIC_BET_VALUE
-    ) as NumericBetValue;
+    ) as NumericField;
   }
 
   public clear(): void {

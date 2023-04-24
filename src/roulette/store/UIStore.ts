@@ -2,8 +2,8 @@ import { makeAutoObservable } from "mobx";
 import { RootStore } from "./RootStore";
 import { Field } from "@roulette/utils/types";
 import {
-  isBetValue,
-  normalizeBetValue,
+  isField,
+  normalizeField,
   fieldToHoverByValue,
 } from "@roulette/utils/utils";
 import { WheelStore } from "./WheelStore";
@@ -29,8 +29,8 @@ export class UIStore {
 
   public onBoardHover(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const dataValue = (e.target as HTMLElement).dataset.value;
-    if (dataValue && isBetValue(dataValue)) {
-      const betValue = normalizeBetValue(dataValue);
+    if (dataValue && isField(dataValue)) {
+      const betValue = normalizeField(dataValue);
       const fieldsToHover = fieldToHoverByValue(betValue);
       this.hoveredFields = fieldsToHover;
     } else {

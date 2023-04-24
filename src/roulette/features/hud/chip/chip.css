@@ -14,6 +14,7 @@
 .board__field[data-value="0"] .chip-icon {
   width: 100%;
 }
+
 .chip-icon {
   position: absolute;
   z-index: 50;
