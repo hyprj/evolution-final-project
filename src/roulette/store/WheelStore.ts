@@ -62,8 +62,8 @@ export class WheelStore {
       }, 2000);
       setTimeout(() => {
         runInAction(() => {
-          (this.camera as FreeCamera).position = new Vector3(0, 6, 0);
-          (this.camera as FreeCamera).target = new Vector3(0, 0, 0);
+          (this.camera as FreeCamera).position = new Vector3(0, 9, 1);
+          (this.camera as FreeCamera).target = new Vector3(0, 0, 1);
         });
       }, 4000);
       setTimeout(() => {
