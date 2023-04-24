@@ -1,10 +1,9 @@
-:root {
+.board {
   --green: rgb(80, 110, 60);
   --red: rgb(191, 64, 64);
   --black: rgb(63, 63, 63);
-}
-
-.board {
+  --backlight: rgb(242, 255, 172);
+  --SPINNING-ANIMATION-DURATION: 8000ms;
   display: grid;
   user-select: none;
   flex-basis: min(90%, 800px);
@@ -45,7 +44,7 @@
 }
 
 .board--tilted {
-  animation: board-active 8000ms;
+  animation: board-active var(--SPINNING-ANIMATION-DURATION);
 }
 
 @keyframes board-active {
@@ -65,32 +64,18 @@
   align-items: center;
 }
 
+.board__field:hover {
+  cursor: pointer;
+}
+
 .board__field--border {
   border: 2px solid #eaeaea;
 }
 
-.hover:is(.red-field) {
-  background-color: rgb(242, 255, 172);
-  border: 2px solid rgb(242, 255, 172);
+.board__field:is(.hover) {
+  background-color: var(--backlight);
+  border: 2px solid var(--backlight);
   color: black;
-}
-
-.hover:is(.green-field) {
-  background-color: green;
-  background-color: rgb(242, 255, 172);
-  border: 2px solid rgb(242, 255, 172);
-  color: black;
-}
-
-.hover:is(.black-field) {
-  background-color: black;
-  background-color: rgb(242, 255, 172);
-  border: 2px solid rgb(242, 255, 172);
-  color: black;
-}
-
-.board__field:hover {
-  cursor: pointer;
 }
 
 .green-field {
@@ -104,7 +89,3 @@
 .black-field {
   background-color: var(--black);
 }
-
-/* desktop */
-
-/* mobile */

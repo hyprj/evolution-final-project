@@ -3,16 +3,14 @@
 }
 
 .chip--selected {
+  border: 3px solid yellow;
+  border-radius: 100%;
   scale: 1.2;
 }
 
-.chip:not(.chip--selected) :hover {
+.chip:not(.chip--selected):hover {
   scale: 1.2;
   cursor: pointer;
-}
-
-.board__field[data-value="0"] .chip-icon {
-  width: 100%;
 }
 
 .chip-icon {
@@ -30,6 +28,7 @@
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+  animation-duration: 3s;
 }
 
 .chip-icon:is([data-value="1"]) {
@@ -54,12 +53,10 @@
 
 .win-animation {
   animation-name: chips-move-win;
-  animation-duration: 3s;
 }
 
 .lose-animation {
-  animation-name: chipsmovelose;
-  animation-duration: 3s;
+  animation-name: chips-move-lose;
 }
 
 @keyframes chips-move-win {
@@ -68,7 +65,7 @@
   }
 }
 
-@keyframes chipsmovelose {
+@keyframes chips-move-lose {
   to {
     transform: translateY(700px);
   }
