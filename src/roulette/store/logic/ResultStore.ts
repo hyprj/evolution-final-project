@@ -7,18 +7,21 @@ const HIGHTEST_NUMERIC_BET_VALUE = 36;
 export class ResultStore {
   private rootStore: RootStore;
 
-  public result: NumericField | null;
+  public result: NumericField | null = null;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
-    this.result = null;
   }
 
   public drawResult(): NumericField {
     // this.result = this.getRandomNumericValue();
-    this.result = 3;
-    return this.result;
+    const result = 3;
+    return result;
+  }
+
+  public saveResult(result: NumericField) {
+    this.result = result;
   }
 
   private getRandomNumericValue(): NumericField {

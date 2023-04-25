@@ -30,21 +30,17 @@ export class BetHistoryStore {
     }
   }
 
-  public saveRecentNumber(number: NumericField) {
-    this.recentNumbers.push(number);
+  public saveRecentNumber() {
+    this.recentNumbers.push(this.bettingStore.rootStore.resultStore.result!);
   }
 
   public addStep(betValue: Field): void {
     this.currentValues.push(betValue);
   }
 
-  public saveBetHistory(
-    bet: Map<Field, Bet>,
-    betTotalValue: number,
-    wonPrize: number
-  ) {
-    this.previousBet = shallowCloneBetMap(bet);
-    this.previousBetValue = betTotalValue;
+  public saveBetHistory(wonPrize: number) {
+    this.previousBet = shallowCloneBetMap(this.bettingStore.bets);
+    this.previousBetValue = this.bettingStore.totalBetValue;
     this.previousValues = [...this.currentValues];
     this.previousWonPrize = wonPrize;
   }

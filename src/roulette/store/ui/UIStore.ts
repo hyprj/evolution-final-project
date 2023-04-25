@@ -1,5 +1,4 @@
 import { makeAutoObservable } from "mobx";
-import { RootStore } from "./RootStore";
 import { Field } from "@roulette/utils/types";
 import {
   isField,
@@ -7,7 +6,8 @@ import {
   fieldToHoverByValue,
 } from "@roulette/utils/utils";
 import { WheelStore } from "./WheelStore";
-import { BetNotifications } from "./BetNotifications";
+import { NotificationStore } from "./NotificationStore";
+import { RootStore } from "../logic/RootStore";
 
 export type ChipAnimationPhase = "none" | "win-animation" | "lose-animation";
 
@@ -17,14 +17,14 @@ export class UIStore {
   public hoveredFields: Field[];
 
   public wheelStore: WheelStore;
-  public betNotifications: BetNotifications;
+  public notificationStore: NotificationStore;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, {}, { autoBind: true });
     this.rootStore = rootStore;
     this.hoveredFields = [];
     this.wheelStore = new WheelStore(this);
-    this.betNotifications = new BetNotifications(this);
+    this.notificationStore = new NotificationStore(this);
   }
 
   public onBoardHover(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
