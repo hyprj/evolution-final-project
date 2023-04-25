@@ -4,24 +4,21 @@ import {
   isWinningValue,
   sumNumbers,
 } from "@roulette/utils/utils";
-import { makeAutoObservable, observable } from "mobx";
-import { HistoryStore } from "./HistoryStore";
+import { makeAutoObservable } from "mobx";
+import { BetHistoryStore } from "./BetHistoryStore";
 import { RootStore } from "./RootStore";
 import { getMultiplierBetter } from "@roulette/utils/consts";
 
 export class BettingStore {
   public readonly rootStore: RootStore;
-  public readonly historyStore: HistoryStore;
+  public readonly betHistoryStore: BetHistoryStore = new BetHistoryStore(this);
 
-  public bets: Map<Field, Bet>;
-  public totalBetValue: number;
+  public bets: Map<Field, Bet> = new Map();
+  public totalBetValue: number = 0;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, {}, { autoBind: true });
     this.rootStore = rootStore;
-    this.bets = observable.map();
-    this.historyStore = new HistoryStore(this);
-    this.totalBetValue = 0;
   }
 
   private getSelectedChip(): Chip {
@@ -58,13 +55,13 @@ export class BettingStore {
       });
     }
 
-    this.historyStore.addStep(field);
+    this.betHistoryStore.addStep(field);
     this.totalBetValue += selectedChip;
     return true;
   }
 
   public undo(): void {
-    const lastBet = this.historyStore.getPreviousBetStep();
+    const lastBet = this.betHistoryStore.getPreviousBetStep();
 
     if (lastBet) {
       if (lastBet.chips.length === 1) {
@@ -73,16 +70,16 @@ export class BettingStore {
         lastBet.amount -= lastBet.chips.at(-1)!;
       }
       const chipValue = lastBet.chips.pop()!;
-      this.historyStore.currentValues.pop();
+      this.betHistoryStore.currentValues.pop();
       this.totalBetValue -= chipValue;
     }
   }
 
   public repeat(): void {
-    if (this.historyStore.previousBet) {
-      this.bets = this.historyStore.previousBet;
-      this.totalBetValue = this.historyStore.previousBetValue;
-      this.historyStore.currentValues = this.historyStore.previousValues;
+    if (this.betHistoryStore.previousBet) {
+      this.bets = this.betHistoryStore.previousBet;
+      this.totalBetValue = this.betHistoryStore.previousBetValue;
+      this.betHistoryStore.currentValues = this.betHistoryStore.previousValues;
     }
   }
 
@@ -104,14 +101,18 @@ export class BettingStore {
   public clear(): void {
     this.totalBetValue = 0;
     this.bets.clear();
-    this.historyStore.currentValues = [];
+    this.betHistoryStore.currentValues = [];
   }
 
   public resolve(): void {
     const result = this.rootStore.resultStore.drawResult();
     const wonPrize = this.getPrize(result);
-    this.historyStore.saveBetHistory(this.bets, this.totalBetValue, wonPrize);
-    this.historyStore.saveWinningNumber(result);
+    this.betHistoryStore.saveBetHistory(
+      this.bets,
+      this.totalBetValue,
+      wonPrize
+    );
+    this.betHistoryStore.saveRecentNumber(result);
     this.addWonPrize(wonPrize);
   }
 }
