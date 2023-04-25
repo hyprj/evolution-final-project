@@ -3,29 +3,26 @@ import { shallowCloneBetMap } from "@roulette/utils/utils";
 import { makeAutoObservable } from "mobx";
 import { BettingStore } from "./BettingStore";
 
-export class HistoryStore {
+export class BetHistoryStore {
   public readonly bettingStore: BettingStore;
 
-  public currentValues: Field[];
-  public previousValues: Field[];
-  public previousBet: Map<Field, Bet> | null;
-  public previousBetValue: number;
-  public previousWonPrizes: number[];
-  public lastWinningNumbers: NumericField[];
+  public currentValues: Field[] = [];
+  public previousValues: Field[] = [];
+  public previousBet: Map<Field, Bet> | null = null;
+  public previousBetValue: number = 0;
+  public previousWonPrize: number | null = null;
+  public recentNumbers: NumericField[] = [];
 
   constructor(bettingStore: BettingStore) {
     makeAutoObservable(this, {}, { autoBind: true });
     this.bettingStore = bettingStore;
-    this.currentValues = [];
-    this.previousValues = [];
-    this.previousBetValue = 0;
-    this.previousBet = null;
-    this.previousWonPrizes = [];
-    this.lastWinningNumbers = [];
+  }
+
+  public getRecentNumber(): number | undefined {
+    return this.recentNumbers.at(-1);
   }
 
   public getPreviousBetStep(): Bet | undefined {
-    console.log("current values, ", this.currentValues);
     const lastBetValue = this.currentValues.at(-1);
 
     if (lastBetValue) {
@@ -33,12 +30,8 @@ export class HistoryStore {
     }
   }
 
-  public saveWinningNumber(number: NumericField) {
-    this.lastWinningNumbers.push(number);
-  }
-
-  public hasPreviousBet(): boolean {
-    return typeof this.previousBet?.size === "number";
+  public saveRecentNumber(number: NumericField) {
+    this.recentNumbers.push(number);
   }
 
   public addStep(betValue: Field): void {
@@ -53,6 +46,6 @@ export class HistoryStore {
     this.previousBet = shallowCloneBetMap(bet);
     this.previousBetValue = betTotalValue;
     this.previousValues = [...this.currentValues];
-    this.previousWonPrizes.push(wonPrize);
+    this.previousWonPrize = wonPrize;
   }
 }

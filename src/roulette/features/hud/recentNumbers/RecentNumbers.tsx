@@ -8,7 +8,7 @@ import "./recentNumbers.css";
 
 export const RecentNumbers = observer(() => {
   const { bettingStore } = useRootStore();
-  const results = bettingStore.historyStore.lastWinningNumbers;
+  const results = bettingStore.betHistoryStore.recentNumbers;
   return (
     <HUDElement stretch justifyEnd>
       {results.map((result, i) => (

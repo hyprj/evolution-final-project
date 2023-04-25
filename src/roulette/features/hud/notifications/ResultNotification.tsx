@@ -10,14 +10,14 @@ function getMessage(prize: number, lastWinningNumber: number) {
 
 export const ResultNotification = observer(() => {
   const { bettingStore } = useRootStore();
-  const lastPrize = bettingStore.historyStore.previousWonPrizes.at(-1);
+  const lastPrize = bettingStore.betHistoryStore.previousWonPrize;
 
   if (!lastPrize) {
     return null;
   }
   const message = getMessage(
     lastPrize,
-    bettingStore.historyStore.lastWinningNumbers.at(-1)!
+    bettingStore.betHistoryStore.getRecentNumber()!
   );
 
   return (

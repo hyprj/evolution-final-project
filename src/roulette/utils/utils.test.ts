@@ -1,10 +1,4 @@
-import {
-  isField,
-  isWinningValue,
-  normalizeField,
-  shallowCloneBetMap,
-  sumNumbers,
-} from "./utils";
+import { isField, isWinningValue, normalizeField, sumNumbers } from "./utils";
 
 describe("isField", () => {
   it("should return true for numeric fields", () => {
