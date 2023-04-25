@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from "react";
-import { RootStore } from "./RootStore";
-import { UIStore } from "./UIStore";
+import { RootStore } from "./logic/RootStore";
+import { UIStore } from "./ui/UIStore";
 
 function initStores() {
   const rootStore = new RootStore();

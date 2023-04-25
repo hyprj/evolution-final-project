@@ -1,4 +1,4 @@
-import { ChipValue } from "@roulette/utils/types";
+import { Chip } from "@roulette/utils/types";
 import { makeAutoObservable } from "mobx";
 import { RootStore } from "./RootStore";
 
@@ -6,7 +6,7 @@ export class PlayerStore {
   public readonly rootStore: RootStore;
 
   public balance: number;
-  public chip: ChipValue;
+  public chip: Chip;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
@@ -15,7 +15,7 @@ export class PlayerStore {
     this.chip = 5;
   }
 
-  public setChip(chipValue: ChipValue): void {
+  public setChip(chipValue: Chip): void {
     this.chip = chipValue;
   }
 
@@ -25,7 +25,7 @@ export class PlayerStore {
   }
 
   public updateBalance(balance: number): void {
-    // api soon
+    // TODO: add api call
     this.balance = balance;
   }
 }

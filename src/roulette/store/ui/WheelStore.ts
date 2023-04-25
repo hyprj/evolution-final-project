@@ -3,50 +3,36 @@ import { UIStore } from "./UIStore";
 import { makeAutoObservable, runInAction } from "mobx";
 import { Field, NumericField } from "@roulette/utils/types";
 import { isWinningValue } from "@roulette/utils/utils";
-import { BettingStore } from "./BettingStore";
-import { PhaseStore } from "./PhaseStore";
-import { ResultStore } from "./ResultStore";
 
 export class WheelStore {
   public readonly rootUIStore: UIStore;
 
-  public camera: Nullable<FreeCamera>;
-  public wheelPhase: "idle" | "spinning" | "resolved";
-  public secondsToResult: number | null;
-  public spinAnimation: Nullable<AnimationGroup> | undefined;
+  public camera: Nullable<FreeCamera> = null;
+  public wheelPhase: "idle" | "spinning" | "resolved" = "idle";
+  public secondsToResult: number | null = null;
+  public spinAnimation: Nullable<AnimationGroup> | undefined = null;
 
   constructor(rootUIStore: UIStore) {
     makeAutoObservable(this, {}, { autoBind: true });
     this.rootUIStore = rootUIStore;
-    this.secondsToResult = null;
-    this.wheelPhase = "idle";
-    this.spinAnimation = null;
-    this.camera = null;
   }
 
   public registerCamera(camera: FreeCamera): void {
     this.camera = camera;
   }
 
-  public async spin(
-    bettingStore: BettingStore,
-    phaseStore: PhaseStore,
-    resultStore: ResultStore
-  ): Promise<void> {
-    phaseStore.setPhase("bets-closed");
-    this.wheelPhase = "spinning";
-    this.spinAnimation?.play();
+  public async spin(): Promise<void> {
+    runInAction(() => {
+      this.wheelPhase = "spinning";
+      this.spinAnimation?.play();
+    });
     await this.runCameraAnimation();
     runInAction(() => {
-      bettingStore.resolve();
       this.wheelPhase = "resolved";
+      this.spinAnimation?.stop();
     });
-    this.spinAnimation?.stop();
     setTimeout(() => {
       runInAction(() => {
-        bettingStore.clear();
-        phaseStore.setPhase("bets-open");
-        resultStore.clear();
         this.wheelPhase = "idle";
       });
     }, 4000);

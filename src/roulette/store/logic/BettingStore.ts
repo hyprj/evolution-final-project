@@ -1,13 +1,8 @@
-import { Bet, Chip, Field, NumericField } from "@roulette/utils/types";
-import {
-  isBiggerThanMaxPossibleAmount,
-  isWinningValue,
-  sumNumbers,
-} from "@roulette/utils/utils";
+import { Bet, Chip, Field } from "@roulette/utils/types";
+import { isBiggerThanMaxPossibleAmount } from "@roulette/utils/utils";
 import { makeAutoObservable } from "mobx";
 import { BetHistoryStore } from "./BetHistoryStore";
 import { RootStore } from "./RootStore";
-import { getMultiplierBetter } from "@roulette/utils/consts";
 
 export class BettingStore {
   public readonly rootStore: RootStore;
@@ -23,10 +18,6 @@ export class BettingStore {
 
   private getSelectedChip(): Chip {
     return this.rootStore.playerStore.chip;
-  }
-
-  private addWonPrize(prize: number) {
-    this.rootStore.playerStore.addBalance(prize);
   }
 
   /**
@@ -83,36 +74,9 @@ export class BettingStore {
     }
   }
 
-  private getPrize(result: NumericField): number {
-    let prize = -this.totalBetValue;
-
-    for (const [_, bet] of this.bets) {
-      if (isWinningValue(bet.field, result)) {
-        const multiplier = getMultiplierBetter(bet.field);
-        const totalChipsValue = sumNumbers(bet.chips);
-        const profit = multiplier * totalChipsValue + totalChipsValue;
-
-        prize += profit;
-      }
-    }
-    return prize;
-  }
-
   public clear(): void {
-    this.totalBetValue = 0;
     this.bets.clear();
+    this.totalBetValue = 0;
     this.betHistoryStore.currentValues = [];
-  }
-
-  public resolve(): void {
-    const result = this.rootStore.resultStore.drawResult();
-    const wonPrize = this.getPrize(result);
-    this.betHistoryStore.saveBetHistory(
-      this.bets,
-      this.totalBetValue,
-      wonPrize
-    );
-    this.betHistoryStore.saveRecentNumber(result);
-    this.addWonPrize(wonPrize);
   }
 }

@@ -1,14 +1,13 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { UIStore } from "./UIStore";
 
-export class BetNotifications {
+export class NotificationStore {
   public readonly rootUIStore: UIStore;
-  public notifications: string[];
+  public notifications: string[] = [];
 
   constructor(rootUIStore: UIStore) {
     makeAutoObservable(this, {}, { autoBind: true });
     this.rootUIStore = rootUIStore;
-    this.notifications = [];
   }
 
   public addNotification(notification: string): void {
