@@ -85,3 +85,93 @@
 .board [data-value="corner_32-36"] {
   grid-area: 4/48/6/50;
 }
+
+@media (orientation: portrait) {
+  .board [data-value="corner_1-5"] {
+    grid-area: 8/8/10/10;
+  }
+
+  .board [data-value="corner_2-6"] {
+    grid-area: 8/4/10/6;
+  }
+
+  .board [data-value="corner_4-8"] {
+    grid-area: 12/8/14/10;
+  }
+
+  .board [data-value="corner_5-9"] {
+    grid-area: 12/4/14/6;
+  }
+
+  .board [data-value="corner_7-11"] {
+    grid-area: 16/8/18/10;
+  }
+
+  .board [data-value="corner_8-12"] {
+    grid-area: 16/4/18/6;
+  }
+
+  .board [data-value="corner_10-14"] {
+    grid-area: 20/8/22/10;
+  }
+
+  .board [data-value="corner_11-15"] {
+    grid-area: 20/4/22/6;
+  }
+
+  .board [data-value="corner_13-17"] {
+    grid-area: 24/8/26/10;
+  }
+
+  .board [data-value="corner_14-18"] {
+    grid-area: 24/4/26/6;
+  }
+
+  .board [data-value="corner_16-20"] {
+    grid-area: 28/8/30/10;
+  }
+
+  .board [data-value="corner_17-21"] {
+    grid-area: 28/4/30/6;
+  }
+
+  .board [data-value="corner_19-23"] {
+    grid-area: 32/8/34/10;
+  }
+
+  .board [data-value="corner_20-24"] {
+    grid-area: 32/4/34/6;
+  }
+
+  .board [data-value="corner_22-25"] {
+    grid-area: 36/8/38/10;
+  }
+
+  .board [data-value="corner_23-27"] {
+    grid-area: 36/4/38/6;
+  }
+
+  .board [data-value="corner_25-29"] {
+    grid-area: 40/8/42/10;
+  }
+
+  .board [data-value="corner_26-30"] {
+    grid-area: 40/4/42/6;
+  }
+
+  .board [data-value="corner_28-32"] {
+    grid-area: 44/8/46/10;
+  }
+
+  .board [data-value="corner_29-33"] {
+    grid-area: 44/4/44/6;
+  }
+
+  .board [data-value="corner_31-35"] {
+    grid-area: 48/8/50/10;
+  }
+
+  .board [data-value="corner_32-36"] {
+    grid-area: 48/4/50/6;
+  }
+}
