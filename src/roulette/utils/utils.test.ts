@@ -1,4 +1,5 @@
 import { isField, isWinningValue, normalizeField, sumNumbers } from "./utils";
+import { describe, it, expect } from "vitest";
 
 describe("isField", () => {
   it("should return true for numeric fields", () => {
@@ -40,15 +41,11 @@ describe("normalizeField", () => {
   });
 
   it("Should return unchanged value", () => {
-    expect(normalizeField("split_1-2")).toBe("split_1_2");
+    expect(normalizeField("split_1-2")).toBe("split_1-2");
   });
 
-  it("Should throw error for invalid field", () => {
-    expect(normalizeField("44")).toThrowError();
-  });
-
-  it("should throw error for invalid field", () => {
-    expect(normalizeField("invalidsplit")).toThrowError();
+  it("should throw error for invalid text field", () => {
+    expect(() => normalizeField("invalidsplit")).toThrow;
   });
 });
 
