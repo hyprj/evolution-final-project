@@ -43,7 +43,7 @@ export const Ball = observer(() => {
         rotation={rotation}
         scaleToDimension={2}
         name="ball"
-        rootUrl="../../../"
+        rootUrl="https://hyprj.github.io/roulette.github.io/"
         sceneFilename="wheel-animated.gltf"
         onModelLoaded={onModelLoaded}
       />
