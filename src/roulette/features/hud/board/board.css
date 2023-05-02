@@ -11,10 +11,14 @@
   grid-template-columns: repeat(56, 1fr);
   grid-template-rows: repeat(18, 1fr);
   font-weight: 400;
-  font-size: clamp(0.3rem, 2vw, 1.4rem);
+  font-size: clamp(0.7rem, 2vw, 1.4rem);
   text-transform: uppercase;
   padding: 4px;
   border-radius: 4px;
+}
+
+.board--tilted {
+  animation: board-active var(--SPINNING-ANIMATION-DURATION);
 }
 
 @media (orientation: portrait) {
@@ -33,18 +37,24 @@
   .board__field {
     border: none !important;
   }
-}
 
+  .board--tilted {
+    height: 80%;
+    transform: rotateZ(90deg) translateX(150px);
+    animation: none;
+  }
+
+  .board--tilted .chip-icon,
+  .board--tilted .dolly {
+    transform: rotateZ(-90deg);
+  }
+}
 .board__container {
   position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
   perspective: 1600px;
-}
-
-.board--tilted {
-  animation: board-active var(--SPINNING-ANIMATION-DURATION);
 }
 
 @keyframes board-active {

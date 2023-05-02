@@ -14,6 +14,7 @@
 }
 
 .chip-icon {
+  --RESULT-SHOWCASE-TIME: 4s;
   position: absolute;
   z-index: 50;
   height: max(4vh, 2vw);
@@ -28,7 +29,7 @@
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  animation-duration: 3s;
+  animation-duration: var(--RESULT-SHOWCASE-TIME);
 }
 
 .chip-icon:is([data-value="1"]) {

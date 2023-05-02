@@ -13,9 +13,12 @@ export class GameStore {
     this.rootStore = rootStore;
   }
 
-  public spin(wheelStore: WheelStore): void {
+  public async spin(wheelStore: WheelStore): Promise<void> {
     this.rootStore.phaseStore.phase = "bets-closed";
-    const result = this.rootStore.resultStore.drawResult();
+    const result = await this.rootStore.resultStore.drawResult();
+    runInAction(() => {
+      wheelStore.resultAnimationNumber = result;
+    });
     wheelStore.spin();
     setTimeout(() => {
       runInAction(() => {
@@ -26,6 +29,7 @@ export class GameStore {
     setTimeout(() => {
       runInAction(() => {
         this.clearAfterBet();
+        wheelStore.resultAnimationNumber = null;
       });
     }, 12000);
   }
@@ -47,8 +51,8 @@ export class GameStore {
 
   private resolveBet(result: NumericField): void {
     const wonPrize = this.getPrize(result);
-    this.rootStore.bettingStore.betHistoryStore.saveBetHistory(wonPrize);
     this.rootStore.bettingStore.betHistoryStore.saveRecentNumber();
+    this.rootStore.bettingStore.betHistoryStore.saveBetHistory(wonPrize);
     this.rootStore.playerStore.addBalance(wonPrize);
   }
 

@@ -35,7 +35,7 @@ export function Header() {
           {user && (
             <>
               <DropdownItem>
-                <Link to="profile">My account</Link>
+                <Link to="app">My account</Link>
               </DropdownItem>
               <DropdownItem>
                 <Link to="/" onClick={() => authStore.logOut()}>

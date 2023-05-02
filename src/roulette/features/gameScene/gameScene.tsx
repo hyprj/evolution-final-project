@@ -8,6 +8,7 @@ import {
 } from "@roulette/store/StoresProvider";
 import { Camera } from "../camera/Camera";
 import { Wheel } from "../wheel/Wheel";
+import { Ball } from "../ball/Ball";
 
 export function GameSceneWithContextBridge() {
   const rootStore = useRootStore();
@@ -42,6 +43,7 @@ export function GameSceneWithContextBridge() {
                 shadowCastChildren
               >
                 <Wheel />
+                <Ball />
 
                 <ground name="ground" width={128} height={128}>
                   <standardMaterial name="table-green">
