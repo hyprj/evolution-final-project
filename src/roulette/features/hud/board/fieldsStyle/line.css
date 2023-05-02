@@ -33,37 +33,37 @@
 }
 
 @media (orientation: portrait) {
-  .board [data-value="line_1-6"] {
+  .board:not(.board--tilted) [data-value="line_1-6"] {
     grid-area: 8/12/10/14;
   }
-  .board [data-value="line_4-9"] {
+  .board:not(.board--tilted) [data-value="line_4-9"] {
     grid-area: 12/12/14/14;
   }
-  .board [data-value="line_7-12"] {
+  .board:not(.board--tilted) [data-value="line_7-12"] {
     grid-area: 16/12/18/14;
   }
-  .board [data-value="line_10-15"] {
+  .board:not(.board--tilted) [data-value="line_10-15"] {
     grid-area: 20/12/22/14;
   }
-  .board [data-value="line_13-18"] {
+  .board:not(.board--tilted) [data-value="line_13-18"] {
     grid-area: 24/12/26/14;
   }
-  .board [data-value="line_16-21"] {
+  .board:not(.board--tilted) [data-value="line_16-21"] {
     grid-area: 28/12/30/14;
   }
-  .board [data-value="line_19-24"] {
+  .board:not(.board--tilted) [data-value="line_19-24"] {
     grid-area: 32/12/34/14;
   }
-  .board [data-value="line_22-27"] {
+  .board:not(.board--tilted) [data-value="line_22-27"] {
     grid-area: 36/12/38/14;
   }
-  .board [data-value="line_25-30"] {
+  .board:not(.board--tilted) [data-value="line_25-30"] {
     grid-area: 40/12/42/14;
   }
-  .board [data-value="line_28-33"] {
+  .board:not(.board--tilted) [data-value="line_28-33"] {
     grid-area: 44/12/46/14;
   }
-  .board [data-value="line_31-36"] {
+  .board:not(.board--tilted) [data-value="line_31-36"] {
     grid-area: 48/12/50/14;
   }
 }

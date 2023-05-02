@@ -32,6 +32,14 @@
   animation-duration: var(--RESULT-SHOWCASE-TIME);
 }
 
+@media (orientation: portrait) {
+  .board--tilted .chip-icon {
+    width: 3vw;
+    font-size: 10px;
+    height: 3vw;
+  }
+}
+
 .chip-icon:is([data-value="1"]) {
   background-image: url("/public/chip-one-blank.svg");
 }

@@ -51,7 +51,7 @@ export class GameStore {
 
   private resolveBet(result: NumericField): void {
     const wonPrize = this.getPrize(result);
-    this.rootStore.bettingStore.betHistoryStore.saveRecentNumber();
+    this.rootStore.bettingStore.betHistoryStore.saveRecentNumber(result);
     this.rootStore.bettingStore.betHistoryStore.saveBetHistory(wonPrize);
     this.rootStore.playerStore.updateBalance(wonPrize);
   }
