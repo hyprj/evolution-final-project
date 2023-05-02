@@ -53,7 +53,7 @@ export class GameStore {
     const wonPrize = this.getPrize(result);
     this.rootStore.bettingStore.betHistoryStore.saveRecentNumber();
     this.rootStore.bettingStore.betHistoryStore.saveBetHistory(wonPrize);
-    this.rootStore.playerStore.addBalance(wonPrize);
+    this.rootStore.playerStore.updateBalance(wonPrize);
   }
 
   private clearAfterBet(): void {

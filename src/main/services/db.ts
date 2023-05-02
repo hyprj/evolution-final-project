@@ -37,7 +37,6 @@ export async function getUserBalance(uid: string) {
 
 export async function setUserBalance(uid: string, amount: number) {
   try {
-    console.log(amount);
     setDocument({ balance: amount }, "users", uid);
   } catch (err) {
     console.warn(err);

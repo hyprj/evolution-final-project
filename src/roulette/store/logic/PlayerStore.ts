@@ -1,30 +1,30 @@
 import { Chip } from "@roulette/utils/types";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { RootStore } from "./RootStore";
+import { authStore } from "@main/features/auth/store";
 
 export class PlayerStore {
   public readonly rootStore: RootStore;
 
-  public balance: number;
-  public chip: Chip;
+  public balance: number = 0;
+  public chip: Chip = 5;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
-    this.balance = 1000;
-    this.chip = 5;
+    if (authStore.user) {
+      this.balance = authStore.user.balance;
+    }
   }
 
   public setChip(chipValue: Chip): void {
     this.chip = chipValue;
   }
 
-  public addBalance(amount: number): void {
-    const updatedBalance = this.balance + amount;
-    this.updateBalance(updatedBalance);
-  }
-
-  public updateBalance(balance: number): void {
-    this.balance = balance;
+  public updateBalance(balanceChange: number): void {
+    runInAction(() => {
+      this.balance += balanceChange;
+      authStore.setBalance(this.balance);
+    });
   }
 }

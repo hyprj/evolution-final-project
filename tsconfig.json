@@ -17,6 +17,7 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
+      "@main/*": ["./src/main/*"],
       "@roulette/*": ["./src/roulette/*"],
       "@roulette/hud/*": ["./src/roulette/features/hud/*"],
       "@roulette/store/*": ["./src/roulette/store/*"],
