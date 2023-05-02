@@ -1,17 +1,16 @@
 import { observer } from "mobx-react";
-import { useStore } from "../../../store/StoreProvider";
 import { HUDElement } from "../balance/Balance";
+import { useRootStore } from "@roulette/store/StoresProvider";
 
 export const UndoButton = observer(() => {
-  const store = useStore();
+  const { bettingStore, phaseStore } = useRootStore();
+
+  const isDisabledClass =
+    phaseStore.phase === "bets-closed" ? "btn--disabled" : "";
+
   return (
     <HUDElement>
-      <button
-        className={`${
-          store.currentBetHistory.length > 0 ? "" : "btn--disabled"
-        }`}
-        onClick={() => store.undoBet()}
-      >
+      <button className={isDisabledClass} onClick={bettingStore.undo}>
         undo
       </button>
     </HUDElement>

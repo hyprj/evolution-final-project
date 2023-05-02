@@ -1,10 +1,16 @@
 .chip-select {
-  box-shadow: inset 0px 0px 10px 5px rgb(0, 124, 66);
-  background-color: rgb(0, 231, 116);
+  box-shadow: inset 0px 0px min(3vh, 3vw) 5px var(--darkest-green);
+  background-color: var(--dark-green);
   display: flex;
   width: min-content;
   flex-direction: column;
   padding: 10px;
   border-radius: 6px;
   gap: 1rem;
+}
+
+@media (orientation: portrait) {
+  .chip-select {
+    flex-direction: row;
+  }
 }

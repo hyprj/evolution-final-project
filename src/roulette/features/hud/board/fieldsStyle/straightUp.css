@@ -1,0 +1,297 @@
+.board [data-value="0"] {
+  grid-area: 1/1/13/5;
+}
+.board [data-value="1"] {
+  grid-area: 9/5/13/9;
+}
+.board [data-value="2"] {
+  grid-area: 5/5/9/9;
+}
+.board [data-value="3"] {
+  grid-area: 1/5/5/9;
+}
+.board [data-value="4"] {
+  grid-area: 9/9/13/13;
+}
+.board [data-value="5"] {
+  grid-area: 5/9/9/13;
+}
+.board [data-value="6"] {
+  grid-area: 1/9/5/13;
+}
+.board [data-value="7"] {
+  grid-area: 9/13/13/17;
+}
+.board [data-value="8"] {
+  grid-area: 5/13/9/17;
+}
+.board [data-value="9"] {
+  grid-area: 1/13/5/17;
+}
+.board [data-value="10"] {
+  grid-area: 9/17/13/21;
+}
+.board [data-value="11"] {
+  grid-area: 5/17/9/21;
+}
+.board [data-value="12"] {
+  grid-area: 1/17/5/21;
+}
+.board [data-value="13"] {
+  grid-area: 9/21/13/25;
+}
+.board [data-value="14"] {
+  grid-area: 5/21/9/25;
+}
+.board [data-value="15"] {
+  grid-area: 1/21/5/25;
+}
+.board [data-value="16"] {
+  grid-area: 9/25/13/29;
+}
+.board [data-value="17"] {
+  grid-area: 5/25/9/29;
+}
+.board [data-value="18"] {
+  grid-area: 1/25/5/29;
+}
+.board [data-value="19"] {
+  grid-area: 9/29/13/33;
+}
+.board [data-value="20"] {
+  grid-area: 5/29/9/33;
+}
+.board [data-value="21"] {
+  grid-area: 1/29/5/33;
+}
+.board [data-value="22"] {
+  grid-area: 9/33/13/37;
+}
+.board [data-value="23"] {
+  grid-area: 5/33/9/37;
+}
+.board [data-value="24"] {
+  grid-area: 1/33/5/37;
+}
+.board [data-value="25"] {
+  grid-area: 9/37/13/41;
+}
+.board [data-value="26"] {
+  grid-area: 5/37/9/41;
+}
+.board [data-value="27"] {
+  grid-area: 1/37/5/41;
+}
+.board [data-value="28"] {
+  grid-area: 9/41/13/45;
+}
+.board [data-value="29"] {
+  grid-area: 5/41/9/45;
+}
+.board [data-value="30"] {
+  grid-area: 1/41/5/45;
+}
+.board [data-value="31"] {
+  grid-area: 9/45/13/49;
+}
+.board [data-value="32"] {
+  grid-area: 5/45/9/49;
+}
+.board [data-value="33"] {
+  grid-area: 1/45/5/49;
+}
+.board [data-value="34"] {
+  grid-area: 9/49/13/53;
+}
+.board [data-value="35"] {
+  grid-area: 5/49/9/53;
+}
+.board [data-value="36"] {
+  grid-area: 1/49/5/53;
+}
+.board [data-value="odd"] {
+  grid-area: 16/37/19/45;
+}
+.board [data-value="even"] {
+  grid-area: 16/13/19/21;
+}
+.board [data-value="red"] {
+  grid-area: 16/21/19/29;
+}
+.board [data-value="black"] {
+  grid-area: 16/29/19/37;
+}
+.board [data-value="1-18"] {
+  grid-area: 16/5/19/13;
+}
+.board [data-value="19-36"] {
+  grid-area: 16/45/19/53;
+}
+.board [data-value="1st12"] {
+  grid-area: 13/5/16/21;
+}
+.board [data-value="2nd12"] {
+  grid-area: 13/21/16/37;
+}
+.board [data-value="3rd12"] {
+  grid-area: 13/37/16/53;
+}
+.board [data-value="3-36"] {
+  grid-area: 1/53/5/57;
+}
+.board [data-value="2-35"] {
+  grid-area: 5/53/9/57;
+}
+.board [data-value="1-34"] {
+  grid-area: 9/53/13/57;
+}
+
+@media (orientation: portrait) {
+  .board:not(.board--tilted) [data-value="0"] {
+    grid-area: 1/1/5/13;
+  }
+  .board:not(.board--tilted) [data-value="1"] {
+    grid-area: 5/9/9/13;
+  }
+  .board:not(.board--tilted) [data-value="2"] {
+    grid-area: 5/5/9/9;
+  }
+  .board:not(.board--tilted) [data-value="3"] {
+    grid-area: 5/1/9/5;
+  }
+  .board:not(.board--tilted) [data-value="4"] {
+    grid-area: 9/9/13/13;
+  }
+  .board:not(.board--tilted) [data-value="5"] {
+    grid-area: 9/5/13/9;
+  }
+  .board:not(.board--tilted) [data-value="6"] {
+    grid-area: 9/1/13/5;
+  }
+  .board:not(.board--tilted) [data-value="7"] {
+    grid-area: 13/9/17/13;
+  }
+  .board:not(.board--tilted) [data-value="8"] {
+    grid-area: 13/5/17/9;
+  }
+  .board:not(.board--tilted) [data-value="9"] {
+    grid-area: 13/1/17/5;
+  }
+  .board:not(.board--tilted) [data-value="10"] {
+    grid-area: 17/9/21/13;
+  }
+  .board:not(.board--tilted) [data-value="11"] {
+    grid-area: 17/5/21/9;
+  }
+  .board:not(.board--tilted) [data-value="12"] {
+    grid-area: 17/1/21/5;
+  }
+  .board:not(.board--tilted) [data-value="13"] {
+    grid-area: 21/9/25/13;
+  }
+  .board:not(.board--tilted) [data-value="14"] {
+    grid-area: 21/5/25/9;
+  }
+  .board:not(.board--tilted) [data-value="15"] {
+    grid-area: 21/1/25/5;
+  }
+  .board:not(.board--tilted) [data-value="16"] {
+    grid-area: 25/9/29/13;
+  }
+  .board:not(.board--tilted) [data-value="17"] {
+    grid-area: 25/5/29/9;
+  }
+  .board:not(.board--tilted) [data-value="18"] {
+    grid-area: 25/1/29/5;
+  }
+  .board:not(.board--tilted) [data-value="19"] {
+    grid-area: 29/9/33/13;
+  }
+  .board:not(.board--tilted) [data-value="20"] {
+    grid-area: 29/5/33/9;
+  }
+  .board:not(.board--tilted) [data-value="21"] {
+    grid-area: 29/1/33/5;
+  }
+  .board:not(.board--tilted) [data-value="22"] {
+    grid-area: 33/9/37/13;
+  }
+  .board:not(.board--tilted) [data-value="23"] {
+    grid-area: 33/5/37/9;
+  }
+  .board:not(.board--tilted) [data-value="24"] {
+    grid-area: 33/1/37/5;
+  }
+  .board:not(.board--tilted) [data-value="25"] {
+    grid-area: 37/9/41/13;
+  }
+  .board:not(.board--tilted) [data-value="26"] {
+    grid-area: 37/5/41/9;
+  }
+  .board:not(.board--tilted) [data-value="27"] {
+    grid-area: 37/1/41/5;
+  }
+  .board:not(.board--tilted) [data-value="28"] {
+    grid-area: 41/9/45/13;
+  }
+  .board:not(.board--tilted) [data-value="29"] {
+    grid-area: 41/5/45/9;
+  }
+  .board:not(.board--tilted) [data-value="30"] {
+    grid-area: 41/1/45/5;
+  }
+  .board:not(.board--tilted) [data-value="31"] {
+    grid-area: 45/9/49/13;
+  }
+  .board:not(.board--tilted) [data-value="32"] {
+    grid-area: 45/5/49/9;
+  }
+  .board:not(.board--tilted) [data-value="33"] {
+    grid-area: 45/1/49/5;
+  }
+  .board:not(.board--tilted) [data-value="34"] {
+    grid-area: 49/9/53/13;
+  }
+  .board:not(.board--tilted) [data-value="35"] {
+    grid-area: 49/5/53/9;
+  }
+  .board:not(.board--tilted) [data-value="36"] {
+    grid-area: 49/1/53/5;
+  }
+  .board:not(.board--tilted) [data-value="odd"] {
+    grid-area: 37/16/45/19;
+  }
+  .board:not(.board--tilted) [data-value="even"] {
+    grid-area: 13/16/21/19;
+  }
+  .board:not(.board--tilted) [data-value="red"] {
+    grid-area: 21/16/29/19;
+  }
+  .board:not(.board--tilted) [data-value="black"] {
+    grid-area: 29/16/37/19;
+  }
+  .board:not(.board--tilted) [data-value="1-18"] {
+    grid-area: 5/16/13/19;
+  }
+  .board:not(.board--tilted) [data-value="19-36"] {
+    grid-area: 45/16/53/19;
+  }
+  .board:not(.board--tilted) [data-value="1st12"] {
+    grid-area: 5/13/21/16;
+  }
+  .board:not(.board--tilted) [data-value="2nd12"] {
+    grid-area: 21/13/37/16;
+  }
+  .board:not(.board--tilted) [data-value="3rd12"] {
+    grid-area: 37/13/53/16;
+  }
+  .board:not(.board--tilted) [data-value="3-36"] {
+    grid-area: 53/1/57/5;
+  }
+  .board:not(.board--tilted) [data-value="2-35"] {
+    grid-area: 53/5/57/9;
+  }
+  .board:not(.board--tilted) [data-value="1-34"] {
+    grid-area: 53/9/57/13;
+  }
+}

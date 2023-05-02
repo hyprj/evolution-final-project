@@ -1,4 +1,7 @@
 .hud {
+  --dark-green: rgb(14, 108, 41);
+  --darkest-green: rgb(5, 60, 20);
+  --text-white: #e1e1e1;
   position: absolute;
   padding: 0.5rem;
   height: 100%;
@@ -13,6 +16,7 @@
 .hud__row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -23,8 +27,28 @@
   align-items: center;
   justify-content: center;
   border-radius: 100px;
+  height: 38px;
   padding: 6px;
   padding-inline: 12px;
+}
+
+.hud__element--stretch {
+  padding-left: auto;
+  max-width: 50%;
+  flex-grow: 1;
+  /* flex-shrink: 0; */
+}
+
+@media (max-width: 640px) {
+  .hud__element--stretch {
+    max-width: 100%;
+    /* flex-basis: 100%; */
+    width: 100%;
+  }
+}
+
+.hud__element--justify-end {
+  justify-content: flex-end;
 }
 
 .yellow {
@@ -45,10 +69,22 @@
 
 .hud__center {
   display: flex;
-  /* justify-self: flex-end; */
   margin-top: auto;
   align-items: flex-end;
   justify-content: space-between;
+}
+
+@media (orientation: portrait) {
+  .hud__center {
+    flex-direction: column-reverse;
+    margin-top: 0;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .chip-select {
+    justify-self: end;
+  }
 }
 
 .btn--disabled {

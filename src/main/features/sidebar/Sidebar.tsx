@@ -2,22 +2,22 @@ import { Link } from "react-router-dom";
 import { useSidebar } from "./SidebarProvider";
 
 export function Sidebar() {
-  const { isOpen } = useSidebar();
+  const { isOpen, setIsOpen } = useSidebar();
 
   return (
     <aside
       className={`${
-        isOpen ? "basis-52" : " basis-0"
-      } duration-200ms  flex-shrink-0 bg-zinc-100 transition-[flex-basis]`}
+        isOpen ? "left-0" : "-left-44"
+      } duration-200ms absolute top-0 z-40 h-full w-44  flex-shrink-0 overflow-hidden bg-zinc-100 pt-12 transition-[left] ease-in-out  mobile-landscape:mt-0 `}
     >
       <nav className={`mx-1 ${isOpen ? "" : "hidden"}`}>
         <ul className="my-6  flex flex-col justify-center gap-4">
-          <SidebarItem>
-            <Link to="/app">My dashboard</Link>
-          </SidebarItem>
-          <SidebarItem>
-            <Link to="/app/games">All games</Link>
-          </SidebarItem>
+          <Link to="/app" onClick={() => setIsOpen(false)}>
+            <SidebarItem>My dashboard</SidebarItem>
+          </Link>
+          <Link to="/app/games" onClick={() => setIsOpen(false)}>
+            <SidebarItem>All games</SidebarItem>
+          </Link>
         </ul>
       </nav>
     </aside>

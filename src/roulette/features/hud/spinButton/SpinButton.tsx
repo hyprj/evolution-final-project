@@ -1,16 +1,19 @@
 import { observer } from "mobx-react";
-import { useStore } from "../../../store/StoreProvider";
+import { useRootStore, useUIStore } from "@roulette/store/StoresProvider";
+
 import "./spinButton.css";
 
 export const SpinButton = observer(() => {
-  const store = useStore();
-  store.status;
+  const { phaseStore, gameStore } = useRootStore();
+  const { wheelStore } = useUIStore();
+
+  const isDisabledClass =
+    phaseStore.phase !== "bets-open" ? "spin-btn--disabled" : "";
+
   return (
     <button
-      className={`spin-btn ${
-        store.status !== "betting-phase" ? "spin-btn--disabled" : ""
-      }`}
-      onClick={() => store.spin()}
+      className={`spin-btn ${isDisabledClass}`}
+      onClick={() => gameStore.spin(wheelStore)}
     >
       SPIN
     </button>
