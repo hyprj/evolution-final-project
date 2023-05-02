@@ -50,7 +50,7 @@ export function GameSceneWithContextBridge() {
                     <texture
                       vScale={16}
                       uScale={16}
-                      url="../../../public/green-fabric/diffuse.jpg"
+                      url="../../../green-fabric/diffuse.jpg"
                       assignTo="diffuseTexture"
                     />
                   </standardMaterial>
