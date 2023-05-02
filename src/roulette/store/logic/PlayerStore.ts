@@ -25,7 +25,6 @@ export class PlayerStore {
   }
 
   public updateBalance(balance: number): void {
-    // TODO: add api call
     this.balance = balance;
   }
 }
