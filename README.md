@@ -10,6 +10,10 @@ While the project deadline has passed, I want to continue developing this projec
 # GameHub
 
 GameHub is place where users can play web games. Currently it has roulette game made with React, MobX, Babylon.js.
+live demo: https://evolution-project-3fa31.web.app/
+
+- login: test@gmail.com
+- password: test123
 
 ## Features
 
