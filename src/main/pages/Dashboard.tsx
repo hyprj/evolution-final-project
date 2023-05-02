@@ -6,7 +6,7 @@ export const Dashboard = observer(() => {
   const { user, addToBalance } = authStore;
   return (
     <div className="flex flex-grow items-start justify-center">
-      <div className="max-md:grid-cols-1 m-4 mt-20 grid grid-cols-2 gap-3">
+      <div className="m-4 mt-20 flex w-full max-w-7xl flex-col  justify-center gap-4 lg:flex-row">
         <DashboardItem>
           <h4 className="text-4xl font-semibold">
             {user?.displayName || "Name not specified"}
@@ -37,5 +37,7 @@ export const Dashboard = observer(() => {
 });
 
 export function DashboardItem({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-xl  bg-zinc-100 p-4">{children}</div>;
+  return (
+    <div className="basis-full rounded-xl  bg-zinc-100 p-4">{children}</div>
+  );
 }
