@@ -1,6 +1,6 @@
 import { Field, Bet, NumericField } from "@roulette/utils/types";
 import { shallowCloneBetMap } from "@roulette/utils/utils";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { BettingStore } from "./BettingStore";
 
 export class BetHistoryStore {
@@ -30,8 +30,8 @@ export class BetHistoryStore {
     }
   }
 
-  public saveRecentNumber() {
-    this.recentNumbers.push(this.bettingStore.rootStore.resultStore.result!);
+  public saveRecentNumber(result: NumericField) {
+    this.recentNumbers.push(result);
   }
 
   public addStep(betValue: Field): void {
@@ -39,9 +39,11 @@ export class BetHistoryStore {
   }
 
   public saveBetHistory(wonPrize: number) {
-    this.previousBet = shallowCloneBetMap(this.bettingStore.bets);
-    this.previousBetValue = this.bettingStore.totalBetValue;
-    this.previousValues = [...this.currentValues];
-    this.previousWonPrize = wonPrize;
+    runInAction(() => {
+      this.previousBet = shallowCloneBetMap(this.bettingStore.bets);
+      this.previousBetValue = this.bettingStore.totalBetValue;
+      this.previousValues = [...this.currentValues];
+      this.previousWonPrize = wonPrize;
+    });
   }
 }

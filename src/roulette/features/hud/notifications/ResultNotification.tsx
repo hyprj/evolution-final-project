@@ -12,7 +12,7 @@ export const ResultNotification = observer(() => {
   const { bettingStore } = useRootStore();
   const lastPrize = bettingStore.betHistoryStore.previousWonPrize;
 
-  if (!lastPrize) {
+  if (typeof lastPrize !== "number") {
     return null;
   }
   const message = getMessage(
