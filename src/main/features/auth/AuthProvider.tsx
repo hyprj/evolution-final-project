@@ -7,7 +7,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged(async (user) => {
       if (user) {
-        const balance = await getUserBalance(user.uid);
+        const balance = (await getUserBalance(user.uid)) || 2000;
         const { displayName, uid, email } = user;
         authStore.setUser({ displayName, uid, email, balance });
       } else {
