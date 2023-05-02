@@ -1,46 +1,49 @@
-import { memo, useState } from "react";
-import { ChipValue } from "../../../utils/types";
-import "./chip.css";
-import { ChipAnimationPhase } from "../../../store/store";
+import { memo } from "react";
+import { Chip } from "@roulette/utils/types";
 
-const chips: Record<ChipValue, string> = {
+import "./chip.css";
+
+const chips: Record<Chip, string> = {
   1: "/chip-one.svg",
   5: "/chip-five.svg",
   10: "/chip-ten.svg",
+  50: "/chip-fifty.svg",
+  100: "/chip-hundred.svg",
 };
 
-export function Chip({
-  value,
+export function ChipItem({
+  chip,
   selected,
   handleClick,
 }: {
-  value: ChipValue;
+  chip: Chip;
   selected: boolean;
-  handleClick: (value: ChipValue) => void;
+  handleClick: (value: Chip) => void;
 }) {
   return (
     <div
       className={`chip ${selected ? "chip--selected" : ""}`}
-      onClick={() => handleClick(value)}
+      onClick={() => handleClick(chip)}
     >
-      <img src={chips[value]} />
+      <img src={chips[chip]} />
     </div>
   );
 }
 
 export const ChipIcon = memo(
-  ({ value, animate }: { value: ChipValue; animate: ChipAnimationPhase }) => {
-    const [randomXOffset] = useState(Math.floor(Math.random() * 30 - 15));
-    const [randomYOffset] = useState(Math.floor(Math.random() * 30 - 15));
+  ({
+    value,
+    animate,
+    icon,
+  }: {
+    value: number | string;
+    animate: string;
+    icon: Chip;
+  }) => {
     return (
-      <img
-        className={`chip-icon ${animate}`}
-        style={{
-          marginTop: randomYOffset + "px",
-          marginLeft: randomXOffset + "px",
-        }}
-        src={chips[value]}
-      />
+      <div className={`chip-icon ${animate}`} data-value={icon}>
+        {value}
+      </div>
     );
   }
 );

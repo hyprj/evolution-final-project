@@ -1,46 +1,101 @@
 .board {
+  --green: rgb(80, 110, 60);
+  --red: rgb(191, 64, 64);
+  --black: rgb(63, 63, 63);
+  --backlight: rgb(242, 255, 172);
+  --SPINNING-ANIMATION-DURATION: 8000ms;
   display: grid;
-  width: 80%;
+  user-select: none;
+  flex-basis: min(90%, 800px);
   aspect-ratio: 4;
   grid-template-columns: repeat(56, 1fr);
-  grid-template-rows: repeat(20, 1fr);
-  background-color: rgba(6, 52, 41, 0.5);
-  backdrop-filter: blur(10px);
+  grid-template-rows: repeat(18, 1fr);
+  font-weight: 400;
+  font-size: clamp(0.7rem, 2vw, 1.4rem);
+  text-transform: uppercase;
   padding: 4px;
   border-radius: 4px;
 }
 
+.board--tilted {
+  animation: board-active var(--SPINNING-ANIMATION-DURATION);
+}
+
+@media (orientation: portrait) {
+  .board__container {
+    height: 100%;
+  }
+
+  .board {
+    text-transform: lowercase;
+    grid-template-rows: repeat(56, 1fr);
+    grid-template-columns: repeat(18, 1fr);
+    aspect-ratio: 1/2;
+    flex-grow: 1;
+  }
+
+  .board__field {
+    border: none !important;
+  }
+
+  .board--tilted {
+    height: 80%;
+    transform: rotateZ(90deg) translateX(150px);
+    animation: none;
+  }
+
+  .board--tilted .chip-icon,
+  .board--tilted .dolly {
+    transform: rotateZ(-90deg);
+  }
+}
 .board__container {
   position: relative;
+  width: 100%;
   display: flex;
   justify-content: center;
+  perspective: 1600px;
+}
+
+@keyframes board-active {
+  10%,
+  90% {
+    transform: rotateX(45deg) scale(0.8);
+  }
+  100% {
+    transform: rotateX(0deg) scale(1);
+  }
 }
 
 .board__field {
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
-  border-radius: 6px;
-  margin: 1px;
 }
 
 .board__field:hover {
   cursor: pointer;
 }
 
+.board__field--border {
+  border: 2px solid #eaeaea;
+}
+
+.board__field:is(.hover) {
+  background-color: var(--backlight);
+  border: 2px solid var(--backlight);
+  color: black;
+}
+
 .green-field {
-  background-color: rgb(2, 73, 2);
+  background-color: var(--green);
 }
 
 .red-field {
-  background-color: rgb(102, 4, 4);
+  background-color: var(--red);
 }
 
 .black-field {
-  background-color: black;
-}
-
-.grey-field {
-  background-color: rgb(45, 45, 45);
+  background-color: var(--black);
 }

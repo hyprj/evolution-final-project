@@ -9,7 +9,7 @@ export function Root() {
       <Header />
       <div className="flex flex-shrink-0 flex-grow">
         <Sidebar />
-        <main className="flex flex-grow">
+        <main className="relative flex flex-grow">
           <Outlet />
         </main>
       </div>

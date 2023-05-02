@@ -1,15 +1,29 @@
 .spin-btn {
   padding: 0.3rem 2rem;
-  box-shadow: inset 0px 0px 19px 11px rgb(5, 60, 20);
-  background-color: rgb(14, 108, 41);
-  color: #e1e1e1;
+  box-shadow: inset 0px 0px 19px 11px var(--darkest-green);
+  background-color: var(--dark-green);
+  color: var(--text-white);
   border-radius: 10px;
-  border: 2px solid rgb(14, 51, 0);
   font-size: 1.8rem;
+  transition: all 100ms ease-in-out;
 }
 
-.spin-btn:hover {
+@media (max-width: 900px) {
+  .spin-btn {
+    padding: 0.2rem 1rem;
+    font-size: 1.2rem;
+  }
+}
+
+.spin-btn:not(:has(.spin-btn--disabled)):hover {
   color: #fff;
   background-color: rgb(33, 137, 62);
   box-shadow: inset 0px 0px 19px 11px rgb(7, 67, 23);
+}
+
+.spin-btn--disabled {
+  background-color: red;
+  box-shadow: inset 0px 0px 19px 11px rgb(53, 0, 0);
+  cursor: default;
+  scale: 0.9;
 }

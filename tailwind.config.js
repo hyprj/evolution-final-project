@@ -13,6 +13,11 @@ export default {
         15: "repeat(15, minmax(0, 1fr))",
         16: "repeat(16, minmax(0, 1fr))",
       },
+      screens: {
+        "mobile-landscape": {
+          raw: "(orientation: landscape) and (max-height: 600px)",
+        },
+      },
     },
   },
   safelist: [

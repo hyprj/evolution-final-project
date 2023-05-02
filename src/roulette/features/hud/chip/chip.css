@@ -1,30 +1,63 @@
 .chip {
-  width: 40px;
+  width: clamp(20px, 3vw, 40px);
 }
 
 .chip--selected {
+  border: 3px solid yellow;
+  border-radius: 100%;
   scale: 1.2;
 }
 
-.chip:not(.chip--selected) :hover {
+.chip:not(.chip--selected):hover {
   scale: 1.2;
   cursor: pointer;
 }
 
 .chip-icon {
+  --RESULT-SHOWCASE-TIME: 4s;
   position: absolute;
-  width: 25px;
+  z-index: 50;
+  height: max(4vh, 2vw);
+  width: max(4vh, 2vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-weight: bolder;
+  font-size: 1rem;
   pointer-events: none;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation-duration: var(--RESULT-SHOWCASE-TIME);
 }
 
-.winning {
+.chip-icon:is([data-value="1"]) {
+  background-image: url("/public/chip-one-blank.svg");
+}
+
+.chip-icon:is([data-value="5"]) {
+  background-image: url("/public/chip-five-blank.svg");
+}
+
+.chip-icon:is([data-value="10"]) {
+  background-image: url("/public/chip-ten-blank.svg");
+}
+
+.chip-icon:is([data-value="50"]) {
+  background-image: url("/public/chip-fifty-blank.svg");
+}
+
+.chip-icon:is([data-value="100"]) {
+  background-image: url("/public/chip-hundred-blank.svg");
+}
+
+.win-animation {
   animation-name: chips-move-win;
-  animation-duration: 3s;
 }
 
-.losing {
-  animation-name: chipsmovelose;
-  animation-duration: 3s;
+.lose-animation {
+  animation-name: chips-move-lose;
 }
 
 @keyframes chips-move-win {
@@ -33,7 +66,7 @@
   }
 }
 
-@keyframes chipsmovelose {
+@keyframes chips-move-lose {
   to {
     transform: translateY(700px);
   }

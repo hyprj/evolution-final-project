@@ -1,8 +1,16 @@
 import { observer } from "mobx-react";
+import { HUDElement } from "../balance/Balance";
+import { useRootStore } from "@roulette/store/StoresProvider";
+
 import "./placedBet.css";
-import { useStore } from "../../../store/StoreProvider";
 
 export const PlacedBet = observer(() => {
-  const { betsAmount } = useStore();
-  return <div className="placed-bet">bet: {betsAmount}$</div>;
+  const { bettingStore } = useRootStore();
+  return (
+    <HUDElement>
+      <span className="yellow uppercase">total bet</span>:{" "}
+      {bettingStore.totalBetValue}
+      <span className="lightgreen">$</span>
+    </HUDElement>
+  );
 });
