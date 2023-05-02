@@ -90,6 +90,14 @@ class AuthStore {
     });
   }
 
+  public setBalance(balance: number): void {
+    runInAction(() => {
+      if (!this.user) return;
+      setUserBalance(this.user?.uid, balance);
+      this.user.balance = balance;
+    });
+  }
+
   public decreaseFromBalance(amount: number): void {
     runInAction(() => {
       if (!this.user) return;
