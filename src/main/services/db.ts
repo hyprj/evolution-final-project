@@ -35,6 +35,14 @@ export async function getUserBalance(uid: string) {
   return null;
 }
 
+export async function setUserBalance(uid: string, amount: number) {
+  try {
+    setDocument({ balance: amount }, "users", uid);
+  } catch (err) {
+    console.warn(err);
+  }
+}
+
 export async function signIn(email: string, password: string) {
   try {
     const { displayName, uid } = (

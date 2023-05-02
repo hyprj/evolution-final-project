@@ -26,7 +26,7 @@
     height: 100%;
   }
 
-  .board {
+  .board:not(.board--tilted) {
     text-transform: lowercase;
     grid-template-rows: repeat(56, 1fr);
     grid-template-columns: repeat(18, 1fr);
@@ -39,14 +39,10 @@
   }
 
   .board--tilted {
-    height: 80%;
-    transform: rotateZ(90deg) translateX(150px);
+    scale: 1.3;
+    margin-top: auto;
+    width: 100%;
     animation: none;
-  }
-
-  .board--tilted .chip-icon,
-  .board--tilted .dolly {
-    transform: rotateZ(-90deg);
   }
 }
 .board__container {

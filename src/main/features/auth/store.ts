@@ -1,11 +1,16 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { createUser, getUserBalance, signIn } from "../../services/db";
+import {
+  createUser,
+  getUserBalance,
+  setUserBalance,
+  signIn,
+} from "../../services/db";
 
 export interface User {
   displayName: string | null;
   email: string | null;
   uid: string;
-  balance: number | null;
+  balance: number;
 }
 
 class AuthStore {
@@ -15,7 +20,7 @@ class AuthStore {
   constructor() {
     this.status = "loading";
     this.user = null;
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
   }
 
   getStatus() {
@@ -30,7 +35,7 @@ class AuthStore {
     const userData = await signIn(email, password);
 
     if (userData) {
-      const balance = await getUserBalance(userData.uid);
+      const balance = (await getUserBalance(userData.uid)) || 2000;
       runInAction(() => {
         this.user = { ...userData, balance };
         this.status = "loggedIn";
@@ -77,15 +82,29 @@ class AuthStore {
   }
 
   public addToBalance(amount: number): void {
-    if (this.user?.balance) {
-      this.user.balance += amount;
-    }
+    runInAction(() => {
+      if (!this.user) return;
+      const updatedBalance = amount + this.user.balance;
+      setUserBalance(this.user.uid, updatedBalance);
+      this.user.balance = updatedBalance;
+    });
+  }
+
+  public setBalance(balance: number): void {
+    runInAction(() => {
+      if (!this.user) return;
+      setUserBalance(this.user?.uid, balance);
+      this.user.balance = balance;
+    });
   }
 
   public decreaseFromBalance(amount: number): void {
-    if (this.user?.balance) {
-      this.user.balance -= amount;
-    }
+    runInAction(() => {
+      if (!this.user) return;
+      const updatedBalance = this.user.balance - amount;
+      setUserBalance(this.user.uid, updatedBalance);
+      this.user.balance = updatedBalance;
+    });
   }
 }
 

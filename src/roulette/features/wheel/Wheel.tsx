@@ -20,7 +20,7 @@ export const Wheel = observer(() => {
         position={new Vector3(0, 1, 0)}
         scaleToDimension={5}
         name="wheel"
-        rootUrl="../../../public/"
+        rootUrl="https://hyprj.github.io/roulette.github.io/"
         sceneFilename="wheel.gltf"
         onModelLoaded={onModelLoaded}
       />
