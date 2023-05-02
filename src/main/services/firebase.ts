@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
@@ -19,4 +19,15 @@ export const db = getFirestore();
 
 export const firebaseAuth = getAuth();
 
-const analytics = getAnalytics(firebaseApp);
+const storage = getStorage();
+
+export const getFileUrl = async (
+  file: "wheel-animated.gltf" | "wheel.gltf"
+) => {
+  try {
+    const url = await getDownloadURL(ref(storage, file));
+    return url;
+  } catch (err) {
+    console.warn(err);
+  }
+};
