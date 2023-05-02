@@ -2,8 +2,6 @@ import { NumericField } from "@roulette/utils/types";
 import { RootStore } from "./RootStore";
 import { makeAutoObservable } from "mobx";
 
-const HIGHTEST_NUMERIC_BET_VALUE = 36;
-
 export class ResultStore {
   private rootStore: RootStore;
 
@@ -14,20 +12,20 @@ export class ResultStore {
     this.rootStore = rootStore;
   }
 
-  public drawResult(): NumericField {
-    // this.result = this.getRandomNumericValue();
-    const result = 3;
-    return result;
+  public async drawResult(): Promise<NumericField> {
+    return new Promise((resolve) => {
+      this.rootStore.socketStore.server.emit("spin");
+      this.rootStore.socketStore.server.on(
+        "winning-number",
+        (winningNumber) => {
+          resolve(winningNumber as NumericField);
+        }
+      );
+    });
   }
 
   public saveResult(result: NumericField) {
     this.result = result;
-  }
-
-  private getRandomNumericValue(): NumericField {
-    return Math.floor(
-      Math.random() * HIGHTEST_NUMERIC_BET_VALUE
-    ) as NumericField;
   }
 
   public clear(): void {

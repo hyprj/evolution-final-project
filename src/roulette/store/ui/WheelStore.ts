@@ -11,6 +11,8 @@ export class WheelStore {
   public wheelPhase: "idle" | "spinning" | "resolved" = "idle";
   public secondsToResult: number | null = null;
   public spinAnimation: Nullable<AnimationGroup> | undefined = null;
+  public ballAnimation: Nullable<AnimationGroup> | undefined = null;
+  public resultAnimationNumber: NumericField | null = null;
 
   constructor(rootUIStore: UIStore) {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -25,14 +27,17 @@ export class WheelStore {
     runInAction(() => {
       this.wheelPhase = "spinning";
       this.spinAnimation?.play();
+      // console.log(this.ballAnimation);
+      this.ballAnimation?.play();
     });
     await this.runCameraAnimation();
     runInAction(() => {
-      this.wheelPhase = "resolved";
       this.spinAnimation?.stop();
+      this.ballAnimation?.stop();
     });
     setTimeout(() => {
       runInAction(() => {
+        this.wheelPhase = "resolved";
         this.wheelPhase = "idle";
       });
     }, 4000);

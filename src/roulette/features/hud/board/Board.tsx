@@ -23,7 +23,7 @@ export const Board = observer(() => {
     onBoardHover,
     wheelStore,
     hoveredFields,
-    betNotifications,
+    notificationStore,
   } = useUIStore();
 
   const boardStatusClass = wheelStore.getBoardAnimation();
@@ -37,7 +37,7 @@ export const Board = observer(() => {
     ) {
       const betValue = normalizeField(domElementValue);
       if (!bettingStore.place(betValue)) {
-        betNotifications.addNotification("Bet too high");
+        notificationStore.addNotification("Bet too high");
       }
     }
   }
