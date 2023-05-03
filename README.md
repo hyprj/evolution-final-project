@@ -19,16 +19,16 @@ live demo: https://evolution-project-3fa31.web.app/
 
 - user auth using firebase
 - 3d roulette game
-- Add todos and tasks
+- drawing number on heroku node.js server with socket connection
 
 ## Installation
 
 To install project, you can follow these steps:
 
-1.  Clone this repository to your local machine using `git clone https://github.com/your-username/priori.git`
+1.  Clone this repository to your local machine using `git clone https://github.com/hyprj/evolution-final-project.git`
 2.  Install the required dependencies by running `npm install`
-3.  Set up a Firebase project and configure it with your app
-4.  Start the app by running `npm start`
+3.  Set up a Firebase project with firestore and configure it with your app
+4.  Start the app by running `npm run dev`
 5.  For roullete, clone and run roulette-backend repo
 
 ## Usage
@@ -54,7 +54,5 @@ To use GameHub, you can follow these steps:
 - Firebase (Authentication and Realtime Database)
 - Babylon.js - roulette's game engine
 - Vitest, testing-library
+- socket.io backend for roulette's logic (currently disabled on prod)
 
-## License
-
-GameHub is released under the MIT License. See `LICENSE` for more information.
