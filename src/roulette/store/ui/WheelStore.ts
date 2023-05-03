@@ -1,17 +1,15 @@
-import { AnimationGroup, FreeCamera, Nullable, Vector3 } from "@babylonjs/core";
+import { AnimationGroup, FreeCamera, Vector3 } from "@babylonjs/core";
 import { UIStore } from "./UIStore";
 import { makeAutoObservable, runInAction } from "mobx";
-import { Field, NumericField } from "@roulette/utils/types";
-import { isWinningValue } from "@roulette/utils/utils";
+import { NumericField } from "@roulette/utils/types";
 
 export class WheelStore {
   public readonly rootUIStore: UIStore;
 
-  public camera: Nullable<FreeCamera> = null;
-  public wheelPhase: "idle" | "spinning" | "resolved" = "idle";
-  public secondsToResult: number | null = null;
-  public spinAnimation: Nullable<AnimationGroup> | undefined = null;
-  public ballAnimation: Nullable<AnimationGroup> | undefined = null;
+  public camera: FreeCamera | null = null;
+  public wheelPhase: "idle" | "spinning" = "idle";
+  public wheelAnimation: AnimationGroup | null = null;
+  public ballAnimation: AnimationGroup | null = null;
   public resultAnimationNumber: NumericField | null = null;
 
   constructor(rootUIStore: UIStore) {
@@ -24,23 +22,9 @@ export class WheelStore {
   }
 
   public async spin(): Promise<void> {
-    runInAction(() => {
-      this.wheelPhase = "spinning";
-      this.spinAnimation?.play();
-      // console.log(this.ballAnimation);
-      this.ballAnimation?.play();
-    });
+    this.startSpinning();
     await this.runCameraAnimation();
-    runInAction(() => {
-      this.spinAnimation?.stop();
-      this.ballAnimation?.stop();
-    });
-    setTimeout(() => {
-      runInAction(() => {
-        this.wheelPhase = "resolved";
-        this.wheelPhase = "idle";
-      });
-    }, 4000);
+    this.stopSpinning();
   }
 
   private async runCameraAnimation(): Promise<string> {
@@ -67,26 +51,21 @@ export class WheelStore {
     });
   }
 
-  public getBoardAnimation() {
-    if (this.wheelPhase === "spinning") {
-      return "board--tilted";
-    }
-    if (this.wheelPhase === "resolved") {
-      ("board--resolved");
-    }
-    return "";
+  private startSpinning(): void {
+    runInAction(() => {
+      this.wheelPhase = "spinning";
+      this.rootUIStore.boardStore.boardPhase = "spinning";
+      this.wheelAnimation?.play();
+      this.ballAnimation?.play();
+    });
   }
 
-  public getChipResultAnimation(
-    winningNumber: NumericField | null,
-    betValue: Field
-  ) {
-    if (!winningNumber) {
-      return "none";
-    }
-    if (isWinningValue(betValue, winningNumber)) {
-      return "win-animation";
-    }
-    return "lose-animation";
+  private stopSpinning(): void {
+    runInAction(() => {
+      this.wheelPhase = "idle";
+      this.rootUIStore.boardStore.boardPhase = "betting";
+      this.wheelAnimation?.stop();
+      this.ballAnimation?.stop();
+    });
   }
 }

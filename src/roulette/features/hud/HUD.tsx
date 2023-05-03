@@ -31,7 +31,7 @@ export function HUD() {
             <Board />
           </div>
         </div>
-        <div className="hud__row hud__bottom">
+        <div className="hud__row hud__row--bottom">
           <RecentNumbers />
           <UndoButton />
           <RepeatBetButton />

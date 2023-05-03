@@ -1,6 +1,11 @@
 import { memo } from "react";
-import { Chip, Field } from "@roulette/utils/types";
-import { getBgColorByField, getFieldName } from "./utils";
+import { Field } from "@roulette/utils/types";
+import {
+  chipValueToString,
+  getBgColorByField,
+  getChipIconByBetValue,
+  getFieldName,
+} from "./utils";
 import { ChipIcon } from "../chip/Chip";
 import { observer } from "mobx-react";
 import { useRootStore, useUIStore } from "@roulette/store/StoresProvider";
@@ -34,37 +39,17 @@ export const BoardViewItem = memo(
 export const BoardChip = observer(
   ({ total, value }: { total: number; value: Field }) => {
     const { resultStore } = useRootStore();
-    const { wheelStore } = useUIStore();
+    const { boardStore } = useUIStore();
 
     const icon = getChipIconByBetValue(total);
-    const betValue = blahblah(total);
-    const animate = wheelStore.getChipResultAnimation(
+    const betValue = chipValueToString(total);
+    const animate = boardStore.getChipResultAnimation(
       resultStore.result,
       value
     );
     return <ChipIcon value={betValue} icon={icon} animate={animate} />;
   }
 );
-
-export function blahblah(value: number) {
-  if (value < 1000) return value;
-  return (value / 100 / 10).toFixed(2) + "k";
-}
-
-export function getChipIconByBetValue(betValue: number): Chip {
-  if (betValue >= 100) {
-    return 100;
-  }
-  if (betValue >= 50) {
-    return 50;
-  }
-  if (betValue >= 10) {
-    return 10;
-  } else if (betValue >= 5) {
-    return 5;
-  }
-  return 1;
-}
 
 export const BoardItem = memo(
   ({ value, total }: { value: Field; total?: number }) => {
