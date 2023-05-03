@@ -1,11 +1,11 @@
 import { observer } from "mobx-react";
 import { useRootStore, useUIStore } from "@roulette/store/StoresProvider";
 import { isField, normalizeField } from "@roulette/utils/utils";
+import { BoardItem, BoardViewItem } from "./BoardViewItem";
 import {
   HUD_VISIBLE_BET_VALUES,
   NOT_VISIBLE_FIELDS,
 } from "@roulette/utils/consts";
-import { BoardItem, BoardViewItem } from "./BoardViewItem";
 
 import "./board.css";
 import "./fieldsStyle/corner.css";
@@ -18,15 +18,7 @@ import { Dolly } from "../dolly/Dolly";
 
 export const Board = observer(() => {
   const { bettingStore, phaseStore } = useRootStore();
-  const {
-    onBoardExit,
-    onBoardHover,
-    wheelStore,
-    hoveredFields,
-    notificationStore,
-  } = useUIStore();
-
-  const boardStatusClass = wheelStore.getBoardAnimation();
+  const { boardStore, notificationStore } = useUIStore();
 
   function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const domElementValue = (e.target as HTMLDivElement).dataset.value;
@@ -43,12 +35,14 @@ export const Board = observer(() => {
   }
 
   return (
-    <div className={`board__container`}>
+    <div className="board__container">
       <div
-        className={`board ${boardStatusClass}`}
+        className={`board ${
+          boardStore.boardPhase === "betting" ? "" : "board--tilted"
+        }`}
         onClick={handleClick}
-        onMouseLeave={onBoardExit}
-        onMouseOver={onBoardHover}
+        onMouseLeave={boardStore.onBoardExit}
+        onMouseOver={boardStore.onBoardHover}
       >
         <Dolly />
         {NOT_VISIBLE_FIELDS.map((field) => (
@@ -63,7 +57,7 @@ export const Board = observer(() => {
             key={field}
             value={field}
             total={bettingStore.bets.get(field)?.amount}
-            isHovered={hoveredFields.includes(field)}
+            isHovered={boardStore.hoveredFields.includes(field)}
           />
         ))}
       </div>
